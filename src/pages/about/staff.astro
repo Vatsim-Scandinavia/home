@@ -327,9 +327,8 @@ export { departments };
         <Table class:list={"bg-black dark:bg-white"}>
             <TableHeader>
                 <TableRow>
-                    <TableHead className="font-bold text-black dark:text-white">Staff ID</TableHead>
-                    <TableHead className="font-bold text-black dark:text-white">Position</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">CID</TableHead>
+                    <TableHead className="font-bold text-black dark:text-white">Position</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">Name</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">E-mail</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">Availability</TableHead>
@@ -339,9 +338,8 @@ export { departments };
                 {
                     departments["Director"].map((staff: any) => (
                     <TableRow>
-                        <TableCell className="font-bold">{staff.STAFFID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.CID}</TableCell>
+                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.NAME}</TableCell>
                         <TableCell>{staff.EMAIL}</TableCell>
                         <TableCell>
@@ -353,9 +351,8 @@ export { departments };
                 {
                     departments["Board"].map((staff: any) => (
                     <TableRow>
-                        <TableCell className="font-bold">{staff.STAFFID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.CID}</TableCell>
+                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.NAME}</TableCell>
                         <TableCell>{staff.EMAIL}</TableCell>
                         <TableCell>
@@ -367,9 +364,8 @@ export { departments };
                 {
                     departments["Web"].map((staff: any) => (
                     <TableRow>
-                        <TableCell className="font-bold">{staff.STAFFID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.CID}</TableCell>
+                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.NAME}</TableCell>
                         <TableCell>{staff.EMAIL}</TableCell>
                         <TableCell>
@@ -381,9 +377,8 @@ export { departments };
                 {
                     departments["Event"].map((staff: any) => (
                     <TableRow>
-                        <TableCell className="font-bold">{staff.STAFFID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.CID}</TableCell>
+                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.NAME}</TableCell>
                         <TableCell>{staff.EMAIL}</TableCell>
                         <TableCell>
@@ -395,9 +390,8 @@ export { departments };
                 {
                     departments["Pilot"].map((staff: any) => (
                     <TableRow>
-                        <TableCell className="font-bold">{staff.STAFFID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.CID}</TableCell>
+                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.NAME}</TableCell>
                         <TableCell>{staff.EMAIL}</TableCell>
                         <TableCell>
@@ -409,9 +403,8 @@ export { departments };
                 {
                     departments["Training"].map((staff: any) => (
                     <TableRow>
-                        <TableCell className="font-bold">{staff.STAFFID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.CID}</TableCell>
+                        <TableCell>{staff.POSITION}</TableCell>
                         <TableCell>{staff.NAME}</TableCell>
                         <TableCell>{staff.EMAIL}</TableCell>
                         <TableCell>

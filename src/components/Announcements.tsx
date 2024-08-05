@@ -22,6 +22,12 @@ async function AnnoucementPosts() {
 
   const announcements = await PullForumData('https://forum.vatsim-scandinavia.org/api/discussions?filter[tag]=announcements');
 
+  announcements.sort((a: any, b:any) => {
+    const dateA = new Date(a.attributes.createdAt);
+    const dateB = new Date(b.attributes.createdAt);
+    return dateB.getTime() - dateA.getTime();
+  });
+
   for (const post of await announcements) {
     const firstPost = await PullForumData('https://forum.vatsim-scandinavia.org/api/posts?filter[id]=' + post.relationships.firstPost.data.id);
     const firstPostContent = await firstPost[0].attributes.contentHtml;
@@ -41,7 +47,7 @@ const Annoucements = () => {
 
   return (
       <>
-      {data.map((post) => (
+      {data.splice(0,2).map((post) => (
           <div className="p-2 mt-2 mb-4 hover:bg-white dark:hover:bg-black hover:brightness-[95%]" key={post.slug}>
           <a href={'https://forum.vatsim-scandinavia.org/d/'+post.slug} target="_blank">
               <div className="flex">

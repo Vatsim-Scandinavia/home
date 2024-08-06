@@ -35,7 +35,7 @@ const Events = () => {
     return (
         <div className="flex flex-col gap-2 w-full md:min-w-[900px] h-fit"> 
             {events.slice(0,5).map((item, index) => (
-                <>
+                <div key={index}>
                 {index < 2 ? 
                     <div key={index} className='flex col-span-3 gap-4 relative w-full flex-col md:flex-row'>
                         <a target='_blank'  href={item.link} className='h-fit aspect-video'>
@@ -56,7 +56,7 @@ const Events = () => {
                     : 
                     ""
                     }
-                </>
+                </div>
             ))}
             <div className='flex overflow-hidden overflow-x-scroll'>
                 {events.slice(2,9).map((item, index) => (

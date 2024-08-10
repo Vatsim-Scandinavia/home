@@ -12,14 +12,6 @@ import {
 
 import "../globals.css";
 
-function isBookingAlive(start, end) {
-  const currentDate = new Date();
-  const startDate = new Date(start);
-  const endDate = new Date(end);
-
-  return startDate <= currentDate && endDate
-}
-
 const BookingComponent = () => {
   const [SessionToday, setSessionToday] = useState([]);
   const [BookingsToday, setBookingsToday] = useState([]);
@@ -42,10 +34,11 @@ const BookingComponent = () => {
 
         var filterdSessions = [];
 
-        const acceptedFIRs = ["EK", "EN", "EF", "ES", "BI", "BG"];
+        const acceptedFIRsRegex = /((EK[A-Z][A-Z]_)|(EF[A-Z][A-Z]_)|(BI[A-Z][A-Z]_)|(EN[A-Z][A-Z]_)|(ES[A-Z][A-Z]_))\w+/i;
 
         for (const session of NetworkApiData.controllers) {
-          if (acceptedFIRs.includes(session.callsign.slice(0, 2)) && session.facility > 0) {
+          const callsign = session.callsign;
+          if (acceptedFIRsRegex.test(callsign) && session.facility > 0) {
             filterdSessions = [...filterdSessions, session];
           }
         }

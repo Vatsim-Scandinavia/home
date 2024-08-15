@@ -10,6 +10,8 @@ import {
   TooltipTrigger,
 } from "../components/ui/tooltip"
 
+import positions from "./positions.json";
+
 import "../globals.css";
 
 const BookingComponent = () => {
@@ -86,9 +88,29 @@ const BookingComponent = () => {
           }
         }
 
+        function startsWithSameICAO(c1, c2){
+          if(substr(c1, 0, 4) == substr(c2, 0, 4)){
+              return true;
+          }
+          return false;
+        }
+
+        function getBookableCallsign(callsign, freq) {
+          for (const position of positions) {
+            if (position.frequency === freq && startsWithSameICAO(position.callsign, callsign)) {
+              return position.callsign;
+            }
+          }
+          // If we don't find a match, we'll just return the input
+          return callsign;
+        }
+
+
         setBookingsToday(filterdBookings);
         setBooingsNotToday(groupedSessions);
-        
+
+
+
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -97,6 +119,10 @@ const BookingComponent = () => {
     fetchBookingData();
 
   }, []);
+
+  console.log(SessionToday);
+  console.log(BookingsToday);
+  console.log(positions)
 
   return (
     <table className="w-full h-full px-2">

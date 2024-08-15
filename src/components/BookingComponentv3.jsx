@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import bookingType from "../utils/bookingType";
 import convertZulu from "../utils/convertZulu";
-import fixNetworkTime from "../utils/fixNetworkTime";
 import {ExternalLinkIcon} from './icons/ExternalLinkIcon';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../components/ui/tooltip"
 import "../globals.css";
 import positions from "./positions.json";
 

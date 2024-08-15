@@ -9,107 +9,61 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../components/ui/tooltip"
-
+import "../globals.css";
 import positions from "./positions.json";
 
-import "../globals.css";
 
 const BookingComponent = () => {
-  const [SessionToday, setSessionToday] = useState([]);
-  const [BookingsToday, setBookingsToday] = useState([]);
-  const [bookingsNotToday, setBooingsNotToday] = useState([]);
+  const [ControlCenterBookings, setControlCenterBookings] = useState([]);
 
   useEffect(() => {
     const fetchBookingData = async () => {
       try {
-        const bookingApiFetch = await fetch(
+        const ControlCenterBookingsFetch = await fetch(
           "https://cc.vatsim-scandinavia.org/api/bookings"
         );
+        const ControlCenterBookings = await ControlCenterBookingsFetch.json();
 
-        const BookingApiData = await bookingApiFetch.json();
-
-        const networkApiFetch = await fetch(
+        const VATSIMNetworkDataFetch = await fetch(
           "https://data.vatsim.net/v3/vatsim-data.json"
         );
+        const VATSIMNetworkData = await VATSIMNetworkDataFetch.json();
 
-        const NetworkApiData = await networkApiFetch.json();
+        let startDate = new Date();
+        let endDate = new Date(new Date().setDate(new Date().getDate() + 7))
 
-        var filterdSessions = [];
+        let dateArray = [];
+
+        for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+            // Convert the date to a string (optional, for better readability)
+            let dateString = d.toISOString().split('T')[0];
+
+            // Add the date and an empty sub-array to the main array
+            dateArray.push({
+                date: dateString,
+                data: []
+            });
+        }
 
         const acceptedFIRsRegex = /((EK[A-Z][A-Z]_)|(EF[A-Z][A-Z]_)|(BI[A-Z][A-Z]_)|(EN[A-Z][A-Z]_)|(ES[A-Z][A-Z]_))\w+/i;
 
-        for (const session of NetworkApiData.controllers) {
-          const callsign = session.callsign;
-          if (acceptedFIRsRegex.test(callsign) && session.facility > 0) {
-            filterdSessions = [...filterdSessions, session];
+        ControlCenterBookings.data.forEach(booking => {
+          const bookingDate = new Date(booking.time_start).toISOString().split('T')[0];
+          const dateIndex = dateArray.findIndex(dateObj => dateObj.date === bookingDate);
+          if (dateIndex !== -1) {
+            dateArray[dateIndex].data.push(booking);
           }
-        }
+        });
 
-        setSessionToday(filterdSessions);
-
-        let filterdBookings = [];
-
-        for (const session of BookingApiData.data) {
-          if (
-            new Date(session.time_start).toDateString() ==
-            new Date().toDateString()
-          ) {
-            filterdBookings = [...filterdBookings, session];
+        VATSIMNetworkData.controllers.forEach(session => {
+          if (acceptedFIRsRegex.test(session.callsign)) {
+            dateArray[0].data.push(session);
           }
-        }
-
-        let noneFilterdBookings = [];
-
-        for (const session of BookingApiData.data) {
-          if (
-            new Date(session.time_start).toDateString() !=
-            new Date().toDateString()
-          ) {
-            noneFilterdBookings = [...noneFilterdBookings, session];
-          }
-        }
-
-        const groupedSessions = {};
-        const currentDate = new Date();
-        const endDate = new Date(
-          currentDate.getTime() + 6 * 24 * 60 * 60 * 1000
-        );
-
-        for (const session of noneFilterdBookings) {
-          const sessionDate = new Date(session.time_start).toDateString();
-          if (
-            new Date(session.time_start) >= currentDate &&
-            new Date(session.time_start) <= endDate
-          ) {
-            if (!groupedSessions[sessionDate]) {
-              groupedSessions[sessionDate] = [];
-            }
-            groupedSessions[sessionDate].push(session);
-          }
-        }
-
-        function startsWithSameICAO(c1, c2){
-          if(substr(c1, 0, 4) == substr(c2, 0, 4)){
-              return true;
-          }
-          return false;
-        }
-
-        function getBookableCallsign(callsign, freq) {
-          for (const position of positions) {
-            if (position.frequency === freq && startsWithSameICAO(position.callsign, callsign)) {
-              return position.callsign;
-            }
-          }
-          // If we don't find a match, we'll just return the input
-          return callsign;
-        }
+        });
 
 
-        setBookingsToday(filterdBookings);
-        setBooingsNotToday(groupedSessions);
 
-
+        setControlCenterBookings(dateArray);
 
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -120,84 +74,26 @@ const BookingComponent = () => {
 
   }, []);
 
-  console.log(SessionToday);
-  console.log(BookingsToday);
-  console.log(positions)
+  console.log(ControlCenterBookings);
 
   return (
     <table className="w-full h-full px-2">
       <tbody className="h-full">
-        {SessionToday.length !== 0  && 
-          <tr className="bg-snow dark:bg-secondary w-full h-6 font-bold text-black dark:text-white p-2 text-center">
-            <td colSpan={4} className="w-full h-full text-center py-1" >
-              Today
-            </td>
-          </tr>
-          }
-        {SessionToday.map((booking, index) => (
-          <tr
-            key={index}
-            className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black"
-          >
-            <td className="pl-[4px] font-medium text-[#447b68]">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                  <span className="font-bold">● {booking.callsign}</span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{booking.name}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </td>
-            <td className="pl-[4px]"></td>
-            <td className="pl-[4px]">
-              {convertZulu(fixNetworkTime(booking.logon_time))}
-            </td>
-            <td className="pl-[4px]">-</td>
-          </tr>
-        ))}
-        {BookingsToday.map((booking, index) => (
-          <tr
-            key={index}
-            className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black"
-          >
-            <td className="pl-[4px]">○ {booking.callsign}</td>
-            <td className="pl-[4px]">{bookingType(booking)}</td>
-            <td className="pl-[4px]">{convertZulu(booking.time_start)}</td>
-            <td className="pl-[4px]">{convertZulu(booking.time_end)}</td>
-          </tr>
-        ))}
-        {Object.keys(bookingsNotToday).map((date, index) => (
-          <React.Fragment key={date}>
-            <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center" key={index}>
-              <td colSpan={4} className="py-1">
-                {new Date(date).toLocaleString('en-uk', {  weekday: 'long', month: 'long', day: 'numeric' })}
-              </td>
+        {ControlCenterBookings.map((date, index) => (
+          <React.Fragment key={index}>
+            <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center">
+              <td colSpan={4}>{new Date(date.date).toDateString()}</td>
             </tr>
-            {bookingsNotToday[date].map((session, index) => (
-              <tr
-                key={index}
-                className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black"
-              >
-                <td className="pl-[4px]">{session.callsign}</td>
-                <td className="pl-[4px]">{bookingType(session)}</td>
-                <td className="pl-[4px]">{convertZulu(session.time_start)}</td>
-                <td className="pl-[4px]">{convertZulu(session.time_end)}</td>
+            {date.data.map((booking) => (
+              <tr key={booking.id} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
+                <td className="pl-[4px]">{booking.callsign}</td>
+                <td className="pl-[4px]">{bookingType(booking)}</td>
+                <td className="pl-[4px]">{convertZulu(booking.time_start)}</td>
+                <td className="pl-[4px]">{convertZulu(booking.time_end)}</td>
               </tr>
             ))}
           </React.Fragment>
         ))}
-
-        <tr className="bg-snow dark:bg-tertiary w-full font-bold text-black dark:text-white p-2 text-center h-12">
-          <td colSpan={4}>
-            <a href="https://cc.vatsim-scandinavia.org/booking" target="_blank" className="underline hover:no-underline">
-              See all bookings <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem" />
-            </a>
-          </td>
-        </tr>
-
       </tbody>
     </table>
   );

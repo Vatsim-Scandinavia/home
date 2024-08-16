@@ -61,7 +61,15 @@ const BookingComponent = () => {
           if (acceptedFIRsRegex.test(session.callsign)) {
             const correctedCallsign = getBookableCallsign(session.callsign, session.frequency);
             session.callsign = correctedCallsign;
-            dateArray[0].data.push(session);
+            const existingBooking = dateArray[0].data.find(booking => booking.callsign === session.callsign);
+            if (existingBooking) {
+              existingBooking.name = session.name;
+            } else {
+              dateArray[0].data.push({
+          ...session,
+          name: session.name
+              });
+            }
           }
         });
 

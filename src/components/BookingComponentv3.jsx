@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import bookingType from "../utils/bookingType";
 import convertZulu from "../utils/convertZulu";
+import fixNetworkTime from "../utils/fixNetworkTime";
 import {ExternalLinkIcon} from './icons/ExternalLinkIcon';
 import "../globals.css";
 import positions from "./positions.json";
@@ -28,10 +29,8 @@ const BookingComponent = () => {
         let dateArray = [];
 
         for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-            // Convert the date to a string (optional, for better readability)
             let dateString = d.toISOString().split('T')[0];
 
-            // Add the date and an empty sub-array to the main array
             dateArray.push({
                 date: dateString,
                 data: []
@@ -74,19 +73,26 @@ const BookingComponent = () => {
       <tbody className="h-full">
         {ControlCenterBookings.map((date, index) => (
           <React.Fragment key={index}>
-            <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center">
-              <td colSpan={4}>{new Date(date.date).toDateString()}</td>
-            </tr>
-            {date.data.map((booking) => (
-              <tr key={booking.id} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
-                <td className="pl-[4px]">{booking.callsign}</td>
-                <td className="pl-[4px]">{bookingType(booking)}</td>
-                <td className="pl-[4px]">{convertZulu(booking.time_start)}</td>
-                <td className="pl-[4px]">{convertZulu(booking.time_end)}</td>
+            {date.data.length > 0 ? 
+            <React.Fragment>
+              <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center">
+                <td colSpan={4}>{new Date(date.date).toDateString()}</td>
               </tr>
-            ))}
+              {date.data.map((booking) => (
+                <tr key={booking.id} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
+                  {booking.name ? <td className="pl-[4px] text-[#447b68] font-medium">● {booking.callsign}</td> : <td className="pl-[4px]">{booking.callsign}</td>}
+                  <td className="pl-[4px]">{bookingType(booking)}</td>
+                  <td className="pl-[4px]">{booking.time_start ? convertZulu(booking.time_start) : ""}{booking.logon_time ? convertZulu(fixNetworkTime(booking.logon_time)) : ""}</td>
+                  <td className="pl-[4px]">{convertZulu(booking.time_end)}</td>
+                </tr>
+              ))}
+            </React.Fragment> : ""}
+
           </React.Fragment>
         ))}
+            <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center h-20">
+              <td colSpan={4} className="underline hover:no-underline text-md">See all bookings  <ExternalLinkIcon width="0.75rem" /></td>
+            </tr>
       </tbody>
     </table>
   );

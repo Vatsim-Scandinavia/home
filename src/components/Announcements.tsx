@@ -48,7 +48,7 @@ const Annoucements = () => {
   return (
       <>
       {data.splice(0,2).map((post) => (
-          <div className="p-2 mt-2 mb-4 hover:bg-white dark:hover:bg-black hover:brightness-[95%]" key={post.slug}>
+          <div className="p-2 mt-2 mb-4 hover:bg-white dark:hover:bg-black hover:brightness-[95%] animate-entry" key={post.slug}>
           <a href={'https://forum.vatsim-scandinavia.org/d/'+post.slug} target="_blank">
               <div className="flex">
                   <div className="w-[90%]">

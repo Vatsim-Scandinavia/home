@@ -37,7 +37,7 @@ const Events = () => {
             {events.slice(0,2).map((item, index) => (
                 <div key={index}>
                 {index < 2 ? 
-                    <div key={index} className='flex col-span-3 gap-2 md:gap-4 relative w-full flex-col md:flex-row mb-4 md:mb-0'>
+                    <div key={index} className='flex col-span-3 gap-2 md:gap-4 relative w-full flex-col md:flex-row mb-4 md:mb-0 animate-entry'>
                         <a target='_blank'  href={item.link} className='h-fit aspect-video'>
                             <img src={item.image} className={`w-full md:w-96 h-fit aspect-video rounded-sm absolute'}`} />
                         </a>
@@ -54,11 +54,11 @@ const Events = () => {
                         </div>
                     </div>
                     : 
-                    null
+                    <iframe src="https://lottie.host/embed/e516525c-74c1-4db5-b2b2-bb135366e103/W8AodEgALN.json" className="w-full h-full" />
                     }
                 </div>
             ))}
-            <div className='flex overflow-hidden overflow-x-scroll'>
+            <div className='flex overflow-hidden overflow-x-auto'>
                 {events.slice(2,9).map((item, index) => (
                     <a key={index} className='flex flex-col rounded pr-1 pb-1 pt-1' target='_blank'  href={item.link}>
                         <img src={item.image} className={`w-64 h-fit aspect-video rounded-sm absolute'}`} />

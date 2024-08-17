@@ -39,10 +39,18 @@ const BookingComponent = () => {
 
         const acceptedFIRsRegex = /((EK[A-Z][A-Z]_)|(EF[A-Z][A-Z]_)|(BI[A-Z][A-Z]_)|(EN[A-Z][A-Z]_)|(ES[A-Z][A-Z]_))\w+/i;
 
+        function startsWithSameICAO(callsign1, callsign2) {
+          if (callsign1.substring(0, 2) === callsign2.substring(0, 2)) {
+            return true;
+          }
+          return false;
+        }
+
+
         function getBookableCallsign(callsign, frequency) {
           let correctedCallsign = callsign;
           positions.forEach(position => {
-            if(position['frequency'] === frequency) {
+            if(position['frequency'] === frequency && startsWithSameICAO(position['callsign'], callsign)) {
               correctedCallsign = position['callsign'];
             }
           });

@@ -42,7 +42,7 @@ const BookingComponent = () => {
         const mentorRegex = /((_X_)|(_M_))\w+/i;
 
         function startsWithSameICAO(callsign1, callsign2) {
-          if (callsign1.substring(0, 2) === callsign2.substring(0, 2)) {
+          if (callsign1.substring(0, 4) === callsign2.substring(0, 4)) {
             return true;
           }
           return false;

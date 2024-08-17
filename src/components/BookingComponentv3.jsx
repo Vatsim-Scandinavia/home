@@ -116,8 +116,13 @@ const BookingComponent = () => {
 
           </React.Fragment>
         ))}
-            <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center h-20">
-              <td colSpan={4} className="underline hover:no-underline text-md">See all bookings  <ExternalLinkIcon width="0.75rem" /></td>
+            <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center h-12">
+              <td colSpan={4} className="underline hover:no-underline text-md">
+                <a href="https://cc.vatsim-scandinavia.org/booking" target="_blank" className="underline hover:no-underline">
+                  See all bookings
+                </a>
+                <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem"/>
+                </td>
             </tr>
       </tbody>
     </table>

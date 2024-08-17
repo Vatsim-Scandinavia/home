@@ -63,7 +63,8 @@ const BookingComponent = () => {
             const correctedCallsign = getBookableCallsign(session.callsign, session.frequency);
             session.callsign = correctedCallsign;
             const existingBooking = dateArray[0].data.find(booking => booking.callsign === session.callsign);
-            if (existingBooking) {
+            // Merge if existing booking exists and now is after the booking start time.
+            if (existingBooking && existingBooking.time_start > new Date()) {
               existingBooking.name = session.name;
             } else {
               dateArray[0].data.push({
@@ -74,8 +75,14 @@ const BookingComponent = () => {
           }
         });
 
+        // Sort the first date (in most cases today) by time, so ad-hoc sessions also are sorted correctly.
+        dateArray[0].data.sort((a, b) => {
+          const aTime = a.time_start || a.logon_time;
+          const bTime = b.time_start || b.logon_time;
+          return new Date(aTime) - new Date(bTime);
+        });
 
-
+        // Set the variable
         setControlCenterBookings(dateArray);
 
       } catch (error) {
@@ -86,8 +93,6 @@ const BookingComponent = () => {
     fetchBookingData();
 
   }, []);
-
-  console.log(ControlCenterBookings);
 
   return (
     <table className="w-full h-full px-2">

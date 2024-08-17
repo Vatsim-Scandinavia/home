@@ -52,7 +52,7 @@ const Annoucements = () => {
           <a href={'https://forum.vatsim-scandinavia.org/d/'+post.slug} target="_blank">
               <div className="flex">
                   <div className="w-[90%]">
-                      <div className="font-semibold text-xl text-secondary dark:text-white">
+                      <div className="font-semibold text-lg md:text-xl text-secondary dark:text-white">
                           {post.title}
                       </div>
                       <div className="text-sm line-clamp-2" dangerouslySetInnerHTML={{__html: post.content}}>

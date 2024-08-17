@@ -43,7 +43,7 @@ const Events = () => {
                         </a>
                         <div className='flex flex-col justify-between'>
                             <div className='w-fit'>
-                            <h2 className='font-semibold text-xl text-secondary dark:text-white'>{item.title}</h2>
+                            <h2 className='font-semibold text-lg md:text-xl text-secondary dark:text-white'>{item.title}</h2>
                             <p className='text-grey font-bold pb-4 dark:text-gray-300'>{events.length != 0 ? dateConverter(item.start_date, item.end_date)  : ""}</p>
                             <p className={`line-clamp-6 mb-1`}>{item.short_description}</p>
                             <a href={item.link} className={`bg-snow p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm`} target='_blank'>

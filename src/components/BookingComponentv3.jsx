@@ -5,6 +5,7 @@ import fixNetworkTime from "../utils/fixNetworkTime";
 import {ExternalLinkIcon} from './icons/ExternalLinkIcon';
 import "../globals.css";
 import positions from "./positions.json";
+import moment from 'moment';
 
 
 const BookingComponent = () => {
@@ -95,8 +96,8 @@ const BookingComponent = () => {
           <React.Fragment key={index}>
             {date.data.length > 0 ? 
             <React.Fragment>
-              <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center">
-                <td colSpan={4}>{new Date(date.date).toDateString()}</td>
+              <tr className="h-8 bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center">
+                <td colSpan={4}>{moment(date.date).format('dddd Do MMMM')}</td>
               </tr>
               {date.data.map((booking) => (
                 <tr key={booking.id} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">

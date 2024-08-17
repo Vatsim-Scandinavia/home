@@ -6,7 +6,7 @@ const { title, padding, minHeight } = Astro.props;
     <h2 class="bg-secondary h-12 text-lg font-bold text-white w-full m-0 pl-4 flex items-center rounded-t-sm">
         {title}
     </h2>
-    <div class={`text-sm bg-white dark:bg-tertiary p-${padding} rounded-b-sm`} style={`height: ${minHeight}px`}>
+    <div class={`text-sm bg-white dark:bg-tertiary p-${padding} rounded-b-sm`} style={`min-height: ${minHeight}px`}>
         <slot></slot>
     </div>
 </div>

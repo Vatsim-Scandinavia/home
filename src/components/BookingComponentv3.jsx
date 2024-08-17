@@ -39,6 +39,7 @@ const BookingComponent = () => {
         }
 
         const acceptedFIRsRegex = /((EK[A-Z][A-Z]_)|(EF[A-Z][A-Z]_)|(BI[A-Z][A-Z]_)|(EN[A-Z][A-Z]_)|(ES[A-Z][A-Z]_))\w+/i;
+        const mentorRegex = /((_X_)|(_M_))\w+/i;
 
         function startsWithSameICAO(callsign1, callsign2) {
           if (callsign1.substring(0, 2) === callsign2.substring(0, 2)) {
@@ -67,7 +68,7 @@ const BookingComponent = () => {
         });
 
         VATSIMNetworkData.controllers.forEach(session => {
-          if (acceptedFIRsRegex.test(session.callsign)) {
+          if (acceptedFIRsRegex.test(session.callsign) && !mentorRegex.test(session.callsign)) {
             const correctedCallsign = getBookableCallsign(session.callsign, session.frequency);
             session.callsign = correctedCallsign;
             const existingBooking = dateArray[0].data.find(booking => booking.callsign === session.callsign);
@@ -105,6 +106,15 @@ const BookingComponent = () => {
   return (
     <table className="w-full h-full px-2">
       <tbody className="h-full">
+        {ControlCenterBookings.length > 0 ? (
+            ""
+          ) : (
+          <tr className="h-12">
+            <td colSpan={4}>
+              <iframe src="https://lottie.host/embed/e516525c-74c1-4db5-b2b2-bb135366e103/W8AodEgALN.json" className="w-full h-full" />
+            </td>
+          </tr>
+        )}
         {ControlCenterBookings.map((date, index) => (
           <React.Fragment key={index}>
             {date.data.length > 0 ? 
@@ -124,6 +134,9 @@ const BookingComponent = () => {
 
           </React.Fragment>
         ))}
+        {ControlCenterBookings.length < 1 ? (
+            ""
+          ) : (
             <tr className="bg-snow dark:bg-secondary w-full font-bold text-black dark:text-white py-4 text-center h-12">
               <td colSpan={4} className="underline hover:no-underline text-md">
                 <a href="https://cc.vatsim-scandinavia.org/booking" target="_blank" className="underline hover:no-underline">
@@ -132,6 +145,8 @@ const BookingComponent = () => {
                 <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem"/>
                 </td>
             </tr>
+        )}
+
       </tbody>
     </table>
   );

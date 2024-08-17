@@ -37,7 +37,7 @@ import Announcement from "../components/Announcements";
         <div class="w-full h-fit flex justify-center" id="bookings">
             <div class="max-w-[1300px] w-full content-center pt-6 pb-6">
                 <div class="flex max-xl:flex-wrap gap-8 max-xl:px-8">
-                    <div class="2xl:w-[72.5%] xl:w-[72.5%] max-xl:w-[100%] flex flex-col gap-8">
+                    <div class="width-main flex flex-col gap-8">
                         <CardBox title="Latest announcements" padding="2" minHeight="224">
                             <Announcement client:only />
                         </CardBox>
@@ -47,7 +47,7 @@ import Announcement from "../components/Announcements";
                         </CardBox>
                     </div>
                         
-                    <div class="flex-grow flex flex-col gap-8">
+                    <div class="flex-grow flex flex-col gap-8 width-sidebar">
                         <CardBox title="Live ATC & Bookings">
                             <Bookings />
                         </CardBox>

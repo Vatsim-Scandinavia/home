@@ -75,4 +75,23 @@
         height: 10px;
         margin-bottom: 2px;
     }
+
+    .width-main{
+        width: 100%;
+    }
+
+    .width-sidebar{
+        width: 100%;
+    }
+
+    @media(min-width: 1280px) {
+
+        .width-main{
+            width: calc(75% - 2rem);
+        }
+
+        .width-sidebar {
+            width: calc(25% - 2rem);
+        }
+    }
 }

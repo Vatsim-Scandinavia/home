@@ -33,11 +33,11 @@ const Events = () => {
     }
     
     return (
-        <div className="flex flex-col gap-2 w-full md:min-w-[900px] h-fit"> 
-            {events.slice(0,5).map((item, index) => (
+        <div className="flex flex-col gap-2 w-full h-fit"> 
+            {events.slice(0,2).map((item, index) => (
                 <div key={index}>
                 {index < 2 ? 
-                    <div key={index} className='flex col-span-3 gap-4 relative w-full flex-col md:flex-row'>
+                    <div key={index} className='flex col-span-3 gap-2 md:gap-4 relative w-full flex-col md:flex-row mb-4 md:mb-0'>
                         <a target='_blank'  href={item.link} className='h-fit aspect-video'>
                             <img src={item.image} className={`w-full md:w-96 h-fit aspect-video rounded-sm absolute'}`} />
                         </a>
@@ -54,7 +54,7 @@ const Events = () => {
                         </div>
                     </div>
                     : 
-                    ""
+                    null
                     }
                 </div>
             ))}

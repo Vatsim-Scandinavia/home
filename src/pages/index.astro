@@ -38,11 +38,11 @@ import Announcement from "../components/Announcements";
             <div class="max-w-[1300px] w-full content-center pt-6 pb-6">
                 <div class="flex max-xl:flex-wrap gap-8 max-xl:px-8">
                     <div class="2xl:w-[72.5%] xl:w-[72.5%] max-xl:w-[100%] flex flex-col gap-8">
-                        <CardBox title="Latest announcements" padding="2">
-                            <Announcement client:only/>
+                        <CardBox title="Latest announcements" padding="2" minHeight="224">
+                            <Announcement client:only />
                         </CardBox>
                             
-                        <CardBox title="Events" padding="4">
+                        <CardBox title="Events" padding="4" minHeight="660">
                             <Events/>
                         </CardBox>
                     </div>
@@ -60,7 +60,7 @@ import Announcement from "../components/Announcements";
                             <CardButton href="/about/donations" text="Read more" color="snow"/>
                         </CardBox>
 
-                        <CardBox title="Feedback" padding="4">
+                        <CardBox title="Feedback" padding="4" minHeight="145">
                             <p>
                                 Provide your feedback that we can use to improve our Scandinavian controllers.
                             </p>

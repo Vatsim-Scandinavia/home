@@ -68,4 +68,11 @@
     img{
         max-width: none;
     }
+
+    .circle{
+        display: inline;
+        width: 10px;
+        height: 10px;
+        margin-bottom: 2px;
+    }
 }

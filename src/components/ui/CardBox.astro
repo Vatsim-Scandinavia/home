@@ -3,10 +3,10 @@ const { title, padding, minHeight, link, clock } = Astro.props;
 ---
 
 <div class={`flex flex-col col-span-6 xl:col-span-4`} >
-    <h2 class="bg-secondary h-12 text-lg font-bold text-white w-full m-0 pl-4 flex items-center rounded-t-sm">
+    <h2 class="bg-secondary h-12 text-lg font-bold text-white w-full m-0 px-4 flex items-center rounded-t-sm ">
         {link ? (
-            <a href={link} class="text-white no-underline hover:underline" target="_blank">
-                {title} {clock ? <div class="text-sm" id="zuluTime"></div> : ""}
+            <a href={link} class="text-white no-underline hover:underline w-full flex justify-between items-center" target="_blank">
+                {title} {clock ? <span class="text-sm" id="zuluTime"></span> : ""}
             </a>
         ) : (
             title

@@ -74,6 +74,12 @@ const components: NavigationItems = [
         external: true,
     },
     {
+        title: "Events",
+        href: "https://events.vatsim-scandinavia.org/",
+        description: "Overview of our upcoming events",
+        external: true,
+    },
+    {
         title: "Event Booking",
         href: "https://booking.vatsim-scandinavia.org/",
         description: "Book slots for our larger events here",

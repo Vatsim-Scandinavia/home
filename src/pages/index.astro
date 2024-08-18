@@ -38,17 +38,17 @@ import Announcement from "../components/Announcements";
             <div class="max-w-[1300px] w-full content-center pt-6 pb-6">
                 <div class="flex max-xl:flex-wrap gap-8 max-xl:px-8">
                     <div class="width-main flex flex-col gap-8">
-                        <CardBox title="Latest announcements" padding="2" minHeight="224">
+                        <CardBox title="Latest announcements" padding="2" minHeight="224" link="https://forum.vatsim-scandinavia.org/t/announcements">
                             <Announcement client:only />
                         </CardBox>
                             
-                        <CardBox title="Events" padding="4" minHeight="660">
+                        <CardBox title="Events" padding="4" minHeight="660" link="https://events.vatsim-scandinavia.org/">
                             <Events/>
                         </CardBox>
                     </div>
                         
                     <div class="flex-grow flex flex-col gap-8 width-sidebar">
-                        <CardBox title="Live ATC & Bookings" clock>
+                        <CardBox title="Live ATC & Bookings" link="https://cc.vatsim-scandinavia.org/booking" clock>
                             <Bookings />
                         </CardBox>
 

@@ -1,10 +1,16 @@
 ---
-const { title, padding, minHeight, clock } = Astro.props;
+const { title, padding, minHeight, link, clock } = Astro.props;
 ---
 
 <div class={`flex flex-col col-span-6 xl:col-span-4`} >
-    <h2 class="bg-secondary h-12 text-lg font-bold text-white w-full m-0 px-4 flex items-center rounded-t-sm justify-between">
-        {title}  {clock ? <div class="text-sm" id="zuluTime"></div> : ""}
+    <h2 class="bg-secondary h-12 text-lg font-bold text-white w-full m-0 pl-4 flex items-center rounded-t-sm">
+        {link ? (
+            <a href={link} class="text-white no-underline hover:underline" target="_blank">
+                {title} {clock ? <div class="text-sm" id="zuluTime"></div> : ""}
+            </a>
+        ) : (
+            title
+        )}
     </h2>
     <div class={`text-sm bg-white dark:bg-tertiary p-${padding} rounded-b-sm`} style={`min-height: ${minHeight}px`}>
         <slot />

@@ -20,8 +20,9 @@ const { title, padding, minHeight, link, clock } = Astro.props;
 <script is:inline>
     function updateZuluTime() {
         const now = new Date();
-        const zuluTime = now.toTimeString().slice(0, 5) + 'z';
-        document.getElementById('zuluTime').textContent = zuluTime;
+        const options = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' };
+        const zuluTime = now.toLocaleTimeString('en-UK', options);
+        document.getElementById('zuluTime').textContent = zuluTime+"z";
     }
 
     // Initial call to display the time immediately

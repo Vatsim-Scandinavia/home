@@ -12,72 +12,23 @@ import {
     TableHeader,
     TableRow,
 } from "../../components/ui/Table.tsx"
+import React from "react";
 
-
-const staffteam = [
-{
+const Director = [{
     POSITION: "vACC Director",
     CID: 1384322,
     NAME: "Daniel Dahl Andersen",
     EMAIL: "director@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Director",
-},
-{
-    POSITION: "Training Director",
-    CID: 1602589,
-    NAME: "Jeppe Seier",
-    EMAIL: "training-director@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    DEPARTMENT: "Board",
-},
-{
-    POSITION: "Director of Copenhagen FIR",
-    CID: 1226374,
-    NAME: "Lukas Agerskov",
-    EMAIL: "denmark@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    DEPARTMENT: "Board",
-},
-{
-    POSITION: "Director of Polaris FIR",
-    CID: 1340812,
-    NAME: "Krister Larsen",
-    EMAIL: "norway@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    DEPARTMENT: "Board",
-},
-{
-    POSITION: "Director of Sweden FIR",
-    CID: 811805,
-    NAME: "Martin Loxbo",
-    EMAIL: "sweden@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    DEPARTMENT: "Board",
-},
-{
-    POSITION: "Director of Helsinki FIR",
-    CID: 1460595,
-    NAME: "Richard",
-    EMAIL: "finland@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    DEPARTMENT: "Board",
-},
-{
-    POSITION: "Director of Reykjavík CTA",
-    CID: 1404194,
-    NAME: "Andrew Hobbs",
-    EMAIL: "iceland@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    DEPARTMENT: "Board",
-},
+}]
+
+const Training = [
 {
     POSITION: "Training Manager Sweden",
     CID: 937154,
     NAME: "Håkan Schulz",
     EMAIL: "training-sweden@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Training",
 },
 {
     POSITION: "Training Manager Denmark",
@@ -85,7 +36,6 @@ const staffteam = [
     NAME: "Jakob Ek Jensen",
     EMAIL: "training-denmark@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Training",
 },
 {
     POSITION: "Training Manager Norway",
@@ -93,7 +43,6 @@ const staffteam = [
     NAME: "Sander Lislott",
     EMAIL: "training-norway@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Training",
 },
 {
     POSITION: "Training Manager Finland",
@@ -101,7 +50,6 @@ const staffteam = [
     NAME: "Otto Tuhkunen",
     EMAIL: "training-finland@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Training",
 },
 {
     POSITION: "Training Manager Iceland",
@@ -109,7 +57,6 @@ const staffteam = [
     NAME: "Kieran Riley",
     EMAIL: "training-iceland@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Training",
 },
 {
     POSITION: "Training Assistant Sweden",
@@ -117,7 +64,6 @@ const staffteam = [
     NAME: "-",
     EMAIL: "training-sweden@vatsim-scandinavia.org",
     AVILABILITY: "VAC",
-    DEPARTMENT: "Training",
 },
 {
     POSITION: "Training Assistant Denmark",
@@ -125,7 +71,6 @@ const staffteam = [
     NAME: "Thomas Brøgger",
     EMAIL: "training-denmark@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Training",
 },
 {
     POSITION: "Training Assistant Norway",
@@ -133,15 +78,60 @@ const staffteam = [
     NAME: "Marius Linge",
     EMAIL: "training-norway@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Training",
+}
+]
+
+const Board = [
+    {
+    POSITION: "Training Director",
+    CID: 1602589,
+    NAME: "Jeppe Seier",
+    EMAIL: "training-director@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
 },
+{
+    POSITION: "Director of Copenhagen FIR",
+    CID: 1226374,
+    NAME: "Lukas Agerskov",
+    EMAIL: "denmark@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+},
+{
+    POSITION: "Director of Polaris FIR",
+    CID: 1340812,
+    NAME: "Krister Larsen",
+    EMAIL: "norway@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+},
+{
+    POSITION: "Director of Sweden FIR",
+    CID: 811805,
+    NAME: "Martin Loxbo",
+    EMAIL: "sweden@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+},
+{
+    POSITION: "Director of Helsinki FIR",
+    CID: 1460595,
+    NAME: "Richard",
+    EMAIL: "finland@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+},
+{
+    POSITION: "Director of Reykjavík CTA",
+    CID: 1404194,
+    NAME: "Andrew Hobbs",
+    EMAIL: "iceland@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+}
+]
+const Technical = [
 {
     POSITION: "Data Protection Officer",
     CID: 1203470,
     NAME: "Henrik Sønstebø",
     EMAIL: "dpo@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Web",
 },
 {
     POSITION: "Technical Manager",
@@ -149,7 +139,6 @@ const staffteam = [
     NAME: "Daniel Lange",
     EMAIL: "web@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Web",
 },
 {
     POSITION: "Technical Assistant",
@@ -157,7 +146,6 @@ const staffteam = [
     NAME: "Thor Høgås",
     EMAIL: "web@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Web",
 },
 {
     POSITION: "Technical Assistant",
@@ -165,7 +153,6 @@ const staffteam = [
     NAME: "David Mortensen",
     EMAIL: "web@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Web",
 },
 {
     POSITION: "Technical Assistant",
@@ -173,7 +160,6 @@ const staffteam = [
     NAME: "Markus Nielsen",
     EMAIL: "web@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Web",
 },
 {
     POSITION: "Technical Assistant",
@@ -181,23 +167,16 @@ const staffteam = [
     NAME: "Simon Bjerre",
     EMAIL: "web@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Web",
-},
-{
-    POSITION: "Event Manager",
-    CID: 1157125,
-    NAME: "Max Kuhla",
-    EMAIL: "event@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    DEPARTMENT: "Event",
-},
+}
+]
+
+const Event = [
 {
     POSITION: "Event Assistant Sweden",
     CID: 1480664,
     NAME: "Marcus Lundelin",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Event",
 },
 {
     POSITION: "Event Assistant Denmark",
@@ -205,7 +184,6 @@ const staffteam = [
     NAME: "Jesper Hvenegaard",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Event",
 },
 {
     POSITION: "Event Assistant Norway",
@@ -213,7 +191,6 @@ const staffteam = [
     NAME: "Nicolas Hennes",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Event",
 },
 {
     POSITION: "Event Assistant Finland",
@@ -221,7 +198,6 @@ const staffteam = [
     NAME: "Henri Luiro",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Event",
 },
 {
     POSITION: "Event Assistant Iceland",
@@ -229,15 +205,16 @@ const staffteam = [
     NAME: "Jonathan Fong",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Event",
-},
+}
+]
+
+const Pilot = [
 {
     POSITION: "Pilot Training Manager",
     CID: 1440666,
     NAME: "Jere Heiskanen",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "DEP",
-    DEPARTMENT: "Pilot",
 },
 {
     POSITION: "Chief Flight Instructor",
@@ -245,7 +222,6 @@ const staffteam = [
     NAME: "Arttu Uusi-Kyyny",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Pilot",
 },
 {
     POSITION: "Deputy Chief Flight Instructor",
@@ -253,7 +229,6 @@ const staffteam = [
     NAME: "Vincent Matsuuke",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Pilot",
 },
 {
     POSITION: "Acting Pilot Training Manager",
@@ -261,22 +236,10 @@ const staffteam = [
     NAME: "	Tiitus Ehiarinmwian",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Pilot",
-},    
-];
+}
+]
 
-const departments: { [key: string]: any } = {};
-
-staffteam.forEach((staff) => {
-    const { DEPARTMENT, ...rest } = staff;
-    if (!departments[DEPARTMENT]) {
-        departments[DEPARTMENT] = [rest];
-    } else {
-        departments[DEPARTMENT].push(rest);
-    }
-});
-
-export { departments };
+const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
 
 ---
 
@@ -305,81 +268,18 @@ export { departments };
             </TableHeader>
             <TableBody>
                 {
-                    departments["Director"].map((staff: any) => (
-                    <TableRow>
-                        <TableCell>{staff.CID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
-                        <TableCell>{staff.NAME}</TableCell>
-                        <TableCell>{staff.EMAIL}</TableCell>
-                        <TableCell>
-                            <AvailabilityDecode Availability={staff.AVILABILITY}/>
-                        </TableCell>
-                    </TableRow>
-                    ))
-                }
-                {
-                    departments["Board"].map((staff: any) => (
-                    <TableRow>
-                        <TableCell>{staff.CID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
-                        <TableCell>{staff.NAME}</TableCell>
-                        <TableCell>{staff.EMAIL}</TableCell>
-                        <TableCell>
-                            <AvailabilityDecode Availability={staff.AVILABILITY}/>
-                        </TableCell>
-                    </TableRow>
-                    ))
-                }
-                {
-                    departments["Web"].map((staff: any) => (
-                    <TableRow>
-                        <TableCell>{staff.CID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
-                        <TableCell>{staff.NAME}</TableCell>
-                        <TableCell>{staff.EMAIL}</TableCell>
-                        <TableCell>
-                            <AvailabilityDecode Availability={staff.AVILABILITY}/>
-                        </TableCell>
-                    </TableRow>
-                    ))
-                }
-                {
-                    departments["Event"].map((staff: any) => (
-                    <TableRow>
-                        <TableCell>{staff.CID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
-                        <TableCell>{staff.NAME}</TableCell>
-                        <TableCell>{staff.EMAIL}</TableCell>
-                        <TableCell>
-                            <AvailabilityDecode Availability={staff.AVILABILITY}/>
-                        </TableCell>
-                    </TableRow>
-                    ))
-                }
-                {
-                    departments["Pilot"].map((staff: any) => (
-                    <TableRow>
-                        <TableCell>{staff.CID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
-                        <TableCell>{staff.NAME}</TableCell>
-                        <TableCell>{staff.EMAIL}</TableCell>
-                        <TableCell>
-                            <AvailabilityDecode Availability={staff.AVILABILITY}/>
-                        </TableCell>
-                    </TableRow>
-                    ))
-                }
-                {
-                    departments["Training"].map((staff: any) => (
-                    <TableRow>
-                        <TableCell>{staff.CID}</TableCell>
-                        <TableCell>{staff.POSITION}</TableCell>
-                        <TableCell>{staff.NAME}</TableCell>
-                        <TableCell>{staff.EMAIL}</TableCell>
-                        <TableCell>
-                            <AvailabilityDecode Availability={staff.AVILABILITY}/>
-                        </TableCell>
-                    </TableRow>
+                    StaffArray.map((staff, index) => (
+                        <React.Fragment>
+                            {StaffArray[index].map((staff) => (
+                                <TableRow>
+                                    <TableCell>{staff.CID}</TableCell>
+                                    <TableCell>{staff.POSITION}</TableCell>
+                                    <TableCell>{staff.NAME}</TableCell>
+                                    <TableCell>{staff.EMAIL}</TableCell>
+                                    <TableCell><AvailabilityDecode Availability={staff.AVILABILITY}/></TableCell>
+                                </TableRow>
+                            ))} 
+                        </React.Fragment>
                     ))
                 }
             </TableBody>

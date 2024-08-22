@@ -259,9 +259,9 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
         <Table class:list={"bg-black dark:bg-white"}>
             <TableHeader>
                 <TableRow>
-                    <TableHead className="font-bold text-black dark:text-white">CID</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">Position</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">Name</TableHead>
+                    <TableHead className="font-bold text-black dark:text-white">CID</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">E-mail</TableHead>
                     <TableHead className="font-bold text-black dark:text-white">Availability</TableHead>
                 </TableRow>
@@ -272,9 +272,9 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
                         <React.Fragment>
                             {StaffArray[index].map((staff) => (
                                 <TableRow>
-                                    <TableCell>{staff.CID}</TableCell>
                                     <TableCell>{staff.POSITION}</TableCell>
                                     <TableCell>{staff.NAME}</TableCell>
+                                    <TableCell>{staff.CID}</TableCell>
                                     <TableCell>{staff.EMAIL}</TableCell>
                                     <TableCell><AvailabilityDecode Availability={staff.AVILABILITY}/></TableCell>
                                 </TableRow>

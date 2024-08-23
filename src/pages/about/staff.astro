@@ -245,7 +245,7 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
             <Link href="https://cc.vatsim-scandinavia.org/feedback" target="_blank">here<ExternalLinkIcon width="0.75rem" marginLeft="0.3rem"/> </Link>
         </p>
         <div
-        class="w-full max-w-[1500px] py-6 flex flex-col gap-4 place-content-center justify-items-center"
+        class="w-full max-w-[1500px] py-6 flex-col gap-4 place-content-center justify-items-center opacity-0 lg:opacity-100 hidden lg:flex transition"
         >
         <Table class:list={"bg-black dark:bg-white"}>
             <TableHeader>
@@ -281,5 +281,21 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
             <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="DEP"/> = Away for more than 2 months</span>
             <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="VAC"/> = Vacant Position</span>
         </div>
+    </div>
+    <div class="w-full grid gap-4 grid-cols-1 content-center place-items-center md:grid-cols-2 opacity-100 lg:opacity-0 transition">
+        {
+            StaffArray.map((staff, index) => (
+                <React.Fragment>
+                    {StaffArray[index].map((staff) => (
+                        <div class="bg-tertiary dark:bg-secondary p-4 w-80 text-white rounded">
+                            <p class="font-semibold text-xl">{staff.POSITION}</p>
+                            <p>{staff.NAME}</p>
+                            <p>{staff.CID}</p>
+                            <p>{staff.EMAIL}</p>
+                        </div>
+                    ))} 
+                </React.Fragment>
+            ))
+        }
     </div>
 </PageContainer>

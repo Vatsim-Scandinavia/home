@@ -1,9 +1,9 @@
 ---
+import React from "react";
 import PageContainer from "../../components/ui/PageContainer.astro"
 import Link from "../../components/ui/Link.astro"
 import AvailabilityDecode from "../../components/AvailabilityDecode"
 import {ExternalLinkIcon} from '../../components/icons/ExternalLinkIcon';
-
 import {
     Table,
     TableBody,
@@ -12,7 +12,6 @@ import {
     TableHeader,
     TableRow,
 } from "../../components/ui/Table.tsx"
-import React from "react";
 
 const Director = [{
     POSITION: "vACC Director",
@@ -21,7 +20,6 @@ const Director = [{
     EMAIL: "director@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
 }]
-
 const Training = [
 {
     POSITION: "Training Manager Sweden",
@@ -80,7 +78,6 @@ const Training = [
     AVILABILITY: "AVL",
 }
 ]
-
 const Board = [
     {
     POSITION: "Training Director",
@@ -169,7 +166,6 @@ const Technical = [
     AVILABILITY: "AVL",
 }
 ]
-
 const Event = [
 {
     POSITION: "Event Assistant Sweden",
@@ -207,7 +203,6 @@ const Event = [
     AVILABILITY: "AVL",
 }
 ]
-
 const Pilot = [
 {
     POSITION: "Pilot Training Manager",
@@ -240,19 +235,15 @@ const Pilot = [
 ]
 
 const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
-
 ---
-
 <PageContainer SiteTitle="Staff">
     <h1 class="text-5xl py-12 font-semibold">Staff</h1>
-
     <div class="bg-white/75 dark:bg-tertiary p-8">
         <p class="text-lg dark:text-white italic text-center">
             Feedback for our ATC services, or general comments about VATSIM
             Scandinavia can be sent
             <Link href="https://cc.vatsim-scandinavia.org/feedback" target="_blank">here<ExternalLinkIcon width="0.75rem" marginLeft="0.3rem"/> </Link>
         </p>
-        
         <div
         class="w-full max-w-[1500px] py-6 flex flex-col gap-4 place-content-center justify-items-center"
         >
@@ -284,7 +275,6 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
                 }
             </TableBody>
         </Table>
-
         <div class="flex flex-row gap-5 justify-between text-sm mt-4 max-lg:flex-wrap">
             <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="AVL"/> = Available and can be reached on a daily basis</span>
             <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="OOO"/> = Out of Office (longer vacation, 3-6 weeks)</span>

@@ -6,11 +6,7 @@ const Events = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://events.vatsim-scandinavia.org/api/calendars/1/events', {
-                    headers: {
-                        Authorization: 'Bearer 83e0745f-486d-4f73-8184-40c98930380c' // Replace with your valid bearer token
-                    }
-                });
+                const response = await fetch('https://events.vatsim-scandinavia.org/api/calendars/1/events');
                 const data = await response.json();
                 setEvents(data.data);
             } catch (error) {

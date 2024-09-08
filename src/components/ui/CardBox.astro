@@ -15,19 +15,20 @@ const { title, padding, minHeight, link, clock } = Astro.props;
     <div class={`text-sm bg-white dark:bg-tertiary p-${padding} rounded-b-sm`} style={`min-height: ${minHeight}px`}>
         <slot />
     </div>
+    {clock && (
+        <script is:inline>
+            function updateZuluTime() {
+                const now = new Date();
+                const options = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' };
+                const zuluTime = now.toLocaleTimeString('en-UK', options);
+                document.getElementById('zuluTime').textContent = zuluTime+"z";
+            }
+
+            // Initial call to display the time immediately
+            updateZuluTime();
+
+            // Update the time every minute
+            setInterval(updateZuluTime, 60000);
+        </script>
+    )}
 </div>
-
-<script is:inline>
-    function updateZuluTime() {
-        const now = new Date();
-        const options = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' };
-        const zuluTime = now.toLocaleTimeString('en-UK', options);
-        document.getElementById('zuluTime').textContent = zuluTime+"z";
-    }
-
-    // Initial call to display the time immediately
-    updateZuluTime();
-
-    // Update the time every minute
-    setInterval(updateZuluTime, 60000);
-</script>

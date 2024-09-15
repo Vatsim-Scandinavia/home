@@ -238,14 +238,14 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
 ---
 <PageContainer SiteTitle="Staff">
     <h1 class="text-5xl py-12 font-semibold">Staff</h1>
-    <div class="bg-white/75 dark:bg-tertiary p-8">
+    <div class="bg-white/75 dark:bg-tertiary p-8 mb-8">
         <p class="text-lg dark:text-white italic text-center">
             Feedback for our ATC services, or general comments about VATSIM
             Scandinavia can be sent
             <Link href="https://cc.vatsim-scandinavia.org/feedback" target="_blank">here<ExternalLinkIcon width="0.75rem" marginLeft="0.3rem"/> </Link>
         </p>
         <div
-        class="w-full max-w-[1500px] py-6 flex-col gap-4 place-content-center justify-items-center opacity-0 lg:opacity-100 hidden lg:flex transition"
+        class="w-full max-w-[1500px] py-6 flex-col gap-4 place-content-center  justify-items-center opacity-0 lg:opacity-100 hidden lg:flex transition"
         >
         <Table class:list={"bg-black dark:bg-white"}>
             <TableHeader>
@@ -282,7 +282,7 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
             <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="VAC"/> = Vacant Position</span>
         </div>
     </div>
-    <div class="w-full grid gap-4 grid-cols-1 content-center place-items-center md:grid-cols-2 opacity-100 lg:opacity-0 transition">
+    <div class="w-full grid gap-4 grid-cols-1 content-center place-items-center md:grid-cols-2 opacity-100 lg:hidden transition">
         {
             StaffArray.map((staff, index) => (
                 <React.Fragment>

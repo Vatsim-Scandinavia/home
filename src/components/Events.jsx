@@ -1,7 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const Events = () => {
     const [events, setEvents] = useState([]);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const containerRef = useRef(null);
+  
+    const handleMouseDown = (e) => {
+      setIsDragging(true);
+      setStartX(e.pageX - containerRef.current.offsetLeft);
+      setScrollLeft(containerRef.current.scrollLeft);
+    };
+  
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+  
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - containerRef.current.offsetLeft;
+      const walk = (x - startX) * 2;
+      containerRef.current.scrollLeft = scrollLeft - walk;
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,10 +76,16 @@ const Events = () => {
                     }
                 </div>
             ))}
-            <div className='flex overflow-hidden overflow-x-auto'>
+            <div className='flex overflow-hidden overflow-x-auto'
+            ref={containerRef}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            >
                 {events.slice(2,9).map((item, index) => (
-                    <a key={index} className='flex flex-col rounded pr-1 pb-1 pt-1' target='_blank'  href={item.link}>
-                        <img src={item.image} className={`w-64 h-fit aspect-video rounded-sm absolute'}`} />
+                    <a key={index} className='flex flex-col rounded pr-1 pb-1 pt-1' target='_blank'  href={item.link} draggable="false">
+                        <img src={item.image} className={`w-64 h-fit aspect-video rounded-sm absolute'}`} draggable="false" />
                     </a>
                 ))}
             </div>

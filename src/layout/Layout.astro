@@ -34,7 +34,7 @@ import Snowfall from 'react-snowfall'
     <ViewTransitions />
 </head>
 <body class="bg-lightgrey w-full h-full min-h-screen text-black dark:text-white transition ease-in-out delay-50 flex flex-col items-center bg-[url('/img/skies.svg')] bg-cover">
-    <div class="top-0 absolute -z-10 min-h-screen w-screen">
+    <div id="snowfall" class="top-0 absolute -z-10 min-h-screen w-screen">
         <Snowfall color="#c7d0e6" client:only/>
     </div>
     <Nav />
@@ -70,6 +70,13 @@ import Snowfall from 'react-snowfall'
         document.documentElement.classList.add("dark");
     }
     window.localStorage.setItem("theme", theme);
+</script>
+
+<script is:inline>
+    const snowfallHeight = document.body.scrollHeight;
+    const snowfallElement = document.getElementById('snowfall');
+
+    snowfallElement.style.height = `${snowfallHeight}px`;
 </script>
 
 <style is:global>

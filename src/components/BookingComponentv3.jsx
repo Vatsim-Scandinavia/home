@@ -84,10 +84,18 @@ const BookingComponent = () => {
           }
         });
 
+        function parseDateUTC(dateString) {
+          if (!dateString) return new Date(0); // Default to epoch for missing dates
+          // Replace space with 'T' and ensure 'Z' at the end for UTC
+          const formattedDate = dateString.replace(" ", "T");
+          return new Date(formattedDate.endsWith("Z") ? formattedDate : `${formattedDate}Z`);
+      }
+
         // Sort the first date (in most cases today) by time, so ad-hoc sessions also are sorted correctly.
         dateArray[0].data.sort((a, b) => {
-          const aTime = a.time_start || a.logon_time;
-          const bTime = b.time_start || b.logon_time;
+          const aTime = parseDateUTC(a.time_start || a.logon_time).getTime();
+          const bTime = parseDateUTC(b.time_start || b.logon_time).getTime();
+
           return new Date(aTime) - new Date(bTime);
         });
 
@@ -124,7 +132,7 @@ const BookingComponent = () => {
               </tr>
               {date.data.map((booking) => (
                 <tr key={booking.id} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
-                  {booking.name ? <td className="pl-[4px] text-[#447b68] font-bold"><img class="circle" src="img/icons/circle-solid.svg" alt=""/> {booking.callsign}</td> : <td className="pl-[4px]"><img class="circle" src="img/icons/circle-regular.svg" alt=""/> {booking.callsign}</td>}
+                  {booking.name ? <td className="pl-[4px] text-[#447b68] font-bold"><img className="circle" src="img/icons/circle-solid.svg" alt=""/> {booking.callsign}</td> : <td className="pl-[4px]"><img className="circle" src="img/icons/circle-regular.svg" alt=""/> {booking.callsign}</td>}
                   <td className="pl-[4px]">{bookingType(booking)}</td>
                   <td className="pl-[4px]">{booking.time_start ? convertZulu(booking.time_start) : ""}{booking.logon_time ? convertZulu(fixNetworkTime(booking.logon_time)) : ""}</td>
                   <td className="pl-[4px]">{convertZulu(booking.time_end)}</td>

@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from 'react';
-
 async function PullForumData(URL: string) {
   try {
     const response = await fetch(URL);

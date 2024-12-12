@@ -136,7 +136,7 @@ const BookingComponent = () => {
               {date.data.map((booking) => (
                 <tr key={booking.id} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
                   {booking.name ? <td className="pl-[4px] text-[#447b68] font-bold"><img className="circle" src="img/icons/circle-solid.svg" alt=""/> {booking.callsign}</td> : <td className="pl-[4px]"><img className="circle" src="img/icons/circle-regular.svg" alt=""/> {booking.callsign}</td>}
-                  <td className="pl-[4px]">{bookingType(booking)}</td>
+                  <td className="px-[15px]">{bookingType(booking)}</td>
                   <td className="pl-[4px]">{booking.time_start && !booking.logon_time ? convertZulu(booking.time_start) : ""}{booking.logon_time ? convertZulu(fixNetworkTime(booking.logon_time)) : ""}</td>
                   <td className="pl-[4px]">{convertZulu(booking.time_end)}</td>
                 </tr>

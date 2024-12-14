@@ -59,6 +59,13 @@ const BookingComponent = () => {
           return correctedCallsign;
         }
 
+        function parseDateUTC(dateString) {
+          if (!dateString) return new Date(0); // Default to epoch for missing dates
+          // Replace space with 'T' and ensure 'Z' at the end for UTC
+          const formattedDate = dateString.replace(" ", "T");
+          return new Date(formattedDate.endsWith("Z") ? formattedDate : `${formattedDate}Z`);
+        }
+
         ControlCenterBookings.data.forEach(booking => {
           const bookingDate = new Date(booking.time_start).toISOString().split('T')[0];
           const dateIndex = dateArray.findIndex(dateObj => dateObj.date === bookingDate);
@@ -69,12 +76,15 @@ const BookingComponent = () => {
 
         VATSIMNetworkData.controllers.forEach(session => {
           if (acceptedFIRsRegex.test(session.callsign) && !mentorRegex.test(session.callsign)) {
-            const correctedCallsign = getBookableCallsign(session.callsign, session.frequency);
+            const normalizeCallsign = (callsign) => callsign.replace(/_+/g, "_");
+            const correctedCallsign = getBookableCallsign(normalizeCallsign(session.callsign), session.frequency);
             session.callsign = correctedCallsign;
             const existingBooking = dateArray[0].data.find(booking => booking.callsign === session.callsign);
             // Merge if existing booking exists and now is after the booking start time.
-            if (existingBooking && existingBooking.time_start > new Date()) {
+
+            if (existingBooking && parseDateUTC(existingBooking.time_start).getTime() < new Date().getTime()) {
               existingBooking.name = session.name;
+              existingBooking.logon_time = session.logon_time;
             } else {
               dateArray[0].data.push({
           ...session,
@@ -86,8 +96,9 @@ const BookingComponent = () => {
 
         // Sort the first date (in most cases today) by time, so ad-hoc sessions also are sorted correctly.
         dateArray[0].data.sort((a, b) => {
-          const aTime = a.time_start || a.logon_time;
-          const bTime = b.time_start || b.logon_time;
+          const aTime = parseDateUTC(a.time_start || a.logon_time).getTime();
+          const bTime = parseDateUTC(b.time_start || b.logon_time).getTime();
+
           return new Date(aTime) - new Date(bTime);
         });
 
@@ -124,9 +135,9 @@ const BookingComponent = () => {
               </tr>
               {date.data.map((booking) => (
                 <tr key={booking.id} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
-                  {booking.name ? <td className="pl-[4px] text-[#447b68] font-bold"><img class="circle" src="img/icons/circle-solid.svg" alt=""/> {booking.callsign}</td> : <td className="pl-[4px]"><img class="circle" src="img/icons/circle-regular.svg" alt=""/> {booking.callsign}</td>}
-                  <td className="pl-[4px]">{bookingType(booking)}</td>
-                  <td className="pl-[4px]">{booking.time_start ? convertZulu(booking.time_start) : ""}{booking.logon_time ? convertZulu(fixNetworkTime(booking.logon_time)) : ""}</td>
+                  {booking.name ? <td className="pl-[4px] text-[#447b68] font-bold"><img className="circle" src="img/icons/circle-solid.svg" alt=""/> {booking.callsign}</td> : <td className="pl-[4px]"><img className="circle" src="img/icons/circle-regular.svg" alt=""/> {booking.callsign}</td>}
+                  <td className="px-[15px]">{bookingType(booking)}</td>
+                  <td className="pl-[4px]">{booking.time_start && !booking.logon_time ? convertZulu(booking.time_start) : ""}{booking.logon_time ? convertZulu(fixNetworkTime(booking.logon_time)) : ""}</td>
                   <td className="pl-[4px]">{convertZulu(booking.time_end)}</td>
                 </tr>
               ))}

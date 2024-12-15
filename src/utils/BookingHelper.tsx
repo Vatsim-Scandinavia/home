@@ -1,5 +1,17 @@
 import moment from "moment";
-import positions from "../components/positions.json";
+import PositionDataFetcher from "./PositionDataFetcher";
+
+const fetchPositionData = async () => {
+    const apiEndpoint = "https://cc.vatsim-scandinavia.org/api/positions";
+
+    try {
+        const data = await PositionDataFetcher.fetchPositionData(apiEndpoint);
+        return data;
+    } catch (error) {
+        console.error("Error accessing position data:", error);
+        return null;
+    }
+};
 
 function startsWithSameICAO(callsign1: string, callsign2: string) {
     if (callsign1.substring(0, 4) === callsign2.substring(0, 4)) {
@@ -9,14 +21,20 @@ function startsWithSameICAO(callsign1: string, callsign2: string) {
     return false;
 }
 
-function getBookableCallsign(callsign: string, frequency: string) {
-    let correctedCallsign = callsign;
-    positions.forEach(position => {
-        if(position['frequency'] === frequency && startsWithSameICAO(position['callsign'], callsign)) {
-        correctedCallsign = position['callsign'];
-        }
-    });
-    return correctedCallsign;
+async function getBookableCallsign(callsign: string, frequency: string) {
+    const positionData = await fetchPositionData();
+
+    if(!positionData?.data) {
+        console.error('ATC Position data is missing or malformed.');
+        return callsign;
+    }
+
+    const correctedCallsign = positionData.data.find(
+        (position: { frequency: string; callsign: string }) =>
+            position.frequency === frequency && startsWithSameICAO(position.callsign, callsign)
+    )?.callsign;
+
+    return correctedCallsign || callsign;
 }
 
 function parseControlCenterDate(dateString: string) {

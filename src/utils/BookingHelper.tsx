@@ -13,34 +13,31 @@ const fetchPositionData = async () => {
     }
 };
 
-function startsWithSameICAO(callsign1: string, callsign2: string) {
-    if (callsign1.substring(0, 4) === callsign2.substring(0, 4)) {
-        return true;
+const getPositionFromFrequency = async (callsign: string, frequency: string) => {
+    try {
+        const positionData = await fetchPositionData();
+
+        if (!positionData?.data) {
+            console.warn('No position data available');
+            return null;
+        }
+
+        const matchingPosition = positionData.data.find(
+            (position:
+                { frequency: string; callsign: string; }
+            ) => position.frequency === frequency && position.callsign.substring(0,4) == callsign.substring(0,4)
+        );
+
+        return matchingPosition?.callsign || null;
+    } catch (error) {
+        console.error('An error occured while trying get position', error);
     }
-
-    return false;
-}
-
-async function getBookableCallsign(callsign: string, frequency: string) {
-    const positionData = await fetchPositionData();
-
-    if(!positionData?.data) {
-        console.error('ATC Position data is missing or malformed.');
-        return callsign;
-    }
-
-    const correctedCallsign = positionData.data.find(
-        (position: { frequency: string; callsign: string }) =>
-            position.frequency === frequency && startsWithSameICAO(position.callsign, callsign)
-    )?.callsign;
-
-    return correctedCallsign || callsign;
 }
 
 function parseControlCenterDate(dateString: string) {
     if (!dateString) return moment();
 
-    return moment(dateString).utc();
+    return moment.utc(dateString);
 }
 
 function bookingType(booking: any) {
@@ -59,4 +56,4 @@ function formatAsZulu(timestring: string) {
     return moment.utc(timestring).format('HH:mm') + 'z';
 }
 
-export { startsWithSameICAO, getBookableCallsign, parseControlCenterDate, bookingType, formatAsZulu };
+export { parseControlCenterDate, bookingType, formatAsZulu, getPositionFromFrequency };

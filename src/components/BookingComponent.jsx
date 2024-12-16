@@ -10,7 +10,7 @@ const BookingComponent = () => {
     const [dateArray, setDateArray] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const acceptedFIRsRegex = /((EK[A-Z][A-Z]_)|(EF[A-Z][A-Z]_)|(BI[A-Z][A-Z]_)|(EN[A-Z][A-Z]_)|(ES[A-Z][A-Z]_))\w+/i;
+    const acceptedFIRsRegex = /((?:BI|EF|EK|EN|ES)([A-Z][A-Z]_))\w+/i;
     const mentorRegex = /((_X_)|(_X\d_)|(_M_))\w+/i;
 
     /**

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { bookingType, formatAsZulu, getPositionFromFrequency } from "../utils/BookingHelper";
+import { formatAsZulu, getPositionFromFrequency } from "../utils/BookingHelper";
+import bookingType from "../components/BookingType";
 import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 
 

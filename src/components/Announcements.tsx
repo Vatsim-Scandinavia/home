@@ -41,6 +41,17 @@ async function AnnoucementPosts() {
 }
 var data = await AnnoucementPosts()
 
+const sanitizeHtml = (html: any) => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+  
+  // Remove all <img> tags
+  const images = doc.querySelectorAll("img");
+  images.forEach((img) => img.remove());
+
+  return doc.body.innerHTML;
+};
+
 const Annoucements = () => {
 
   return (
@@ -53,7 +64,7 @@ const Annoucements = () => {
                       <div className="font-semibold text-lg md:text-xl text-secondary dark:text-white">
                           {post.title}
                       </div>
-                      <div className="text-sm line-clamp-2" dangerouslySetInnerHTML={{__html: post.content}}>
+                      <div className="text-sm line-clamp-2" dangerouslySetInnerHTML={{__html: sanitizeHtml(post.content)}}>
 
                       </div>
                   </div>

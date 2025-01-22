@@ -51,7 +51,7 @@ const Events = () => {
     }
     
     return (
-        <div className="flex flex-col gap-2 w-full h-fit"> 
+        <div className="flex flex-col gap-2 w-full h-full"> 
             {events.slice(0,2).map((item, index) => (
                 <div key={index}>
                 {index < 2 ? 
@@ -76,17 +76,17 @@ const Events = () => {
                     }
                 </div>
             ))}
-            <div className='flex overflow-hidden overflow-x-auto'
-            ref={containerRef}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onMouseMove={handleMouseMove}
-            >
+            <div className='flex overflow-hidden overflow-x-auto gap-1 h-full'>
                 {events.slice(2,9).map((item, index) => (
-                    <a key={index} className='flex flex-col rounded pr-1 pb-1 pt-1' target='_blank'  href={item.link} draggable="false">
-                        <img src={item.image} className={`w-64 h-fit aspect-video rounded-sm absolute'}`} draggable="false" />
-                    </a>
+                    <div className='aspect-square min-w-64 bg-snow dark:bg-secondary dark:text-white relative'>
+                        <img src={item.image} className="w-full h-fit aspect-video rounded-sm"/>
+                        <span>
+                            <p className='font-semibold text-md pl-2 pt-2'>{item.title}</p>
+                            <p className='pl-2'>{events.length != 0 ? dateConverter(item.start_date, item.end_date)  : ""}z</p>
+                        </span>
+                        <a key={index} className='absolute bottom-3 left-4 bg-secondary dark:bg-snow p-3 text-center text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm' target='_blank' href={item.link}>Read more</a>
+                    </div>
+
                 ))}
             </div>
 

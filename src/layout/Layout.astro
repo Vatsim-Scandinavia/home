@@ -5,7 +5,7 @@ import { ViewTransitions } from "astro:transitions";
 import { Tooltips } from 'astro-tooltips';
 import Nav from "../components/Navbar.astro"
 import '../globals.css'
-import Snowfall from 'react-snowfall'
+import '../../node_modules/keen-slider/keen-slider.css';
 ---
 
 <html lang="en" class="scroll-smooth">
@@ -13,11 +13,9 @@ import Snowfall from 'react-snowfall'
     <title>{SiteTitle}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <meta name="author" content="VATSIM Scandinavia">
     <meta name="keywords" content="VATSIM, Scandinavia, vACC, Virtual, Air, Traffic, Simulation, Network, Denmark, Finland, Iceland, Norway, Sweden">
     <meta name="theme-color" content="#1a4860">
-    
     <meta name="description" content="Home vACC of Denmark, Finland, Iceland, Norway & Sweden on the VATSIM Network">
     <meta property="og:description" content="Home vACC of Denmark, Finland, Iceland, Norway & Sweden on the VATSIM Network">
     <meta property="og:url" content="https://vatsim-scandinavia.org">
@@ -30,6 +28,7 @@ import Snowfall from 'react-snowfall'
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="flickity.css" />
     <Tooltips interactive={false} delay={[15, 140]} />
     <ViewTransitions />
 </head>

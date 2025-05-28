@@ -190,12 +190,12 @@ const BookingComponent = () => {
                                 <>
                                     <iframe src="https://lottie.host/embed/e516525c-74c1-4db5-b2b2-bb135366e103/W8AodEgALN.json" className="w-full" />
                                     <p className="font-semibold text-lg">Loading...</p>
-                                    <p className="text-gray-500 mt-2">Fetching bookings from Control Center and VATSIM...</p>
+                                    <p className="text-gray-500 mt-2">Fetching bookings and VATSIM controllers...</p>
                                 </>
                             ) : (
                                 <>
                                     <p className="font-semibold text-lg">Error!</p>
-                                    <p className="text-red-500 mt-2">An error occured while fetching bookings...</p>
+                                    <p className="text-danger mt-2">An error occured while fetching bookings/sessions...</p>
                                 </>
                             )}
                         </td>

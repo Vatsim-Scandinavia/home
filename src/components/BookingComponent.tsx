@@ -145,7 +145,7 @@ const BookingComponent = () => {
          * Each session is added to the corresponding date based on its logon time.
          */
         mergedBookingsAndSessions.forEach(session => {
-            const dateKey = moment(session.logon_time).format('YYYY-MM-DD');
+            const dateKey = moment.utc(session.logon_time).format('YYYY-MM-DD');
             const dateData = dateMap.get(dateKey);
             if (dateData) {
                 dateData.data.push(session);

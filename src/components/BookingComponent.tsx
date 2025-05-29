@@ -43,7 +43,7 @@ const BookingComponent = () => {
     const [loading, setLoading] = useState<true | false>(true);
 
     const acceptedFIRsRegex = /((?:BI|EF|EK|EN|ES)([A-Z][A-Z]_))\w+/i;
-    const mentorRegex = /((_X_)|(_X\d_)|(_M\d*_))\w+/i;
+    const mentorRegex = /((_X\d*_)|(_M\d*_))\w+/i;
 
     /**
      * Fetch data from Control Center and VATSIM APIs.

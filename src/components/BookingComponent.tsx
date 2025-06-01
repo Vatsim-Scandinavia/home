@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { formatAsZulu, getPositionFromFrequency } from "../utils/BookingHelper";
+import { formatAsZulu, getPositionFromFrequency, positionExists } from "../utils/BookingHelper";
 import bookingType from "./BookingType";
 import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 
@@ -42,9 +42,6 @@ const BookingComponent = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<true | false>(true);
 
-    const acceptedFIRsRegex = /((?:BI|EF|EK|EN|ES)([A-Z][A-Z]_))\w+/i;
-    const mentorRegex = /((_X\d*_)|(_M\d*_))\w+/i;
-
     /**
      * Fetch data from Control Center and VATSIM APIs.
      * This function is called when the component mounts and every 60 seconds.
@@ -81,7 +78,7 @@ const BookingComponent = () => {
     const handleData = async (ControlCenterResponse: ControlCenterResponse, VatsimResponse: VatsimResponse) => {
         const ControlCenterData = ControlCenterResponse.data;
         const VatsimData = VatsimResponse.controllers;
-        const mergedBookingsAndSessions = [];
+        const mergedBookingsAndSessions: mergedBookingAndSession[] = [];
 
         const startDate = moment().subtract(1, 'days');
         const endDate = moment().add(6, 'days');
@@ -127,15 +124,22 @@ const BookingComponent = () => {
          * @param {VatsimSession} session - The session object from VATSIM.
          */
         for (const session of VatsimData) {
-            if (acceptedFIRsRegex.test(session.callsign) && !mentorRegex.test(session.callsign)) {
-                const frequencyCallsign: string = await getPositionFromFrequency(session.callsign, session.frequency);
-                const bookingData = dateMap.get(moment().format('YYYY-MM-DD'))?.data || [];
-    
-                const existingBooking: ControlCenterBooking = bookingData.find((booking: ControlCenterBooking) => booking.callsign === frequencyCallsign);
+            const frequencyCallsign: string = await getPositionFromFrequency(session.callsign, session.frequency);
+            const positionExistsFlag: boolean = await positionExists(frequencyCallsign);
+            const bookingData = dateMap.get(moment().format('YYYY-MM-DD'))?.data || [];
+            const existingBooking: ControlCenterBooking = bookingData.find((booking: ControlCenterBooking) => booking.callsign === frequencyCallsign);
+
+            if (positionExistsFlag) {
                 if (existingBooking && moment.utc(existingBooking.time_start).isBefore(moment())) {
                     existingBooking.logon_time = session.logon_time;
                 } else {
-                    mergedBookingsAndSessions.push({ ...session, callsign: frequencyCallsign });
+                    // Prevent duplicate frequencyCallsigns
+                    const alreadyExists = mergedBookingsAndSessions.some(
+                        (session: mergedBookingAndSession) => session.callsign === frequencyCallsign
+                    );
+                    if (!alreadyExists) {
+                        mergedBookingsAndSessions.push({ ...session, callsign: frequencyCallsign });
+                    }
                 }
             }
         }

@@ -33,6 +33,22 @@ const getPositionFromFrequency = async (callsign: string, frequency: string) => 
     }
 }
 
+const positionExists = async (callsign: string) => {
+    try {
+        const positionData = await fetchPositionData();
+        if (!positionData?.data) {
+            console.warn('No position data available');
+            return false;
+        }
+        return positionData.data.some(
+            (position: { callsign: string; }) => position.callsign === callsign
+        );
+    } catch (error) {
+        console.error('An error occurred while checking position existence', error);
+        return false;
+    }
+}
+
 function parseControlCenterDate(dateString: string) {
     if (!dateString) return moment();
 
@@ -43,4 +59,4 @@ function formatAsZulu(timestring: string) {
     return moment.utc(timestring).format('HH:mm') + 'z';
 }
 
-export { parseControlCenterDate, formatAsZulu, getPositionFromFrequency };
+export { parseControlCenterDate, formatAsZulu, getPositionFromFrequency, positionExists };

@@ -1,51 +1,89 @@
 import React, { useEffect, useState } from "react";
 
-async function PullForumData(URL: string) {
+interface ForumThread {
+  id: string;
+  attributes: {
+    title: string;
+    slug: string;
+    createdAt: string;
+  };
+  relationships: {
+    firstPost: {
+      data: {
+        id: string;
+      };
+    };
+  };
+}
+interface ForumPost {
+  id: string;
+  attributes: {
+    contentHtml: string;
+  };
+}
+
+interface ForumApiResponse {
+  data: ForumThread[];
+  included: ForumPost[];
+}
+
+interface Announcement {
+  title: string;
+  slug: string;
+  created: string;
+  content: string;
+}
+
+async function getForumAnnouncements(url: string): Promise<ForumApiResponse | null> {
   try {
-    const response = await fetch(URL);
-    if (response.ok) {
-      const data = await response.json();
-      return data.data;
-    } else {
-      console.error("Error fetching data:", response.status);
-      return null;
-    }
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Error occured getting announcements! (${response.status})`);
+    return await response.json();
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
   }
 }
 
-async function AnnoucementPosts() {
-  const posts = [];
-  const announcements = await PullForumData(
+async function getAnnoucementPosts(): Promise<Announcement[]> {
+  let mergedAnnouncements = [];
+  let announcementThreads = [];
+  let announcementPosts = [];
+  const rawForumData = await getForumAnnouncements(
     "https://forum.vatsim-scandinavia.org/api/discussions?filter[tag]=announcements"
   );
 
-  announcements.sort((a: any, b: any) => {
+  if (!rawForumData) return [];
+
+  announcementThreads = rawForumData.data;
+  announcementPosts = rawForumData.included.filter(
+    (item: any) => item.type === "posts"
+  );
+
+  announcementThreads.sort((a: any, b: any) => {
     const dateA = new Date(a.attributes.createdAt);
     const dateB = new Date(b.attributes.createdAt);
     return dateB.getTime() - dateA.getTime();
   });
 
-  for (const post of announcements) {
-    const firstPost = await PullForumData(
-      "https://forum.vatsim-scandinavia.org/api/posts?filter[id]=" +
-        post.relationships.firstPost.data.id
-    );
-    const firstPostContent = firstPost[0].attributes.contentHtml;
-    const postdata = {
-      slug: post.attributes.slug,
-      title: post.attributes.title,
-      created: post.attributes.createdAt,
-      content: firstPostContent,
+  for (const thread of announcementThreads) {
+    const announcementData = {
+      title: thread.attributes.title,
+      slug: thread.attributes.slug,
+      created: thread.attributes.createdAt,
+      content:
+        announcementPosts.find(
+          (post: any) => post.id === thread.relationships.firstPost.data.id
+        )?.attributes.contentHtml || "",
     };
-    posts.push(postdata);
+
+    mergedAnnouncements.push(announcementData)
   }
-  return posts;
+
+  return mergedAnnouncements;
 }
 
-const sanitizeHtml = (html: any) => {
+const sanitizeHtml = (html: string) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
 
@@ -62,7 +100,7 @@ const Annoucements = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const posts = await AnnoucementPosts();
+      const posts = await getAnnoucementPosts();
       setData(posts);
       setLoading(false);
     };
@@ -88,7 +126,7 @@ const Annoucements = () => {
 
   return (
     <>
-      {data.splice(0, 2).map((post) => (
+      {data.slice(0, 2).map((post) => (
         <div
           className="p-2 mt-2 mb-4 hover:bg-white dark:hover:bg-black hover:brightness-[95%] animate-entry"
           key={post.slug}
@@ -96,6 +134,7 @@ const Annoucements = () => {
           <a
             href={"https://forum.vatsim-scandinavia.org/d/" + post.slug}
             target="_blank"
+            rel="noopener"
           >
             <div className="flex">
               <div className="w-[90%]">

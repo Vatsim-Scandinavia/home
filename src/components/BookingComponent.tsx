@@ -192,9 +192,47 @@ const BookingComponent = () => {
                         <td colSpan={4} className="text-center">
                             {!error ? (
                                 <>
-                                    <iframe src="https://lottie.host/embed/e516525c-74c1-4db5-b2b2-bb135366e103/W8AodEgALN.json" className="w-full" />
-                                    <p className="font-semibold text-lg">Loading...</p>
-                                    <p className="text-gray-500 mt-2">Fetching bookings and VATSIM controllers...</p>
+                                    <div className="animate-pulse">
+                                        <div className="h-8 bg-gray-300 dark:bg-secondary w-full"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                    </div>
+                                    <div className="animate-pulse">
+                                        <div className="h-8 bg-gray-300 dark:bg-secondary w-full"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                    </div>
+                                    <div className="animate-pulse">
+                                        <div className="h-8 bg-gray-300 dark:bg-secondary w-full"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
+                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
+                                    </div>
                                 </>
                             ) : (
                                 <>

@@ -217,11 +217,17 @@ const BookingComponent = () => {
                                             <tr key={index2} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
                                                 {booking.logon_time ? (
                                                     <td className="pl-[4px] text-[#447b68] font-bold">
-                                                        <img className="circle" src="img/icons/circle-solid.svg" alt="" /> {booking.callsign}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={'10px'} height={'10px'} style={{ display: 'inline', marginRight: '2px' }}>
+                                                            <path fill="hsl(162, 33%, 38%)" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
+                                                        </svg>
+                                                        {booking.callsign}
                                                     </td>
                                                 ) : (
                                                     <td className="pl-[4px]">
-                                                        <img className="circle" src="img/icons/circle-regular.svg" alt="" /> {booking.callsign}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={'10px'} height={'10px'} style={{ display: 'inline', marginRight: '2px' }}>
+                                                            <path fill="grey" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
+                                                        </svg>
+                                                        {booking.callsign}
                                                     </td>
                                                 )}
                                                 <td className="px-[15px]">{bookingType(booking)}</td>

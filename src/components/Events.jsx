@@ -5,6 +5,9 @@ import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 const Events = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [events, setEvents] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
@@ -28,11 +31,21 @@ const Events = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
+                setError(null);
                 const response = await fetch('https://events.vatsim-scandinavia.org/api/calendars/1/events');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 setEvents(data.data);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching events:', error);
+                setError('Failed to fetch events...');
+                setLoading(false);
             }
         };
 
@@ -40,19 +53,20 @@ const Events = () => {
     }, []);
 
     useEffect(() => {
-
-        if (events.length > 4) {
+        if (!loading && events.length > 0) {
             const skeleton = document.getElementById('live-stats-skeleton');
             const skeletonlive = document.getElementById('live-stats');
             if (skeleton) {
                 skeleton.style.display = 'none';
+            }
+            if (skeletonlive) {
                 skeletonlive.style.display = 'flex';
             }
+            if (instanceRef.current) {
+                instanceRef.current.update(); // Reapply Keen Slider settings
+            }
         }
-        if (instanceRef.current) {
-            instanceRef.current.update(); // Reapply Keen Slider settings
-        }
-    }, [events]);
+    }, [loading, events]);
 
     function dateConverter(start, end) {
         const startDate = new Date(start);
@@ -66,7 +80,7 @@ const Events = () => {
     }
 
     return (
-        <div className="hidden flex-col w-full h-fit" id="live-stats">
+        <div className="flex flex-col w-full h-fit" id="live-stats" style={{ display: loading ? 'none' : 'flex' }}>
             <div className="flex h-2/3 flex-col gap-2" >
                 {events.slice(0, 2).map((item, index) => (
                     <div key={index} className='aspect-video h-60 flex'>

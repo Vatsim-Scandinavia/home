@@ -13,7 +13,7 @@ const Events = () => {
         initial: 0,
         slides: {
             spacing: 5,
-            perView: 3,
+            perView: 4,
         },
         breakpoints: {
             "(max-width: 768px)": {
@@ -25,10 +25,7 @@ const Events = () => {
         },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel);
-        },
-        created() {
-            setLoaded(true);
-        },
+        }
     });
 
     useEffect(() => {
@@ -51,14 +48,25 @@ const Events = () => {
                 setLoading(false);
             }
         };
+
         fetchData();
     }, []);
 
     useEffect(() => {
-        if (instanceRef.current) {
-            instanceRef.current.update(); // Reapply Keen Slider settings
+        if (!loading && events.length > 0) {
+            const skeleton = document.getElementById('live-stats-skeleton');
+            const skeletonlive = document.getElementById('live-stats');
+            if (skeleton) {
+                skeleton.style.display = 'none';
+            }
+            if (skeletonlive) {
+                skeletonlive.style.display = 'flex';
+            }
+            if (instanceRef.current) {
+                instanceRef.current.update(); // Reapply Keen Slider settings
+            }
         }
-    }, [events]);
+    }, [loading, events]);
 
     function dateConverter(start, end) {
         const startDate = new Date(start);
@@ -72,133 +80,58 @@ const Events = () => {
     }
 
     return (
-        <div className="flex flex-col gap-2 w-full h-fit">
-            {loading ? (
-                <>
-                    {/* Skeleton for main events - matches actual layout */}
-                    <div className="animate-pulse">
-                        <div className="flex col-span-3 gap-2 md:gap-4 relative w-full flex-col md:flex-row mb-4 md:mb-0">
-                            <div className="h-fit aspect-video">
-                                <div className="w-full md:w-96 h-fit aspect-video bg-gray-300 dark:bg-secondary rounded-sm"></div>
-                            </div>
-                            <div className="flex flex-col justify-between">
-                                <div className="w-fit">
-                                    <div className="h-6 bg-gray-300 dark:bg-secondary rounded w-80 mb-2"></div>
-                                    <div className="h-4 bg-gray-200 dark:bg-tertiary rounded w-64 mb-4"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-3/4 mb-2"></div>
-                                    <div className="h-8 bg-gray-300 dark:bg-secondary rounded w-24 mt-2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="animate-pulse">
-                        <div className="flex col-span-3 gap-2 md:gap-4 relative w-full flex-col md:flex-row mb-4 md:mb-0">
-                            <div className="h-fit aspect-video">
-                                <div className="w-full md:w-96 h-fit aspect-video bg-gray-300 dark:bg-secondary rounded-sm"></div>
-                            </div>
-                            <div className="flex flex-col justify-between">
-                                <div className="w-fit">
-                                    <div className="h-6 bg-gray-300 dark:bg-secondary rounded w-80 mb-2"></div>
-                                    <div className="h-4 bg-gray-200 dark:bg-tertiary rounded w-64 mb-4"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-full mb-1"></div>
-                                    <div className="h-4 bg-gray-100 dark:bg-tertiary rounded w-3/4 mb-2"></div>
-                                    <div className="h-8 bg-gray-300 dark:bg-secondary rounded w-24 mt-2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Skeleton for slider - matches navigation-wrapper */}
-                    <div className="animate-pulse">
-                        <div className="navigation-wrapper">
-                            <div className="flex gap-2">
-                                <div className="w-64 aspect-video bg-gray-300 dark:bg-secondary rounded-sm"></div>
-                                <div className="w-64 aspect-video bg-gray-300 dark:bg-secondary rounded-sm"></div>
-                                <div className="w-64 aspect-video bg-gray-300 dark:bg-secondary rounded-sm"></div>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            ) : error ? (
-                <div className="text-center py-8">
-                    <p className="font-semibold text-lg">Error!</p>
-                    <p className="text-red-500 mt-2">{error}</p>
-                </div>
-            ) : (
-                <>
-                    {events.slice(0, 2).map((item, index) => (
-                        <div key={index}>
-                            {index < 2 ?
-                                <div key={index} className='flex col-span-3 gap-2 md:gap-4 relative w-full flex-col md:flex-row mb-4 md:mb-0'>
-                                    <a target='_blank' href={item.link} className='h-fit aspect-video'>
-                                        <img src={item.image} className={`w-full md:w-96 h-fit aspect-video rounded-sm absolute'}`} />
-                                    </a>
-                                    <div className='flex flex-col justify-between'>
-                                        <div className='w-fit'>
-                                            <h2 className='font-semibold text-lg md:text-xl text-secondary dark:text-white'>{item.title}</h2>
-                                            <p className='text-grey font-bold pb-4 dark:text-gray-300'>{events.length !== 0 ? dateConverter(item.start_date, item.end_date) : ""}z</p>
-                                            <p className={`line-clamp-6 mb-1`}>{item.short_description}</p>
-                                            <a href={item.link} className={`bg-snow p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm`} target='_blank'>
-                                                Read more
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                :
-                                <div className="animate-pulse flex">
-                                    <div className="aspect-video w-full md:w-96 bg-gray-300 dark:bg-secondary"></div>
-                                    <div className="w-fit bg-gray-100 dark:bg-secondary rounded  mb-1"></div>
-                                </div>
-                            }
-                        </div>
-                    ))}
-                    <>
-                        <div className="navigation-wrapper">
-                            <div ref={sliderRef} className="keen-slider">
-                                {events.slice(2, 9).map((item, index) => (
-                                    <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide w-64 aspect-video bg-cover bg-[image:var(--image-url)] inline-block mr-2 before:block number-slide${index}`} target='_blank' href={item.link} />
-                                ))}
-                            <a
-                                href="https://events.vatsim-scandinavia.org"
-                                target="_blank"
-                                className="keen-slider__slide w-64 aspect-video bg-secondary text-white text-xl flex items-center justify-center text-center font-semibold"
-                            >
-                                More Events <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem" />
+        <div className="flex flex-col w-full h-fit" id="live-stats" style={{ display: loading ? 'none' : 'flex' }}>
+            <div className="flex h-2/3 flex-col gap-2" >
+                {events.slice(0, 2).map((item, index) => (
+                    <div key={index} className='aspect-video h-60 flex'>
+                        <a target='_blank' href={item.link} className='h-full aspect-video bg-center bg-cover rounded' style={{ backgroundImage: `url(${item.image})` }}>
+                        </a>
+                        <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
+                            <h2 className='font-bold text-xl md:text-2xl text-secondary dark:text-white'>{item.title}</h2>
+                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{events.length !== 0 ? dateConverter(item.start_date, item.end_date) : ""}z</p>
+                            <p className={`line-clamp-6 mb-1`}>{item.short_description}</p>
+                            <a href={item.link} className={`bg-snow p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm bottom-0 absolute w-full`} target='_blank'>
+                                Read more
                             </a>
-                            </div>
-                            {
-                                <>
-                                    <Arrow
-                                        left
-                                        onClick={(e) =>
-                                            e.stopPropagation() || instanceRef.current?.prev()
-                                        }
-                                        disabled={currentSlide === 0}
-                                    />
-
-                                    <Arrow
-                                        onClick={(e) =>
-                                            e.stopPropagation() || instanceRef.current?.next()
-                                        }
-                                        disabled={
-                                            currentSlide ===
-                                            instanceRef.current?.track?.details?.slides?.length - 1
-                                        }
-                                    />
-                                </>
-                            }
                         </div>
-                    </>
-                </>
-            )}
+                    </div>
+                ))}
+                <div className="navigation-wrapper h-1/3">
+                    <div ref={sliderRef} className="keen-slider">
+                        {events.slice(2, 9).map((item, index) => (
+                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover w-12 inline-block mr-2 number-slide${index} rounded `} target='_blank' href={item.link} />
+                        ))}
+                        <a
+                            href="https://events.vatsim-scandinavia.org"
+                            target="_blank"
+                            className="keen-slider__slide h-32 w-auto aspect-video bg-secondary text-white text-xl flex items-center justify-center text-center font-semibold"
+                        >
+                            More Events <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem" />
+                        </a>
+                    </div>
+                    {
+                        <>
+                            <Arrow
+                                left
+                                onClick={(e) =>
+                                    e.stopPropagation() || instanceRef.current?.prev()
+                                }
+                                disabled={currentSlide === 0}
+                            />
+
+                            <Arrow
+                                onClick={(e) =>
+                                    e.stopPropagation() || instanceRef.current?.next()
+                                }
+                                disabled={
+                                    currentSlide ===
+                                    instanceRef.current?.track?.details?.slides?.length - 1
+                                }
+                            />
+                        </>
+                    }
+                </div>
+            </div>
         </div>
     );
 };
@@ -208,9 +141,8 @@ function Arrow(props) {
     return (
         <svg
             onClick={props.onClick}
-            className={`arrow ${
-                props.left ? "arrow--left" : "arrow--right"
-            } ${disabled}`}
+            className={`arrow ${props.left ? "arrow--left" : "arrow--right"
+                } ${disabled}`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
         >

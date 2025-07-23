@@ -5,13 +5,12 @@ import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 const Events = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [events, setEvents] = useState([]);
-    const [loaded, setLoaded] = useState(false);
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
         slides: {
             spacing: 5,
-            perView: 3,
+            perView: 4,
         },
         breakpoints: {
             "(max-width: 768px)": {
@@ -23,10 +22,7 @@ const Events = () => {
         },
         slideChanged(slider) {
             setCurrentSlide(slider.track.details.rel);
-        },
-        created() {
-            setLoaded(true);
-        },
+        }
     });
 
     useEffect(() => {
@@ -39,10 +35,20 @@ const Events = () => {
                 console.error('Error fetching events:', error);
             }
         };
+
         fetchData();
     }, []);
 
     useEffect(() => {
+
+        if (events.length > 4) {
+            const skeleton = document.getElementById('live-stats-skeleton');
+            const skeletonlive = document.getElementById('live-stats');
+            if (skeleton) {
+                skeleton.style.display = 'none';
+                skeletonlive.style.display = 'flex';
+            }
+        }
         if (instanceRef.current) {
             instanceRef.current.update(); // Reapply Keen Slider settings
         }
@@ -60,43 +66,34 @@ const Events = () => {
     }
 
     return (
-        <div className="flex flex-col gap-2 w-full h-fit">
-            {events.slice(0, 2).map((item, index) => (
-                <div key={index}>
-                    {index < 2 ?
-                        <div key={index} className='flex col-span-3 gap-2 md:gap-4 relative w-full flex-col md:flex-row mb-4 md:mb-0 animate-entry'>
-                            <a target='_blank' href={item.link} className='h-fit aspect-video'>
-                                <img src={item.image} className={`w-full md:w-96 h-fit aspect-video rounded-sm absolute'}`} />
+        <div className="hidden flex-col w-full h-fit" id="live-stats">
+            <div className="flex h-2/3 flex-col gap-2" >
+                {events.slice(0, 2).map((item, index) => (
+                    <div key={index} className='aspect-video h-60 flex'>
+                        <a target='_blank' href={item.link} className='h-full aspect-video bg-center bg-cover rounded' style={{ backgroundImage: `url(${item.image})` }}>
+                        </a>
+                        <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
+                            <h2 className='font-bold text-xl md:text-2xl text-secondary dark:text-white'>{item.title}</h2>
+                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{events.length !== 0 ? dateConverter(item.start_date, item.end_date) : ""}z</p>
+                            <p className={`line-clamp-6 mb-1`}>{item.short_description}</p>
+                            <a href={item.link} className={`bg-snow p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm bottom-0 absolute w-full`} target='_blank'>
+                                Read more
                             </a>
-                            <div className='flex flex-col justify-between'>
-                                <div className='w-fit'>
-                                    <h2 className='font-semibold text-lg md:text-xl text-secondary dark:text-white'>{item.title}</h2>
-                                    <p className='text-grey font-bold pb-4 dark:text-gray-300'>{events.length !== 0 ? dateConverter(item.start_date, item.end_date) : ""}z</p>
-                                    <p className={`line-clamp-6 mb-1`}>{item.short_description}</p>
-                                    <a href={item.link} className={`bg-snow p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm`} target='_blank'>
-                                        Read more
-                                    </a>
-                                </div>
-                            </div>
                         </div>
-                        :
-                        <iframe src="https://lottie.host/embed/e516525c-74c1-4db5-b2b2-bb135366e103/W8AodEgALN.json" className="w-full h-full" />
-                    }
-                </div>
-            ))}
-            <>
-                <div className="navigation-wrapper">
+                    </div>
+                ))}
+                <div className="navigation-wrapper h-1/3">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
-                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide w-64 aspect-video bg-cover bg-[image:var(--image-url)] inline-block mr-2 before:block number-slide${index}`} target='_blank' href={item.link} />
+                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover w-12 inline-block mr-2 number-slide${index} rounded `} target='_blank' href={item.link} />
                         ))}
-                    <a
-                        href="https://events.vatsim-scandinavia.org"
-                        target="_blank"
-                        className="keen-slider__slide w-64 aspect-video bg-secondary text-white text-xl flex items-center justify-center text-center font-semibold"
-                    >
-                        More Events <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem" />
-                    </a>
+                        <a
+                            href="https://events.vatsim-scandinavia.org"
+                            target="_blank"
+                            className="keen-slider__slide h-32 w-auto aspect-video bg-secondary text-white text-xl flex items-center justify-center text-center font-semibold"
+                        >
+                            More Events <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem" />
+                        </a>
                     </div>
                     {
                         <>
@@ -120,7 +117,7 @@ const Events = () => {
                         </>
                     }
                 </div>
-            </>
+            </div>
         </div>
     );
 };
@@ -130,9 +127,8 @@ function Arrow(props) {
     return (
         <svg
             onClick={props.onClick}
-            className={`arrow ${
-                props.left ? "arrow--left" : "arrow--right"
-            } ${disabled}`}
+            className={`arrow ${props.left ? "arrow--left" : "arrow--right"
+                } ${disabled}`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
         >

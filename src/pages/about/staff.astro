@@ -310,10 +310,10 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
             <h2 class="text-xl font-bold mb-2 mt-6">{department[0]?.DEPARTMENT}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
                 {department.map((staff, idx) => (
-                    <card class="bg-white w-[24rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center mx-auto relative" key={idx}>
+                    <card class="bg-white dark:bg-secondary w-[24rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center mx-auto relative" key={idx}>
                         <img src={typeof staff.AVATAR !== "undefined" && staff.AVATAR ? staff.AVATAR : '/img/avatar.jpg'} alt="" class="aspect-square w-20 h-20 rounded object-cover" />
                         <div class="w-full h-full flex flex-col ">
-                            <p class="text-sm text-gray-500 font-medium">{staff.CID ? staff.CID : 'N/A'}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300 font-medium">{staff.CID ? staff.CID : 'N/A'}</p>
                             <p class="text-lg font-medium -mt-1">{staff.NAME ? staff.NAME : 'N/A'} <img src={`/img/icons/${staff.COUNTRY}.svg`} class="w-4 h-auto inline-block"></p>
                             <p class="text-sm font-medium -mt-1">{staff.POSITION}</p>
                             <p class="text-sm mt-1">{staff.EMAIL}</p>

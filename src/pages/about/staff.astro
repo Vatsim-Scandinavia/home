@@ -1,8 +1,6 @@
 ---
 import PageContainer from "../../components/ui/PageContainer.astro"
-import Link from "../../components/ui/Link.astro"
 import AvailabilityDecode from "../../components/AvailabilityDecode"
-import {ExternalLinkIcon} from '../../components/icons/ExternalLinkIcon';
 
 const Director = [{
     POSITION: "vACC Director",
@@ -12,6 +10,7 @@ const Director = [{
     AVILABILITY: "AVL",
     DEPARTMENT: "Board of Directors",
     COUNTRY: "DK",
+    AVATAR: "/img/staff/dda.jpg"
 }]
 const Training = [
 {
@@ -22,6 +21,7 @@ const Training = [
     AVILABILITY: "AVL",
     DEPARTMENT: "Training",
     COUNTRY: "SE",
+    AVATAR: "/img/staff/nthell.webp"
 },
 {
     POSITION: "Training Manager Denmark",
@@ -31,6 +31,7 @@ const Training = [
     AVILABILITY: "AVL",
     DEPARTMENT: "Training",
     COUNTRY: "DK",
+    AVATAR: "/img/staff/broeggeren.webp"
 },
 {
     POSITION: "Training Manager Norway",
@@ -49,6 +50,7 @@ const Training = [
     AVILABILITY: "AVL",
     DEPARTMENT: "Training",
     COUNTRY: "FI",
+    AVATAR: "/img/staff/otuhkunen.webp"
 },
 {
     POSITION: "Training Manager Iceland",
@@ -105,6 +107,7 @@ const Board = [
     AVILABILITY: "AVL",
     COUNTRY: "DK",
     DEPARTMENT: "Board of Directors",
+    AVATAR: "/img/staff/lagerskov.webp"
 },
 {
     POSITION: "Director of Polaris FIR",
@@ -141,6 +144,7 @@ const Board = [
     AVILABILITY: "AVL",
     COUNTRY: "IS",
     DEPARTMENT: "Board of Directors",
+    AVATAR: "/img/staff/ahobbs.webp"
 }
 ]
 const Technical = [
@@ -188,6 +192,7 @@ const Technical = [
     AVILABILITY: "AVL",
     COUNTRY: "DK",
     DEPARTMENT: "Tech Team",
+    AVATAR: "/img/staff/sbjerre.jpg"
 },
 {
     POSITION: "Data Protection Officer",
@@ -208,6 +213,7 @@ const Event = [
     AVILABILITY: "AVL",
     COUNTRY: "NO",
     DEPARTMENT: "Event Department",
+    AVATAR: "/img/staff/mhorsteinsson.webp"
 },
 {
     POSITION: "Event Assistant Sweden",
@@ -226,6 +232,7 @@ const Event = [
     AVILABILITY: "AVL",
     COUNTRY: "DK",
     DEPARTMENT: "Event Department",
+    AVATAR: "/img/staff/jhvenegaard.webp"
 },
 {
     POSITION: "Event Assistant Norway",
@@ -301,15 +308,15 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
     {StaffArray.map((department, depIdx) => (
         <div key={depIdx} class="col-span-full">
             <h2 class="text-xl font-bold mb-2 mt-6">{department[0]?.DEPARTMENT}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
                 {department.map((staff, idx) => (
-                    <card class="bg-white w-[24rem] h-28 rounded flex p-2 gap-2 shadow items-center justify-center mx-auto relative" key={idx}>
-                        <img src="/img/avatar.jpg" alt="" class="aspect-square w-24 h-24 rounded object-cover" />
+                    <card class="bg-white w-[24rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center mx-auto relative" key={idx}>
+                        <img src={typeof staff.AVATAR !== "undefined" && staff.AVATAR ? staff.AVATAR : '/img/avatar.jpg'} alt="" class="aspect-square w-20 h-20 rounded object-cover" />
                         <div class="w-full h-full flex flex-col ">
-                            <p class="text-sm text-gray-500 font-medium">{staff.DEPARTMENT}</p>
+                            <p class="text-sm text-gray-500 font-medium">{staff.CID ? staff.CID : 'N/A'}</p>
                             <p class="text-lg font-medium -mt-1">{staff.NAME ? staff.NAME : 'N/A'} <img src={`/img/icons/${staff.COUNTRY}.svg`} class="w-4 h-auto inline-block"></p>
-                            <p class="text-sm font-medium -mt-1">{staff.POSITION} | {staff.CID ? staff.CID : 'N/A'}</p>
-                            <p class="text-sm mt-3">{staff.EMAIL}</p>
+                            <p class="text-sm font-medium -mt-1">{staff.POSITION}</p>
+                            <p class="text-sm mt-1">{staff.EMAIL}</p>
                             <span class="absolute top-2 right-2 text-xs text-gray-500"><AvailabilityDecode Availability={staff.AVILABILITY} /></span>
                         </div>
                     </card>

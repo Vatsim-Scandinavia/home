@@ -81,9 +81,9 @@ const Events = () => {
 
     return (
         <div className="flex flex-col w-full h-fit" id="live-stats" style={{ display: loading ? 'none' : 'flex' }}>
-            <div className="flex h-2/3 flex-col gap-2" >
+            <div className="flex h-full flex-col gap-2" >
                 {events.slice(0, 2).map((item, index) => (
-                    <div key={index} className='aspect-video h-60 flex'>
+                    <div key={index} className='aspect-video h-1/3 md:h-60 flex'>
                         <a target='_blank' href={item.link} className='h-full aspect-video bg-center bg-cover rounded' style={{ backgroundImage: `url(${item.image})` }}>
                         </a>
                         <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
@@ -99,7 +99,7 @@ const Events = () => {
                 <div className="navigation-wrapper h-1/3">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
-                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover w-12 inline-block mr-2 number-slide${index} rounded `} target='_blank' href={item.link} />
+                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover w-12 inline-block mr-2 number-slide${index} rounded aspect-video`} target='_blank' href={item.link} />
                         ))}
                         <a
                             href="https://events.vatsim-scandinavia.org"

@@ -1,17 +1,6 @@
 ---
-import React from "react";
 import PageContainer from "../../components/ui/PageContainer.astro"
-import Link from "../../components/ui/Link.astro"
 import AvailabilityDecode from "../../components/AvailabilityDecode"
-import {ExternalLinkIcon} from '../../components/icons/ExternalLinkIcon';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "../../components/ui/Table.tsx"
 
 const Director = [{
     POSITION: "vACC Director",
@@ -19,6 +8,9 @@ const Director = [{
     NAME: "Daniel Dahl Andersen",
     EMAIL: "director@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    DEPARTMENT: "Board of Directors",
+    COUNTRY: "DK",
+    AVATAR: "/img/staff/dda.jpg"
 }]
 const Training = [
 {
@@ -27,6 +19,9 @@ const Training = [
     NAME: "Niklas Thell",
     EMAIL: "training-sweden@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    DEPARTMENT: "Training",
+    COUNTRY: "SE",
+    AVATAR: "/img/staff/nthell.webp"
 },
 {
     POSITION: "Training Manager Denmark",
@@ -34,6 +29,9 @@ const Training = [
     NAME: "Thomas Brøgger",
     EMAIL: "training-denmark@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    DEPARTMENT: "Training",
+    COUNTRY: "DK",
+    AVATAR: "/img/staff/broeggeren.webp"
 },
 {
     POSITION: "Training Manager Norway",
@@ -41,6 +39,8 @@ const Training = [
     NAME: "Marius Linge",
     EMAIL: "training-norway@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    DEPARTMENT: "Training",
+    COUNTRY: "NO",
 },
 {
     POSITION: "Training Manager Finland",
@@ -48,6 +48,9 @@ const Training = [
     NAME: "Otto Tuhkunen",
     EMAIL: "training-finland@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    DEPARTMENT: "Training",
+    COUNTRY: "FI",
+    AVATAR: "/img/staff/otuhkunen.webp"
 },
 {
     POSITION: "Training Manager Iceland",
@@ -55,13 +58,17 @@ const Training = [
     NAME: "Kieran Riley",
     EMAIL: "training-iceland@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    DEPARTMENT: "Training",
+    COUNTRY: "IS",
 },
 {
     POSITION: "Training Assistant Sweden",
-    CID: "0",
-    NAME: "Vacant",
+    CID: "",
+    NAME: "",
     EMAIL: "training-sweden@vatsim-scandinavia.org",
     AVILABILITY: "VAC",
+    DEPARTMENT: "Training",
+    COUNTRY: "EU"
 },
 {
     POSITION: "Training Assistant Denmark",
@@ -69,13 +76,17 @@ const Training = [
     NAME: "Jakob Ek Jensen",
     EMAIL: "training-denmark@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    DEPARTMENT: "Training",
+    COUNTRY: "DK"
 },
 {
     POSITION: "Training Assistant Norway",
-    CID: 0,
-    NAME: "Vacant",
+    CID: "",
+    NAME: "",
     EMAIL: "training-norway@vatsim-scandinavia.org",
     AVILABILITY: "VAC",
+    DEPARTMENT: "Training",
+    COUNTRY: "EU"
 }
 ]
 const Board = [
@@ -85,6 +96,8 @@ const Board = [
     NAME: "Jeppe Seier",
     EMAIL: "training-director@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "DK",
+    DEPARTMENT: "Board of Directors",
 },
 {
     POSITION: "Director of Copenhagen FIR",
@@ -92,6 +105,9 @@ const Board = [
     NAME: "Lukas Agerskov",
     EMAIL: "denmark@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "DK",
+    DEPARTMENT: "Board of Directors",
+    AVATAR: "/img/staff/lagerskov.webp"
 },
 {
     POSITION: "Director of Polaris FIR",
@@ -99,6 +115,8 @@ const Board = [
     NAME: "Adrian Bjerke",
     EMAIL: "norway@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "NO",
+    DEPARTMENT: "Board of Directors",
 },
 {
     POSITION: "Director of Sweden FIR",
@@ -106,13 +124,17 @@ const Board = [
     NAME: "Martin Loxbo",
     EMAIL: "sweden@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "SE",
+    DEPARTMENT: "Board of Directors",
 },
 {
     POSITION: "Director of Helsinki FIR",
-    CID: 0,
-    NAME: "Vacant",
+    CID: "",
+    NAME: "",
     EMAIL: "finland@vatsim-scandinavia.org",
     AVILABILITY: "VAC",
+    COUNTRY: "EU",
+    DEPARTMENT: "Board of Directors",
 },
 {
     POSITION: "Director of Reykjavík CTA",
@@ -120,22 +142,20 @@ const Board = [
     NAME: "Andrew Hobbs",
     EMAIL: "iceland@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "IS",
+    DEPARTMENT: "Board of Directors",
+    AVATAR: "/img/staff/ahobbs.webp"
 }
 ]
 const Technical = [
-{
-    POSITION: "Data Protection Officer",
-    CID: 1203470,
-    NAME: "Henrik Sønstebø",
-    EMAIL: "dpo@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-},
 {
     POSITION: "Technical Manager",
     CID: 1352906,
     NAME: "Daniel Lange",
     EMAIL: "tech@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "NO",
+    DEPARTMENT: "Tech Team",
 },
 {
     POSITION: "Technical Assistant",
@@ -143,6 +163,8 @@ const Technical = [
     NAME: "Thor Høgås",
     EMAIL: "tech@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "NO",
+    DEPARTMENT: "Tech Team",
 },
 {
     POSITION: "Technical Assistant",
@@ -150,6 +172,8 @@ const Technical = [
     NAME: "David Mortensen",
     EMAIL: "tech@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "DK",
+    DEPARTMENT: "Tech Team",
 },
 {
     POSITION: "Technical Assistant",
@@ -157,6 +181,8 @@ const Technical = [
     NAME: "Markus Nielsen",
     EMAIL: "tech@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "DK",
+    DEPARTMENT: "Tech Team",
 },
 {
     POSITION: "Technical Assistant",
@@ -164,6 +190,18 @@ const Technical = [
     NAME: "Simon Bjerre",
     EMAIL: "tech@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "DK",
+    DEPARTMENT: "Tech Team",
+    AVATAR: "/img/staff/sbjerre.jpg"
+},
+{
+    POSITION: "Data Protection Officer",
+    CID: 1203470,
+    NAME: "Henrik Sønstebø",
+    EMAIL: "dpo@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+    COUNTRY: "SE",
+    DEPARTMENT: "Tech Team",
 }
 ]
 const Event = [
@@ -173,6 +211,9 @@ const Event = [
     NAME: "Martin Thorsteinsson",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "NO",
+    DEPARTMENT: "Event Department",
+    AVATAR: "/img/staff/mhorsteinsson.webp"
 },
 {
     POSITION: "Event Assistant Sweden",
@@ -180,13 +221,18 @@ const Event = [
     NAME: "Marcus Lundelin",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "SE",
+    DEPARTMENT: "Event Department",
 },
 {
     POSITION: "Event Assistant Denmark",
-    CID: "1745220",
+    CID: 1745220,
     NAME: "Jesper Hvenegaard",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "DK",
+    DEPARTMENT: "Event Department",
+    AVATAR: "/img/staff/jhvenegaard.webp"
 },
 {
     POSITION: "Event Assistant Norway",
@@ -194,6 +240,8 @@ const Event = [
     NAME: "Ask Erikstad",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "NO",
+    DEPARTMENT: "Event Department",
 },
 {
     POSITION: "Event Assistant Finland",
@@ -201,6 +249,8 @@ const Event = [
     NAME: "Henri Luiro",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "FI",
+    DEPARTMENT: "Event Department",
 },
 {
     POSITION: "Event Assistant Iceland",
@@ -208,6 +258,8 @@ const Event = [
     NAME: "Florence Véran",
     EMAIL: "event@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "IS",
+    DEPARTMENT: "Event Department",
 }
 ]
 const Pilot = [
@@ -217,6 +269,9 @@ const Pilot = [
     NAME: "Tim Krockel",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "EU",
+    DEPARTMENT: "Pilot Training",
+    AVATAR: "/img/staff/tkrockel.webp"
 },
 {
     POSITION: "Chief Flight Instructor",
@@ -224,6 +279,8 @@ const Pilot = [
     NAME: "Arttu Uusi-Kyyny",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "EU",
+    DEPARTMENT: "Pilot Training",
 },
 {
     POSITION: "Deputy Chief Flight Instructor",
@@ -231,78 +288,57 @@ const Pilot = [
     NAME: "Vincent Matsuuke",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "EU",
+    DEPARTMENT: "Pilot Training",
 },
 {
     POSITION: "Acting Pilot Training Manager",
     CID: 1480445,
-    NAME: "	Tiitus Ehiarinmwian",
+    NAME: "Tiitus Ehiarinmwian",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
+    COUNTRY: "EU",
+    DEPARTMENT: "Pilot Training",
 }
 ]
 
 const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
 ---
 <PageContainer SiteTitle="Staff">
-    <h1 class="text-5xl py-12 font-semibold">Staff</h1>
-    <div class="bg-white/75 dark:bg-tertiary p-8 mb-8">
-        <p class="text-lg dark:text-white italic text-center">
-            Feedback for our ATC services, or general comments about VATSIM
-            Scandinavia can be sent
-            <Link href="https://cc.vatsim-scandinavia.org/feedback" target="_blank">here<ExternalLinkIcon width="0.75rem" marginLeft="0.3rem"/> </Link>
-        </p>
-        <div
-        class="w-full max-w-[1500px] py-6 flex-col gap-4 place-content-center  justify-items-center opacity-0 lg:opacity-100 hidden lg:flex transition"
+    <h1 class="text-4xl font-semibold mt-8 mb-4">VATSCA Staff</h1>
+    <p>Meet the dedicated individuals who make VATSIM Scandinavia a great community. <br/>
+    For feedback please use our dedicated feedback form! <a href="/feedback" target="_blank" class="text-blue-600 font-semibold">Here <svg 
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        width="10px"
+        style={{display: "inline"}}
         >
-        <Table class:list={"bg-black dark:bg-white"}>
-            <TableHeader>
-                <TableRow>
-                    <TableHead className="font-bold text-black dark:text-white">Position</TableHead>
-                    <TableHead className="font-bold text-black dark:text-white">Name</TableHead>
-                    <TableHead className="font-bold text-black dark:text-white">CID</TableHead>
-                    <TableHead className="font-bold text-black dark:text-white">E-mail</TableHead>
-                    <TableHead className="font-bold text-black dark:text-white">Availability</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {
-                    StaffArray.map((staff, index) => (
-                        <React.Fragment>
-                            {StaffArray[index].map((staff) => (
-                                <TableRow>
-                                    <TableCell>{staff.POSITION}</TableCell>
-                                    <TableCell>{staff.NAME}</TableCell>
-                                    <TableCell>{staff.CID}</TableCell>
-                                    <TableCell>{staff.EMAIL}</TableCell>
-                                    <TableCell><AvailabilityDecode Availability={staff.AVILABILITY}/></TableCell>
-                                </TableRow>
-                            ))} 
-                        </React.Fragment>
-                    ))
-                }
-            </TableBody>
-        </Table>
-        <div class="flex flex-row gap-5 justify-between text-sm mt-4 max-lg:flex-wrap">
-            <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="AVL"/> = Available and can be reached on a daily basis</span>
-            <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="OOO"/> = Out of Office (longer vacation, 3-6 weeks)</span>
-            <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="DEP"/> = Away for more than 2 months</span>
-            <span class="max-lg:w-[100%]"><AvailabilityDecode Availability="VAC"/> = Vacant Position</span>
-        </div>
-    </div>
-    <div class="w-full grid gap-4 grid-cols-1 content-center place-items-center md:grid-cols-2 opacity-100 lg:hidden transition">
-        {
-            StaffArray.map((staff, index) => (
-                <React.Fragment>
-                    {StaffArray[index].map((staff) => (
-                        <div class="bg-tertiary dark:bg-secondary p-4 w-80 text-white rounded">
-                            <p class="font-semibold text-xl">{staff.POSITION}</p>
-                            <p>{staff.NAME}</p>
-                            <p>{staff.CID}</p>
-                            <p>{staff.EMAIL}</p>
+        <path 
+        fill="currentColor"
+        d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/>
+    </svg></a></p>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 content-center items-center justify-center align-middle mb-12">
+    {StaffArray.map((department, depIdx) => (
+        <div key={depIdx} class="col-span-full">
+            <h2 class="text-xl font-bold mb-2 mt-6">{department[0]?.DEPARTMENT}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
+                {department.map((staff, idx) => (
+                    <card class="bg-white dark:bg-secondary w-[24rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center mx-auto relative" key={idx}>
+                        <img src={typeof staff.AVATAR !== "undefined" && staff.AVATAR ? staff.AVATAR : '/img/avatar.jpg'} alt="" class="aspect-square w-20 h-20 rounded object-cover" />
+                        <div class="w-full h-full flex flex-col ">
+                            <p class="text-sm text-gray-500 dark:text-gray-300 font-medium">{staff.CID ? staff.CID : 'N/A'}</p>
+                            <p class="text-lg font-medium -mt-1">{staff.NAME ? staff.NAME : 'N/A'} <img src={`/img/icons/${staff.COUNTRY}.svg`} class="w-4 h-auto inline-block"></p>
+                            <p class="text-sm font-medium -mt-1">{staff.POSITION}</p>
+                            <p class="text-sm mt-1">{staff.EMAIL}</p>
+                            <span class="absolute top-2 right-2 text-xs text-gray-500"><AvailabilityDecode Availability={staff.AVILABILITY} /></span>
                         </div>
-                    ))} 
-                </React.Fragment>
-            ))
-        }
+                    </card>
+                ))}
+            </div>
+        </div>
+    ))}
     </div>
+
+
 </PageContainer>

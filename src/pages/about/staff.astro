@@ -8,7 +8,7 @@ const Director = [{
     NAME: "Daniel Dahl Andersen",
     EMAIL: "director@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    DEPARTMENT: "Board of Directors",
+    DEPARTMENT: "vACC Director",
     COUNTRY: "DK",
     AVATAR: "/img/staff/dda.jpg"
 }]
@@ -63,12 +63,12 @@ const Training = [
 },
 {
     POSITION: "Training Assistant Sweden",
-    CID: "",
-    NAME: "",
+    CID: 0,
+    NAME: "Vacant",
     EMAIL: "training-sweden@vatsim-scandinavia.org",
     AVILABILITY: "VAC",
     DEPARTMENT: "Training",
-    COUNTRY: "EU"
+    COUNTRY: "SE"
 },
 {
     POSITION: "Training Assistant Denmark",
@@ -81,12 +81,12 @@ const Training = [
 },
 {
     POSITION: "Training Assistant Norway",
-    CID: "",
-    NAME: "",
+    CID: 0,
+    NAME: "Vacant",
     EMAIL: "training-norway@vatsim-scandinavia.org",
     AVILABILITY: "VAC",
     DEPARTMENT: "Training",
-    COUNTRY: "EU"
+    COUNTRY: "NO"
 }
 ]
 const Board = [
@@ -133,7 +133,7 @@ const Board = [
     NAME: "",
     EMAIL: "finland@vatsim-scandinavia.org",
     AVILABILITY: "VAC",
-    COUNTRY: "EU",
+    COUNTRY: "FI",
     DEPARTMENT: "Board of Directors",
 },
 {
@@ -200,7 +200,7 @@ const Technical = [
     NAME: "Henrik Sønstebø",
     EMAIL: "dpo@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    COUNTRY: "SE",
+    COUNTRY: "NO",
     DEPARTMENT: "Tech Team",
 }
 ]
@@ -269,16 +269,7 @@ const Pilot = [
     NAME: "Tim Krockel",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    COUNTRY: "EU",
-    DEPARTMENT: "Pilot Training",
-},
-{
-    POSITION: "Chief Flight Instructor",
-    CID: 1358735,
-    NAME: "Arttu Uusi-Kyyny",
-    EMAIL: "pilot-training@vatsim-scandinavia.org",
-    AVILABILITY: "AVL",
-    COUNTRY: "EU",
+    COUNTRY: "FI",
     DEPARTMENT: "Pilot Training",
 },
 {
@@ -287,16 +278,52 @@ const Pilot = [
     NAME: "Vincent Matsuuke",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    COUNTRY: "EU",
+    COUNTRY: "FI",
     DEPARTMENT: "Pilot Training",
 },
 {
-    POSITION: "Acting Pilot Training Manager",
-    CID: 1480445,
-    NAME: "Tiitus Ehiarinmwian",
+    POSITION: "Chief Flight Instructor Iceland",
+    CID: 0,
+    NAME: "Vacant",
+    EMAIL: "pilot-training@vatsim-scandinavia.org",
+    AVILABILITY: "VAC",
+    COUNTRY: "IS",
+    DEPARTMENT: "Pilot Training",
+},
+{
+    POSITION: "Chief Flight Instructor Denmark",
+    CID: 0,
+    NAME: "Vacant",
+    EMAIL: "pilot-training@vatsim-scandinavia.org",
+    AVILABILITY: "VAC",
+    COUNTRY: "DK",
+    DEPARTMENT: "Pilot Training",
+},
+{
+    POSITION: "Chief Flight Instructor Norway",
+    CID: 1490886,
+    NAME: "Koen Batist",
     EMAIL: "pilot-training@vatsim-scandinavia.org",
     AVILABILITY: "AVL",
-    COUNTRY: "EU",
+    COUNTRY: "NO",
+    DEPARTMENT: "Pilot Training",
+},
+{
+    POSITION: "Chief Flight Instructor Sweden",
+    CID: 1765290,
+    NAME: "Johan Sjölin",
+    EMAIL: "pilot-training@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+    COUNTRY: "SE",
+    DEPARTMENT: "Pilot Training",
+},
+{
+    POSITION: "Chief Flight Instructor Finland",
+    CID: 1287572,
+    NAME: "Ville-Valtteri Veikkolainen",
+    EMAIL: "pilot-training@vatsim-scandinavia.org",
+    AVILABILITY: "AVL",
+    COUNTRY: "FI",
     DEPARTMENT: "Pilot Training",
 }
 ]
@@ -308,7 +335,7 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
     {StaffArray.map((department, depIdx) => (
         <div key={depIdx} class="col-span-full">
             <h2 class="text-xl font-bold mb-2 mt-6">{department[0]?.DEPARTMENT}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 pb-12">
                 {department.map((staff, idx) => (
                     <card class="bg-white dark:bg-secondary w-[24rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center mx-auto relative" key={idx}>
                         <img src={typeof staff.AVATAR !== "undefined" && staff.AVATAR ? staff.AVATAR : '/img/avatar.jpg'} alt="" class="aspect-square w-20 h-20 rounded object-cover" />

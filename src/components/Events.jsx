@@ -11,6 +11,7 @@ const Events = () => {
 
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
+        mode: "snap",
         slides: {
             spacing: 5,
             perView: 4,
@@ -99,12 +100,12 @@ const Events = () => {
                 <div className="navigation-wrapper h-1/3">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
-                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover w-12 inline-block mr-2 number-slide${index} rounded aspect-video`} target='_blank' href={item.link} />
+                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' href={item.link} />
                         ))}
                         <a
                             href="https://events.vatsim-scandinavia.org"
                             target="_blank"
-                            className="keen-slider__slide h-32 w-auto aspect-video bg-secondary text-white text-xl flex items-center justify-center text-center font-semibold"
+                            className="keen-slider__slide w-12 h-auto aspect-video bg-secondary text-white text-xl flex items-center justify-center text-center font-semibold"
                         >
                             More Events <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem" />
                         </a>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import moment from "moment";
 import { formatAsZulu } from "../utils/BookingHelper";
 import bookingType from "./BookingType";
@@ -77,17 +77,17 @@ const BookingComponent = () => {
                                             <td colSpan={4}>{moment(date.date).format('dddd Do MMMM')}</td>
                                         </tr> 
                                         {date.data.map((booking: MergedBooking) => (
-                                            <tr key={`${date.date}-${booking.callsign}-${booking.time_start ?? booking.logon_time ?? ''}`} className="h-6 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
+                                            <tr key={`${date.date}-${booking.callsign}-${booking.time_start ?? booking.logon_time ?? ''}`} className="h-7 even:bg-gray-50 odd:bg-white dark:even:bg-tertiary dark:odd:bg-black">
                                                 {booking.logon_time ? (
                                                     <td className="pl-[4px] text-[#447b68] font-bold">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={'10px'} height={'10px'} style={{ display: 'inline', marginRight: '2px' }}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={'10px'} height={'10px'} className="inline mr-[4px] align-baseline">
                                                             <path fill="hsl(162, 33%, 38%)" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
                                                         </svg>
                                                         {booking.callsign}
                                                     </td>
                                                 ) : (
                                                     <td className="pl-[4px]">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={'10px'} height={'10px'} style={{ display: 'inline', marginRight: '2px' }}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width={'10px'} height={'10px'} className="inline mr-[4px] align-baseline">
                                                             <path fill="grey" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
                                                         </svg>
                                                         {booking.callsign}

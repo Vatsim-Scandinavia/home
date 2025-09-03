@@ -1,5 +1,5 @@
 export interface MergedBooking {
-    cid?: string
+    cid?: number
     callsign: string;
     frequency?: string;
     logon_time?: string;

@@ -3,9 +3,82 @@ import useFetchVatsimData from "./useFetchVatsimData";
 import useFetchControlCenterData from "./useFetchControlCenterData";
 import moment from "moment";
 import { getPositionFromFrequency, positionExists } from "@/utils/BookingHelper";
-import type { BookingDataMap, MergedBooking } from "@/interfaces/Booking";
+import type { BookingDataMap } from "@/interfaces/Booking";
 import type { vatsimSession } from "@/interfaces/Vatsim";
 import type { ControlCenterBooking } from "@/interfaces/ControlCenter";
+
+const REFRESH_INTERVAL = 60000;
+const START_DAYS = 1;
+const END_DAYS = 6;
+
+/**
+ * Create a map with keys for each date between startDate and endDate, inclusive.
+ * @param startDate 
+ * @param endDate 
+ * @returns Map with keys for each date between startDate and endDate, inclusive.
+ */
+const createDateMap = (startDate: any, endDate: any) => {
+    const map = new Map();
+    for (let d = startDate; d <= endDate; d.add(1, 'days')) {
+        const mapKey = d.format('YYYY-MM-DD');
+        map.set(mapKey, { date: mapKey, data: [] });
+    }
+
+    return map;
+}
+
+/**
+ * Add Control Center bookings to the date map provided.
+ * @param map The date map to add bookings to.
+ * @param bookings The Control Center bookings to add.
+ */
+const addControlCenterBookings = (map: Map<string, BookingDataMap>, bookings: ControlCenterBooking[]) => {
+    bookings.forEach (booking => {
+        const key = moment(booking.time_start).format('YYYY-MM-DD');
+            map.get(key)?.data.push(booking);
+    })
+}
+
+/**
+ * Sort each date's bookings by start time or logon_time.
+ * @param map The date map to sort.
+ */
+const sortDateMap = (map: Map<string, BookingDataMap>) => {
+    map.forEach(key => {
+        key.data.sort((a, b) => {
+            const timeA = a.time_start || a.logon_time || Infinity;
+            const timeB = b.time_start || b.logon_time || Infinity;
+            return moment.utc(timeA).isBefore(moment.utc(timeB)) ? -1 : 1;
+        });
+    });
+}
+
+/**
+ * Merge VATSIM sessions into the date map provided.
+ * @param map The date map to merge VATSIM sessions into.
+ * @param sessions The VATSIM sessions to merge.
+ */
+async function mergeVatsimSessions(
+    map: Map<string, BookingDataMap>,
+    sessions: vatsimSession[]
+) {
+    const todayKey = moment().format('YYYY-MM-DD');
+    const todayBookings = map.get(todayKey)?.data || [];
+
+    for (const session of sessions) {
+        const frequencyCallsign = await getPositionFromFrequency(session.callsign, session.frequency);
+        const exists = await positionExists(frequencyCallsign);
+
+        if (!exists) continue;
+
+        const existing = todayBookings.find(b => b.callsign === frequencyCallsign);
+        if (existing && moment.utc(existing.time_start).isBefore(moment())) {
+            existing.logon_time = session.logon_time;
+        } else if (!todayBookings.some(s => s.callsign === frequencyCallsign)) {
+            todayBookings.push({ ...session, callsign: frequencyCallsign });
+        }
+    }
+}
 
 export default function useBookingData() {
     const [bookingData, setBookingData] = useState<BookingDataMap>();
@@ -15,68 +88,48 @@ export default function useBookingData() {
     const { vatsimData, isLoading: vatsimIsLoading, error: vatsimError, refetch: vatsimRefetch } = useFetchVatsimData();
     const { controlCenterData, isLoading: controlCenterIsLoading, error: controlCenterError, refecth: controlCenterRefetch } = useFetchControlCenterData();
 
-    const handleBookingData = async (vatsimData: vatsimSession[], controlCenterData: ControlCenterBooking[]) => {
-        const startDate = moment().subtract(1, 'days');
-        const endDate = moment().add(6, 'days');
-
-        const bookingDataMap = new Map();
-        for (let d = startDate; d <= endDate; d.add(1, 'days')) {
-            const dateString = d.format('YYYY-MM-DD');
-            bookingDataMap.set(dateString, { date: dateString, data: [] });
-        }
-
-        controlCenterData.forEach(booking => {
-            const bookingDate = moment(booking.time_start).format('YYYY-MM-DD');
-            const bookingData = bookingDataMap.get(bookingDate);
-            if (bookingData) {
-                bookingData.data.push(booking);
-            }
-        });
-
-        for (const session of vatsimData) {
-            const frequencyCallsign: string = await getPositionFromFrequency(session.callsign, session.frequency);
-            const positionExistsFlag: boolean = await positionExists(frequencyCallsign);
-            const bookingData = bookingDataMap.get(moment().format('YYYY-MM-DD'))?.data || [];
-            const existingBooking = bookingData.find((booking: ControlCenterBooking) => booking.callsign === frequencyCallsign);
-
-            if (positionExistsFlag) {
-                if (existingBooking && moment.utc(existingBooking.time_start).isBefore(moment())) {
-                    existingBooking.logon_time = session.logon_time;
-                } else {
-                    // Prevent duplicate frequencyCallsigns
-                    const alreadyExists = bookingData.some(
-                        (session: vatsimSession) => session.callsign === frequencyCallsign
-                    );
-                    if (!alreadyExists) {
-                        bookingData.push({ ...session, callsign: frequencyCallsign });
-                    }
-                }
-            }
-        }
-
-        // Sort the bookings and sessions for each date by their start time or logon time
-        bookingDataMap.forEach(dateData => {
-            dateData.data.sort((a: MergedBooking, b: MergedBooking) => {
-                const timeA = a.time_start || a.logon_time || Infinity;
-                const timeB = b.time_start || b.logon_time || Infinity;
-                return moment.utc(timeA).isBefore(moment.utc(timeB)) ? -1 : 1;
-            });
-        });
-
-        setBookingData(Object.fromEntries(bookingDataMap));
-        setIsLoading(false);
-    }
-
     useEffect(() => {
-        handleBookingData(vatsimData, controlCenterData);
+        let isMounted = true;
+
+        if ((vatsimIsLoading || controlCenterIsLoading) && !bookingData) {
+            if (isMounted) setIsLoading(true);
+            return;
+        }
+
+        if (vatsimError || controlCenterError) {
+            if (isMounted) setError(vatsimError || controlCenterError || 'An error occurred while fetching data.');
+            return;
+        }
+
+        async function processData() {
+            try {
+                const startDate = moment().subtract(START_DAYS, 'days');
+                const endDate = moment().add(END_DAYS, 'days');
+                const map = createDateMap(startDate, endDate);
+
+                addControlCenterBookings(map, controlCenterData || []);
+                await mergeVatsimSessions(map, vatsimData || []);
+                sortDateMap(map);
+
+                if (isMounted) setBookingData(Object.fromEntries(map))
+            } catch (error: any) {
+                if (isMounted) setError(error.message || 'An error occurred while processing booking data.');
+            } finally {
+                if (isMounted) setIsLoading(false);
+            }
+        }
+        processData();
 
         const interval = setInterval(() => {
             vatsimRefetch();
             controlCenterRefetch();
-        }, 60000);
+        }, REFRESH_INTERVAL);
 
-        return () => clearInterval(interval);
-    }, [vatsimData, controlCenterData])
+        return () => {
+            isMounted = false;
+            clearInterval(interval);
+        };
+    }, [vatsimData, controlCenterData]);
 
     return { bookingData, isLoading, error }
 }

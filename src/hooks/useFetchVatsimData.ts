@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { vatsimSession } from "@/interfaces/Vatsim";
 
 export default function useFetchVatsimData() {
@@ -6,8 +6,7 @@ export default function useFetchVatsimData() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>();
 
-    useEffect(() => {
-        const handleFetchVatsimData = async () => {
+    const handleFetchVatsimData = useCallback(async () => {
 
             try {
                 const response = await fetch ('https://data.vatsim.net/v3/vatsim-data.json');
@@ -20,10 +19,11 @@ export default function useFetchVatsimData() {
                 setIsLoading(false);
             }
 
-        }
+        }, [])
 
+    useEffect(() => {
         handleFetchVatsimData();
     }, [])
 
-    return { vatsimData, isLoading, error }
+    return { vatsimData, isLoading, error, refetch: handleFetchVatsimData }
 }

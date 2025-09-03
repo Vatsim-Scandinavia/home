@@ -12,8 +12,8 @@ export default function useBookingData() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>();
 
-    const { vatsimData, isLoading: vatsimIsLoading, error: vatsimError } = useFetchVatsimData();
-    const { controlCenterData, isLoading: controlCenterIsLoading, error: controlCenterError } = useFetchControlCenterData();
+    const { vatsimData, isLoading: vatsimIsLoading, error: vatsimError, refetch: vatsimRefetch } = useFetchVatsimData();
+    const { controlCenterData, isLoading: controlCenterIsLoading, error: controlCenterError, refecth: controlCenterRefetch } = useFetchControlCenterData();
 
     const handleBookingData = async (vatsimData: vatsimSession[], controlCenterData: ControlCenterBooking[]) => {
         const startDate = moment().subtract(1, 'days');
@@ -69,6 +69,13 @@ export default function useBookingData() {
 
     useEffect(() => {
         handleBookingData(vatsimData, controlCenterData);
+
+        const interval = setInterval(() => {
+            vatsimRefetch();
+            controlCenterRefetch();
+        }, 60000);
+
+        return () => clearInterval(interval);
     }, [vatsimData, controlCenterData])
 
     return { bookingData, isLoading, error }

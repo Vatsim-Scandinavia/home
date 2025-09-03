@@ -5,6 +5,8 @@ import bookingType from "./BookingType";
 import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 import useBookingData from "@/hooks/useBookingData";
 import type { MergedBooking } from "@/interfaces/Booking";
+import Skeleton from "./ui/bookings/Skeleton";
+
 
 const BookingComponent = () => {
     const { bookingData, isLoading, error } = useBookingData();
@@ -13,60 +15,16 @@ const BookingComponent = () => {
         <table className="w-full h-full px-2">
             <tbody>
                 {isLoading ? (
-                    <tr className="h-12">
-                        <td colSpan={4} className="text-center">
-                            {!error ? (
-                                <>
-                                    <div className="animate-pulse">
-                                        <div className="h-8 bg-gray-300 dark:bg-secondary w-full"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                    </div>
-                                    <div className="animate-pulse">
-                                        <div className="h-8 bg-gray-300 dark:bg-secondary w-full"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                    </div>
-                                    <div className="animate-pulse">
-                                        <div className="h-8 bg-gray-300 dark:bg-secondary w-full"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-50 dark:bg-secondary rounded w-full mb-1"></div>
-                                        <div className="h-4 bg-gray-100 dark:bg-secondary rounded w-full mb-1"></div>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <p className="font-semibold text-lg">Error!</p>
-                                    <p className="text-danger mt-2">An error occured while fetching bookings/sessions...</p>
-                                </>
-                            )}
-                        </td>
-                    </tr>
+                    (!error) ? (
+                        <Skeleton count={5}/>
+                    ) : (
+                        <tr>
+                            <td colSpan={4} className="text-center text-danger">
+                                <p className="font-bold text-2xl">Mayday..</p>
+                                <p className="italic">{error}</p>
+                            </td>
+                        </tr>
+                    )   
                 ) : (
                     <>
                         {bookingData && Object.values(bookingData).map((date, index) => (

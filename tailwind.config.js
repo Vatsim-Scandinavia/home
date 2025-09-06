@@ -25,7 +25,7 @@ export default {
                 'danger': '#b63f3f',
                 'warning': '#ff9800',
                 border: "var(--border)",
-                input: "(var(--input)",
+                input: "var(--input)",
                 ring: "var(--ring)",
                 background: "var(--background)",
                 foreground: "var(--foreground)",

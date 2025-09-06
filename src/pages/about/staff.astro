@@ -329,6 +329,7 @@ const Pilot = [
     AVILABILITY: "AVL",
     COUNTRY: "FI",
     DEPARTMENT: "Pilot Training",
+    AVATAR: "/img/staff/valtteri.png"
 }
 ]
 
@@ -351,8 +352,8 @@ const StaffArray = [Director, Board, Training, Technical, Event, Pilot]
     <div class="flex flex-col gap-4 content-center justify-center my-12">
     {StaffArray.map((department, depIdx) => (
         <div key={depIdx} class="w-full">
-            <h2 class="text-2xl font-bold mb-2 mt-6 text-center">{department[0]?.DEPARTMENT}</h2>
-            <div class="flex flex-wrap gap-2 pb-12 justify-center">
+            <h2 class="text-2xl font-bold mb-2 mt-6 text-start">{department[0]?.DEPARTMENT}</h2>
+            <div class="flex flex-wrap gap-2 pb-12 justify-start">
                 {department.map((staff, idx) => (
                     <card class="bg-white dark:bg-secondary w-[24rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center relative" key={idx}>
                         <img src={typeof staff.AVATAR !== "undefined" && staff.AVATAR ? staff.AVATAR : '/img/avatar.jpg'} alt="" class="aspect-square w-20 h-20 rounded object-cover" />

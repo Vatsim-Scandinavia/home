@@ -83,10 +83,14 @@ async function mergeVatsimSessions(
  * Custom hook to manage booking data.
  * @returns An object containing booking data, loading state, and error state.
  */
-export default function useBookingData() {
+export default function useBookingData(): {
+    bookingData: BookingDataState | undefined;
+    isLoading: boolean;
+    error: string | null;
+} {
     const [bookingData, setBookingData] = useState<BookingDataState | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>();
+    const [error, setError] = useState<string | null>(null);
 
     const { vatsimData, isLoading: vatsimIsLoading, error: vatsimError, refetch: vatsimRefetch } = useFetchVatsimData();
     const { controlCenterData, isLoading: controlCenterIsLoading, error: controlCenterError, refetch: controlCenterRefetch } = useFetchControlCenterData();

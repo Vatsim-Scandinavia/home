@@ -5,10 +5,15 @@ import type { vatsimSession } from "@/interfaces/Vatsim";
  * Fetch VATSIM controller data from the VATSIM data API.
  * @returns VATSIM controller data, loading state, error state, and a refetch function.
  */
-export default function useFetchVatsimData() {
+export default function useFetchVatsimData(): {
+    vatsimData: vatsimSession[];
+    isLoading: boolean;
+    error: string | null;
+    refetch: () => Promise<void>;
+} {
     const [vatsimData, setVatsimData] = useState<vatsimSession[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>();
+    const [error, setError] = useState<string | null>(null);
 
     const handleFetchVatsimData = useCallback(async () => {
 

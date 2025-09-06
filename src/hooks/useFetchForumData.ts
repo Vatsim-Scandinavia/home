@@ -5,10 +5,15 @@ import { useCallback, useEffect, useState } from "react";
  * Custom hook to fetch forum data.
  * @returns Forum data, loading state, error state, and a refetch function.
  */
-export default function useFetchForumData() {
+export default function useFetchForumData(): {
+    forumData: ForumData | undefined;
+    isLoading: boolean;
+    error: string | null;
+    refetch: () => Promise<void>;
+} {
     const [forumData, setForumData] = useState<ForumData>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>();
+    const [error, setError] = useState<string | null>(null);
 
     const handleFetchForumData = useCallback(async () => {
 

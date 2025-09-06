@@ -51,7 +51,11 @@ const mergeThreadsAndPosts = (announcementThreads: ForumThread[], announcementPo
  * Custom hook to fetch and manage forum data.
  * @returns {Object} - The merged announcements, loading state, and error state.
  */
-export default function useForumData(): object {
+export default function useForumData(): {
+    mergedAnnouncements: MergedAnnouncement[];
+    isLoading: boolean;
+    error: string | null;
+} {
     const [mergedAnnouncements, setMergedAnnouncements] = useState<MergedAnnouncement[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

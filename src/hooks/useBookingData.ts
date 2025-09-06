@@ -3,7 +3,7 @@ import useFetchVatsimData from "./useFetchVatsimData";
 import useFetchControlCenterData from "./useFetchControlCenterData";
 import moment, { type Moment } from "moment";
 import { getPositionFromFrequency, positionExists } from "@/utils/BookingHelper";
-import type { BookingDataMap } from "@/interfaces/Booking";
+import type { BookingDataMap, BookingDataState } from "@/interfaces/Booking";
 import type { vatsimSession } from "@/interfaces/Vatsim";
 import type { ControlCenterBooking } from "@/interfaces/ControlCenter";
 
@@ -84,7 +84,7 @@ async function mergeVatsimSessions(
  * @returns An object containing booking data, loading state, and error state.
  */
 export default function useBookingData() {
-    const [bookingData, setBookingData] = useState<{ [k: string]: BookingDataMap }>();
+    const [bookingData, setBookingData] = useState<BookingDataState | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>();
 

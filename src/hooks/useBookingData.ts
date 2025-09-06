@@ -115,8 +115,14 @@ export default function useBookingData() {
                 sortDateMap(map);
 
                 if (isMounted) setBookingData(Object.fromEntries(map))
-            } catch (error: any) {
-                if (isMounted) setError(error.message || 'An error occurred while processing booking data.');
+            } catch (error) {
+                if (isMounted) {
+                    if (error instanceof Error) {
+                        setError(error.message);
+                    } else {
+                        setError('An unknown error occurred while processing booking data.');
+                    }
+                }
             } finally {
                 if (isMounted) setIsLoading(false);
             }

@@ -85,7 +85,7 @@ const Events = () => {
             <div className="flex h-full flex-col gap-2" >
                 {events.slice(0, 2).map((item, index) => (
                     <div key={index} className='aspect-video h-1/3 md:h-60 flex'>
-                        <a target='_blank' href={item.link} className='h-full aspect-video bg-center bg-cover rounded' style={{ backgroundImage: `url(${item.image})` }}>
+                        <a target='_blank' href={item.link} aria-label={`View event: ${item.title}`} className='h-full aspect-video bg-center bg-cover rounded' style={{ backgroundImage: `url(${item.image})` }}>
                         </a>
                         <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
                             <h2 className='font-bold text-xl md:text-2xl text-secondary dark:text-white'>{item.title}</h2>
@@ -100,7 +100,7 @@ const Events = () => {
                 <div className="navigation-wrapper h-1/3">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
-                            <a key={index} style={{ '--image-url': `url(${item.image})` }} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' href={item.link} />
+                            <a key={index} style={{ '--image-url': `url(${item.image})` }} aria-label={`View event: ${item.title}`} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' href={item.link} />
                         ))}
                         <a
                             href="https://events.vatsim-scandinavia.org"

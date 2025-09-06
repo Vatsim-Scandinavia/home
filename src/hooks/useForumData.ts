@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 import useFetchForumData from "@/hooks/useFetchForumData";
+import type { ForumPost, ForumThread, MergedAnnouncement } from "@/interfaces/Forum";
 
-const sortData = (announcementThreads: any[]) => {
-    announcementThreads.sort((a: any, b: any) => {
+/**
+ * Sort announcement threads by creation date in descending order.
+ * @param announcementThreads Array of announcement threads.
+ */
+const sortData = (announcementThreads: ForumThread[]) => {
+    announcementThreads.sort((a, b) => {
         const dateA = new Date(a.attributes.createdAt);
         const dateB = new Date(b.attributes.createdAt);
         return dateB.getTime() - dateA.getTime();
     });
 };
 
+/**
+ * Sanitize HTML string by removing unwanted tags.
+ * @param html HTML string to sanitize.
+ * @returns Sanitized HTML string.
+ */
 const sanitizeHtml = (html: string) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
@@ -18,14 +28,20 @@ const sanitizeHtml = (html: string) => {
     return doc.body.innerHTML;
 };
 
-const mergeThreadsAndPosts = (announcementThreads: any[], announcementPosts: any[]) => {
-    return announcementThreads.map((thread: any) => ({
+/**
+ * Merge announcement threads and posts into a single array.
+ * @param announcementThreads Array of announcement threads.
+ * @param announcementPosts Array of announcement posts.
+ * @returns Merged array of announcement threads and posts.
+ */
+const mergeThreadsAndPosts = (announcementThreads: ForumThread[], announcementPosts: ForumPost[]) => {
+    return announcementThreads.map((thread: ForumThread) => ({
         title: thread.attributes.title,
         slug: thread.attributes.slug,
         created: thread.attributes.createdAt,
         content: sanitizeHtml(
             announcementPosts.find(
-                (post: any) => post.id === thread.relationships.firstPost.data.id
+                (post) => post.id === thread.relationships.firstPost.data.id
             )?.attributes.contentHtml || ""
         ),
     }));
@@ -35,8 +51,8 @@ const mergeThreadsAndPosts = (announcementThreads: any[], announcementPosts: any
  * Custom hook to fetch and manage forum data.
  * @returns {Object} - The merged announcements, loading state, and error state.
  */
-export default function useForumData() {
-    const [mergedAnnouncements, setMergedAnnouncements] = useState<any[]>([]);
+export default function useForumData(): object {
+    const [mergedAnnouncements, setMergedAnnouncements] = useState<MergedAnnouncement[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -55,7 +71,7 @@ export default function useForumData() {
         try {
             const announcementThreads = forumData?.data ?? [];
             const announcementPosts = forumData?.included?.filter(
-                (item: any) => item.type === "posts"
+                (item) => item.type === "posts"
             ) ?? [];
             sortData(announcementThreads);
             const merged = mergeThreadsAndPosts(announcementThreads, announcementPosts);

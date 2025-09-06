@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import type { ControlCenterBooking } from "@/interfaces/ControlCenter";
 
+/**
+ * Custom hook to fetch Control Center booking data.
+ * @returns Control Center booking data, loading state, error state, and a refetch function.
+ */
 export default function useFetchControlCenterData() {
     const [controlCenterData, setControlCenterData] = useState<ControlCenterBooking[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -25,5 +29,5 @@ export default function useFetchControlCenterData() {
         handleFetchControlCenterData();
     }, [])
 
-    return { controlCenterData, isLoading, error, refecth: handleFetchControlCenterData }
+    return { controlCenterData, isLoading, error, refetch: handleFetchControlCenterData }
 }

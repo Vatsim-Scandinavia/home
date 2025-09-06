@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useFetchVatsimData from "./useFetchVatsimData";
 import useFetchControlCenterData from "./useFetchControlCenterData";
-import moment from "moment";
+import moment, { type Moment } from "moment";
 import { getPositionFromFrequency, positionExists } from "@/utils/BookingHelper";
 import type { BookingDataMap } from "@/interfaces/Booking";
 import type { vatsimSession } from "@/interfaces/Vatsim";
@@ -17,15 +17,14 @@ const END_DAYS = 6;
  * @param endDate 
  * @returns Map with keys for each date between startDate and endDate, inclusive.
  */
-const createDateMap = (startDate: any, endDate: any) => {
-    const map = new Map();
-    for (let d = startDate; d <= endDate; d.add(1, 'days')) {
+const createDateMap = (startDate: Moment, endDate: Moment): Map<string, BookingDataMap> => {
+    const map = new Map<string, BookingDataMap>();
+    for (let d = startDate.clone(); d.isSameOrBefore(endDate, 'day'); d.add(1, 'days')) {
         const mapKey = d.format('YYYY-MM-DD');
         map.set(mapKey, { date: mapKey, data: [] });
     }
-
     return map;
-}
+};
 
 /**
  * Add Control Center bookings to the date map provided.
@@ -80,13 +79,17 @@ async function mergeVatsimSessions(
     }
 }
 
+/**
+ * Custom hook to manage booking data.
+ * @returns An object containing booking data, loading state, and error state.
+ */
 export default function useBookingData() {
-    const [bookingData, setBookingData] = useState<BookingDataMap>();
+    const [bookingData, setBookingData] = useState<{ [k: string]: BookingDataMap }>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>();
 
     const { vatsimData, isLoading: vatsimIsLoading, error: vatsimError, refetch: vatsimRefetch } = useFetchVatsimData();
-    const { controlCenterData, isLoading: controlCenterIsLoading, error: controlCenterError, refecth: controlCenterRefetch } = useFetchControlCenterData();
+    const { controlCenterData, isLoading: controlCenterIsLoading, error: controlCenterError, refetch: controlCenterRefetch } = useFetchControlCenterData();
 
     useEffect(() => {
         let isMounted = true;

@@ -2,8 +2,8 @@ import type { ForumData } from "@/interfaces/Forum";
 import { useCallback, useEffect, useState } from "react";
 
 /**
- * Fetch data from forum.
- * @returns Forum posts an threads.
+ * Custom hook to fetch forum data.
+ * @returns Forum data, loading state, error state, and a refetch function.
  */
 export default function useFetchForumData() {
     const [forumData, setForumData] = useState<ForumData>();

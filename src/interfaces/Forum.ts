@@ -1,11 +1,5 @@
-export interface ForumData {
-    data: AnnouncementThread[];
-    included: ForumIncluded[];
-}
-
-export interface AnnouncementThread {
+export interface ForumThread {
     id: string;
-    type: string;
     attributes: {
         title: string;
         slug: string;
@@ -15,17 +9,27 @@ export interface AnnouncementThread {
         firstPost: {
             data: {
                 id: string;
-                type: string;
             };
         };
     };
 }
 
-export interface ForumIncluded {
+export interface ForumPost {
     id: string;
     type: string;
     attributes: {
         contentHtml: string;
-        createdAt: string;
     };
+}
+
+export interface MergedAnnouncement {
+    title: string;
+    slug: string;
+    created: string;
+    content: string;
+}
+
+export interface ForumData {
+    data: ForumThread[];
+    included: ForumPost[];
 }

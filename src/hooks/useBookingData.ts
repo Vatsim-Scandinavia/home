@@ -78,7 +78,7 @@ async function mergeVatsimSessions(
 
         if (booking) {
             booking.logon_time = session.logon_time;
-        } else if (!todayBookings.some(s => s.callsign === frequencyCallsign && s.logon_time === session.logon_time)) {
+        } else if (!todayBookings.some(s => s.callsign === frequencyCallsign)) {
             // Add as an online session if not already present
             todayBookings.push({ ...session, callsign: frequencyCallsign });
         }

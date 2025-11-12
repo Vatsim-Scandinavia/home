@@ -1,7 +1,15 @@
 ---
 const { href, text, color } = Astro.props;
+const colorClass = color === 'snow' 
+    ? 'bg-snow text-black dark:text-white hover:bg-snow/90' 
+    : `bg-${color} text-white hover:opacity-90`;
 ---
 
-<a href={href} class={`bg-${color} p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm`} target="_blank">
+<a 
+    href={href} 
+    class={`inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${colorClass} px-4 py-2 mt-2`} 
+    target="_blank"
+    rel="noopener noreferrer"
+>
     {text}
 </a>

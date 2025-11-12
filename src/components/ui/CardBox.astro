@@ -1,27 +1,40 @@
 ---
-const { title, padding, minHeight, link, clock } = Astro.props;
+const { title, padding = "4", minHeight, link, clock, filterId } = Astro.props;
+const paddingClass = padding ? `p-${padding}` : "";
+const filterSlotClass = filterId ? `filter-slot-${filterId}` : "filter-slot";
 ---
 
-<div class={`flex flex-col col-span-6 xl:col-span-4`} >
-    <h2 class="bg-secondary h-12 text-lg font-bold text-white w-full m-0 px-4 flex items-center rounded-t-sm ">
+<div class={`flex flex-col col-span-6 xl:col-span-4 rounded-lg border dark:border-0 bg-card text-card-foreground shadow-sm overflow-hidden`}>
+    <div class="bg-secondary text-white p-4 h-12 flex items-center justify-between rounded-t-lg">
         {link ? (
-            <a href={link} class="text-white no-underline hover:underline w-full flex justify-between items-center" target="_blank">
-                {title} {clock ? <span class="text-sm" id="zuluTime"></span> : ""}
+            <a href={link} class="text-lg font-bold text-white no-underline hover:underline flex items-center gap-2" target="_blank" rel="noopener noreferrer">
+                <span>{title}</span>
+                {clock && <span class="text-sm font-normal" id="zuluTime"></span>}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-70"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>
             </a>
         ) : (
-            title
+            <h2 class="text-lg font-bold m-0 flex items-center gap-2">
+                {title}
+                {clock && <span class="text-sm font-normal" id="zuluTime"></span>}
+            </h2>
         )}
-    </h2>
-    <div class={`text-sm bg-white dark:bg-tertiary p-${padding} rounded-b-sm`} style={`min-height: ${minHeight}px`}>
+        <div class={filterSlotClass}>
+            <slot name="filter" />
+        </div>
+    </div>
+    <div class={`text-sm bg-white dark:bg-tertiary rounded-b-lg flex-1 ${paddingClass}`} style={minHeight ? `min-height: ${minHeight}px` : undefined}>
         <slot />
     </div>
     {clock && (
         <script is:inline>
             function updateZuluTime() {
-                const now = new Date();
-                const options = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' };
-                const zuluTime = now.toLocaleTimeString('en-UK', options);
-                document.getElementById('zuluTime').textContent = zuluTime+"z";
+                const element = document.getElementById('zuluTime');
+                if (element) {
+                    const now = new Date();
+                    const options = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' };
+                    const zuluTime = now.toLocaleTimeString('en-UK', options);
+                    element.textContent = zuluTime+"z";
+                }
             }
 
             // Initial call to display the time immediately

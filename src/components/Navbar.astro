@@ -1,29 +1,27 @@
 ---
-import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import { Astronav, MenuItems } from "astro-navbar";
 import ThemeToggle from "./ThemeToggle"
 import Navigation from "./Navigation";
+import MobileMenu from "./MobileMenu";
 ---
-<header class="w-full h-[80px] flex justify-center sticky text-white bg-secondary top-0 z-50 px-24 max-lg:px-8 py-2">
+<header class="w-full h-[80px] flex justify-center sticky text-white bg-secondary top-0 z-50 px-24 max-lg:px-8 py-2 shadow-md">
     <Astronav>
         <div class="w-[1300px] max-lg:w-[100%] flex flex-col lg:flex-row justify-between items-center">
             <div class="flex w-full lg:w-auto items-center justify-between">
-                <a href="/">
-                    <img width="150" src="/img/logos/negative.svg" alt="VATSIM Scandinavia logo">
+                <a href="/" class="transition-opacity hover:opacity-80">
+                    <img width="150" src="/img/logos/negative.svg" alt="VATSIM Scandinavia logo" class="h-auto">
                 </a>
                 <div class="block lg:hidden">
-                    <MenuIcon class="w-8 h-8 text-gray-200" />
+                    <MobileMenu client:only="react" />
                 </div>
             </div>
             <MenuItems class="hidden w-full px-8 lg:w-auto lg:flex lg:mt-0 text-xl max-lg:p-0 max-lg:w-[100vw]">
                 <div class="flex flex-col lg:flex-row lg:gap-3 items-center max-lg:bg-secondary max-lg:p-8">
                     <Navigation client:visible/>
-                    <div class="w-full justify-start py-4 lg:hidden max-lg:text-center">
-                        <ThemeToggle client:only/>
-                    </div>
                 </div>
             </MenuItems>
             <div class="hidden lg:block">
-                <ThemeToggle client:only/>
+                <ThemeToggle client:only="react"/>
             </div>
         </div>
     </Astronav>

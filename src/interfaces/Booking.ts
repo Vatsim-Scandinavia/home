@@ -5,6 +5,9 @@ export interface MergedBooking {
     logon_time?: string;
     time_start?: string;
     time_end?: string;
+    training?: number;
+    event?: number;
+    exam?: number;
 }
     
 

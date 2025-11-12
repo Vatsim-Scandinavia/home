@@ -47,8 +47,9 @@ import Announcement from "../components/Announcements";
                     </div>
                         
                     <div class="flex-grow flex flex-col gap-8 width-sidebar">
-                        <CardBox title="Live ATC & Bookings" link="https://cc.vatsim-scandinavia.org/booking" clock>
+                        <CardBox title="Live ATC & Bookings" padding="0" filterId="bookings">
                             <Bookings />
+                            <div slot="filter"></div>
                         </CardBox>
 
                         <!--

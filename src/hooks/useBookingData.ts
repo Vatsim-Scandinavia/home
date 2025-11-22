@@ -72,13 +72,13 @@ async function mergeVatsimSessions(
         // Try to find a booking for this callsign where the session is within the booking's time window
         const booking = todayBookings.find(b =>
             b.callsign === frequencyCallsign &&
-            moment.utc(session.logon_time).isSameOrAfter(moment.utc(b.time_start)) &&
-            moment.utc(session.logon_time).isBefore(moment.utc(b.time_end))
+            moment.utc().isSameOrAfter(moment.utc(b.time_start)) &&
+            moment.utc().isBefore(moment.utc(b.time_end))
         );
 
         if (booking) {
             booking.logon_time = session.logon_time;
-        } else if (!todayBookings.some(s => s.callsign === frequencyCallsign && s.logon_time === session.logon_time)) {
+        } else if (!todayBookings.some(s => s.callsign === frequencyCallsign)) {
             // Add as an online session if not already present
             todayBookings.push({ ...session, callsign: frequencyCallsign });
         }

@@ -6,7 +6,6 @@ import { Tooltips } from 'astro-tooltips';
 import Nav from "../components/Navbar.astro"
 import '../globals.css'
 import '../../node_modules/keen-slider/keen-slider.css';
-import Snowfall from 'react-snowfall'
 ---
 
 <html lang="en" class="scroll-smooth">
@@ -30,12 +29,8 @@ import Snowfall from 'react-snowfall'
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <Tooltips interactive={false} delay={[15, 140]} />
-    <ViewTransitions />
 </head>
 <body class="bg-lightgrey w-full h-full min-h-screen text-black dark:text-white transition ease-in-out delay-50 flex flex-col items-center bg-[url('/img/skies.svg')] bg-cover">
-    <div id="snowfall" class="top-0 absolute -z-10 min-h-screen w-screen">
-        <Snowfall color="#c7d0e6" client:only snowflakeCount={300}/>
-    </div>
     <Nav />
     <slot />
     <Footer />

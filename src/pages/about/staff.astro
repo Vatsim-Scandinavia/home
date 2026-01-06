@@ -1,1017 +1,214 @@
 ---
+const SiteTitle = "Staff";
 import Layout from "../../layout/Layout.astro";
-import PageContainer from "../../components/ui/PageContainer.astro";
-import AvailabilityDecode from "../../components/AvailabilityDecode";
-const SiteTitle  = "Staff"
+import StaffCard from "../../components/StaffCard.astro";
+import staffData from "../../data/staff-positions.json";
 
-const Director = [
-    {
-        POSITION: "vACC Director",
-        CID: 1581824,
-        NAME: "Simon Bjerre",
-        AVILABILITY: "AVL",
-        COUNTRY: "DK",
-        EMAIL: "director@vatsim-scandinavia.org",
-        DEPARTMENT: "vACC Director",
-        AVATAR: "/img/staff/sbjerre.png",
-        IN_BOARD: false,
-    },
-];
-const Training = [
-    {
-        POSITION: "Training Manager Sweden",
-        CID: 1586141,
-        NAME: "Niklas Thell",
-        EMAIL: "training-sweden@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "SE",
-        AVATAR: "/img/staff/nthell.webp",
-    },
-    {
-        POSITION: "Training Manager Denmark",
-        CID: 1447687,
-        NAME: "Thomas Brøgger",
-        EMAIL: "training-denmark@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "DK",
-        AVATAR: "/img/staff/broeggeren.webp",
-    },
-    {
-        POSITION: "Training Manager Norway",
-        CID: 1621930,
-        NAME: "Marius Linge",
-        EMAIL: "training-norway@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "NO",
-        AVATAR: "/img/staff/mlinge.webp",
-    },
-    {
-        POSITION: "Training Manager Finland",
-        CID: 1339541,
-        NAME: "Otto Tuhkunen",
-        EMAIL: "training-finland@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "FI",
-        AVATAR: "/img/staff/otuhkunen.webp",
-    },
-    {
-        POSITION: "Training Manager Iceland",
-        CID: 1196137,
-        NAME: "Kieran Riley",
-        EMAIL: "training-iceland@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "IS",
-    },
-    {
-        POSITION: "Training Assistant Sweden",
-        CID: 1438661,
-        NAME: "Ansgar Oedman",
-        EMAIL: "training-sweden@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "SE",
-    },
-    {
-        POSITION: "Training Assistant Denmark",
-        CID: 1745220,
-        NAME: "Jesper hvenegaard",
-        EMAIL: "training-denmark@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "DK",
-        AVATAR: "/img/staff/jhvenegaard.webp",
-    },
-    {
-        POSITION: "Training Assistant Norway",
-        CID: 1616021,
-        NAME: "Eskil Moen",
-        EMAIL: "training-norway@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        DEPARTMENT: "Training",
-        COUNTRY: "NO",
-    },
-];
-const Board = [
-    {
-        POSITION: "Training Director",
-        CID: 1602589,
-        NAME: "Jeppe Seier",
-        EMAIL: "training-director@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "DK",
-        DEPARTMENT: "Board of Directors",
-        IN_BOARD: true,
-    },
-];
-const Technical = [
-    {
-        POSITION: "Technical Manager",
-        CID: 0,
-        NAME: "Vacant",
-        EMAIL: "tech@vatsim-scandinavia.org",
-        AVILABILITY: "VAC",
-        COUNTRY: "EU",
-        DEPARTMENT: "Tech Team",
-        IN_BOARD: false,
-    },
-    {
-        POSITION: "Technical Assistant",
-        CID: 1512667,
-        NAME: "Thor Høgås",
-        EMAIL: "tech@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "NO",
-        DEPARTMENT: "Tech Team",
-        AVATAR: "/img/staff/thogas.webp",
-    },
-    {
-        POSITION: "Technical Assistant",
-        CID: 1419105,
-        NAME: "David Mortensen",
-        EMAIL: "tech@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "DK",
-        DEPARTMENT: "Tech Team",
-    },
-    {
-        POSITION: "Technical Assistant",
-        CID: 1401513,
-        NAME: "Markus Nielsen",
-        EMAIL: "tech@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "DK",
-        DEPARTMENT: "Tech Team",
-    },
-    {
-        POSITION: "Technical Assistant",
-        CID: 1538752,
-        NAME: "Benjamin Jørgensen",
-        EMAIL: "tech@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "DK",
-        DEPARTMENT: "Tech Team",
-        AVATAR: "/img/staff/bjorgensen.webp",
-    },
-    {
-        POSITION: "Data Protection Officer",
-        CID: 1203470,
-        NAME: "Henrik Sønstebø",
-        EMAIL: "dpo@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "NO",
-        DEPARTMENT: "Tech Team",
-    },
-];
-
-const StaffArray = [Director, Board, Training, Technical];
-
-const Denmark = {
-    Director: [
-        {
-            POSITION: "Director of Copenhagen FIR",
-            CID: 1226374,
-            NAME: "Lukas Agerskov",
-            EMAIL: "denmark@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "DK",
-            DEPARTMENT: "Board of Directors",
-            AVATAR: "/img/staff/lagerskov.webp",
-            IN_BOARD: true,
-        },
-    ],
-    Training: [
-        {
-            POSITION: "Training Director",
-            CID: 1602589,
-            NAME: "Jeppe Seier",
-            EMAIL: "training-director@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "DK",
-            DEPARTMENT: "Board of Directors",
-        },
-        {
-            POSITION: "Training Manager Denmark",
-            CID: 1447687,
-            NAME: "Thomas Brøgger",
-            EMAIL: "training-denmark@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "DK",
-            AVATAR: "/img/staff/broeggeren.webp",
-        },
-        {
-            POSITION: "Training Assistant Denmark",
-            CID: 1745220,
-            NAME: "Jesper hvenegaard",
-            EMAIL: "training-denmark@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "DK",
-            AVATAR: "/img/staff/jhvenegaard.webp",
-        },
-    ],
-    "Event Coordinator ": [
-    {
-        POSITION: "Event Manager",
-        CID: 1338009,
-        NAME: "Martin Thorsteinsson",
-        EMAIL: "event@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "NO",
-        DEPARTMENT: "Event Department",
-        AVATAR: "/img/staff/mhorsteinsson.webp",
-        IN_BOARD: false,
-    },
-    {
-        POSITION: "Event Assistant Denmark",
-        CID: 1464625,
-        NAME: "Oliver Rasmussen",
-        EMAIL: "event@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "DK",
-        DEPARTMENT: "Event Department",
-        AVATAR: "/img/staff/orasmussen.jpg",
-    },
-    ],
-    "NavData Team": [
-        {
-            POSITION: "Member",
-            CID: 887089,
-            NAME: "Splendor Bouman",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-        {
-            POSITION: "Member",
-            CID: 1280555,
-            NAME: "Peter Toft",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "DK",
-        },
-        {
-            POSITION: "Member",
-            CID: 1476793,
-            NAME: "Bartek Zawadzki",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "PL",
-        },
-        {
-            POSITION: "Member",
-            CID: 0,
-            NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-    ],
-};
-
-const Norway = {
-    Director: [
-        {
-            POSITION: "Director of Polaris FIR",
-            CID: 1339353,
-            NAME: "Adrian Bjerke",
-            EMAIL: "norway@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "NO",
-            DEPARTMENT: "Board of Directors",
-            IN_BOARD: true,
-        },
-        {
-            POSITION: "Assistant Director of Polaris FIR",
-            CID: 1587880,
-            NAME: "Lasse Skage",
-            EMAIL: "norway@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "NO",
-        },
-    ],
-    Training: [
-        {
-            POSITION: "Training Manager Norway",
-            CID: 1621930,
-            NAME: "Marius Linge",
-            EMAIL: "training-norway@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "NO",
-            AVATAR: "/img/staff/mlinge.webp",
-        },
-        {
-            POSITION: "Training Assistant Norway",
-            CID: 1616021,
-            NAME: "Eskil Moen",
-            EMAIL: "training-norway@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "NO",
-        },
-    ],
-    "Event Coordinator ": [
-    {
-        POSITION: "Event Assistant Norway",
-        CID: 1462126,
-        NAME: "Ask Erikstad",
-        EMAIL: "event@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "NO",
-        DEPARTMENT: "Event Department",
-        AVATAR: "/img/staff/aerikstad.jpg",
-    },
-    ],
-    "NavData Team": [
-        {
-            POSITION: "Member",
-            CID: 0,
-            NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-        {
-            POSITION: "Member",
-            CID: 0,
-            NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-    ],
-};
-
-const Sweden = {
-    Director: [
-        {
-            POSITION: "Director of Sweden FIR",
-            CID: 811805,
-            NAME: "Martin Loxbo",
-            EMAIL: "sweden@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "SE",
-            DEPARTMENT: "Board of Directors",
-            IN_BOARD: true,
-        },
-    ],
-    Training: [
-        {
-            POSITION: "Training Manager Sweden",
-            CID: 1586141,
-            NAME: "Niklas Thell",
-            EMAIL: "training-sweden@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "SE",
-            AVATAR: "/img/staff/nthell.webp",
-        },
-        {
-            POSITION: "Training Assistant Sweden",
-            CID: 1584282,
-            NAME: "Rui Feng",
-            EMAIL: "training-sweden@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "SE",
-        },
-    ],
-    "Event Coordinator ": [
-        {
-            POSITION: "Event Assistant Sweden",
-            CID: 1757074,
-            NAME: "William Kassmo",
-            EMAIL: "event@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "SE",
-            DEPARTMENT: "Event Department",
-        },
-    ],
-    "NavData Team": [
-        {
-            POSITION: "Member",
-            CID: 0,
-            NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-        {
-            POSITION: "Member",
-            CID: 0,
-            NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-    ],
-};
-
-const Finland = {
-    Director: [
-        {
-            POSITION: "Director of Helsinki FIR",
-            CID: 1495200,
-            NAME: "Mika Hellgren",
-            EMAIL: "finland@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "FI",
-            DEPARTMENT: "Board of Directors",
-            IN_BOARD: true,
-        },
-    ],
-    Training: [
-        {
-            POSITION: "Training Manager Finland",
-            CID: 1339541,
-            NAME: "Otto Tuhkunen",
-            EMAIL: "training-finland@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "FI",
-            AVATAR: "/img/staff/otuhkunen.webp",
-        },
-    ],
-    "Event Coordinator ": [
-    {
-        POSITION: "Event Assistant Finland",
-        CID: 1458761,
-        NAME: "Henri Luiro",
-        EMAIL: "event@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "FI",
-        DEPARTMENT: "Event Department",
-    },
-    ],
-    "NavData Team": [
-        {
-            POSITION: "Member",
-            CID: 0,
-            NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-        {
-            POSITION: "Member",
-            CID: 0,
-            NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-            AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-    ],
-};
-
-const Iceland = {
-    Director: [
-        {
-            POSITION: "Director of Reykjavík CTA",
-            CID: 1404194,
-            NAME: "Andrew Hobbs",
-            EMAIL: "iceland@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            COUNTRY: "IS",
-            DEPARTMENT: "Board of Directors",
-            AVATAR: "/img/staff/ahobbs.webp",
-            IN_BOARD: true,
-        },
-    ],
-    Training: [
-        {
-            POSITION: "Training Manager Iceland",
-            CID: 1196137,
-            NAME: "Kieran Riley",
-            EMAIL: "training-iceland@vatsim-scandinavia.org",
-            AVILABILITY: "AVL",
-            DEPARTMENT: "Training",
-            COUNTRY: "IS",
-        },
-    ],
-    "Event Coordinator ": [
-    {
-        POSITION: "Event Assistant Iceland",
-        CID: 1721961,
-        NAME: "Florence Véran",
-        EMAIL: "event@vatsim-scandinavia.org",
-        AVILABILITY: "AVL",
-        COUNTRY: "IS",
-        DEPARTMENT: "Event Department",
-    },
-    ],
-    "NavData Team": [
-        {
-            POSITION: "Member",
-        CID: 0,
-        NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-        AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-    },
-    {
-            POSITION: "Member",
-        CID: 0,
-        NAME: "Vacant",
-            EMAIL: "navdata@vatsim-scandinavia.org",
-        AVILABILITY: "VAC",
-            DEPARTMENT: "NavData Team",
-            COUNTRY: "EU",
-        },
-    ],
-};
-
-const areas = [
-    { name: "Denmark", data: Denmark },
-    { name: "Norway", data: Norway },
-    { name: "Sweden", data: Sweden },
-    { name: "Finland", data: Finland },
-    { name: "Iceland", data: Iceland },
-];
-
-// Helper function to check if member is on board (defaults to false if not specified)
-function isBoardMember(member: any): boolean {
-    return member.IN_BOARD === true;
+// Helper function to check if member is in a section
+function isInSection(member: any, sectionName: string): boolean {
+    return member.section && member.section.includes(sectionName);
 }
 
-// Create VATSCA Board: Collect all staff members with IN_BOARD: true
-// This includes members from all arrays (Board, Technical, Training, etc.) and country data
-// Order: Directors first (in country order), then others
-const countryOrder = ["Denmark", "Norway", "Sweden", "Finland", "Iceland"];
-
-// Map country names to their country codes for sorting
-const countryCodeMap: { [key: string]: string } = {
-    "Denmark": "DK",
-    "Norway": "NO",
-    "Sweden": "SE",
-    "Finland": "FI",
-    "Iceland": "IS",
-};
-
-// Collect all board members
-const allBoardMembers = [
-    ...Board.filter(isBoardMember),
-    ...Technical.filter(isBoardMember),
-    ...Training.filter(isBoardMember),
-    ...Director.filter(isBoardMember),
-    // Also collect from country data (areas)
-    ...areas.flatMap(area => 
-        Object.values(area.data).flat().filter(isBoardMember)
-    ),
-];
-
-// Sort: Directors first (by country order), then Training Director, then others
-const vatscaBoard = allBoardMembers.sort((a, b) => {
-    const aIsDirector = a.POSITION.includes("Director of");
-    const bIsDirector = b.POSITION.includes("Director of");
-    const aIsTrainingDirector = a.POSITION === "Training Director";
-    const bIsTrainingDirector = b.POSITION === "Training Director";
-    
-    // All country directors come first
-    if (aIsDirector && !bIsDirector && !bIsTrainingDirector) return -1;
-    if (!aIsDirector && !aIsTrainingDirector && bIsDirector) return 1;
-    
-    // Training Director comes after all country directors
-    if (aIsTrainingDirector && bIsDirector) return 1;
-    if (aIsDirector && bIsTrainingDirector) return -1;
-    
-    // If both are directors, sort by country order
-    if (aIsDirector && bIsDirector) {
-        const aCountry = (a as any).COUNTRY;
-        const bCountry = (b as any).COUNTRY;
-        const aCountryIndex = countryOrder.findIndex(country => countryCodeMap[country] === aCountry);
-        const bCountryIndex = countryOrder.findIndex(country => countryCodeMap[country] === bCountry);
-        // If found, sort by index; if not found, keep original order
-        if (aCountryIndex !== -1 && bCountryIndex !== -1) {
-            return aCountryIndex - bCountryIndex;
-        }
-        return 0;
-    }
-    
-    // If both are Training Director or other non-directors, maintain order
-    return 0;
-});
-
-// Get CIDs of board members
-const boardMemberCIDs = new Set(vatscaBoard.map(member => member.CID));
-
-// Get CIDs of non-director board members to filter from country sections
-// Country Directors will appear in both Board and their country sections
-const nonDirectorBoardCIDs = new Set(
-    vatscaBoard
-        .filter(member => !member.POSITION.includes("Director of"))
-        .map(member => member.CID)
+// Get vACC Director
+const director = staffData.staff.find(
+    (member) => isInSection(member, "director")
 );
 
-// Define consistent department order across all countries
-const departmentOrder = [
-    "Director",
-    "Training",
-    "Event Coordinator ",
-    "NavData Team"
-];
+// Get board members
+const boardMembers = staffData.staff.filter(
+    (member) => 
+        isInSection(member, "board") && 
+        member.title !== "vACC Director"
+);
 
-// Get country code from first staff member in first department
-function getCountryCode(area: any): string {
-    const firstDept = Object.values(area)[0] as any[];
-    return firstDept?.[0]?.COUNTRY || "DK";
+// Get tech team (technical or dpo sections, but not board members)
+const techTeam = staffData.staff.filter(
+    (member) => 
+        (isInSection(member, "technical") || isInSection(member, "dpo")) &&
+        !isInSection(member, "board")
+);
+
+// Get event team (event sections, but not board members)
+const eventTeam = staffData.staff.filter(
+    (member) => 
+        isInSection(member, "event") &&
+        !isInSection(member, "board")
+);
+
+// Get country staff (includes country directors, training, and event staff)
+// Exclude vACC Director, board-only members & tech team
+const countryStaff = staffData.staff.filter(
+    (member) => {
+        // Exclude vACC Director
+        if (member.title === "vACC Director") return false;
+        
+        // Exclude tech team
+        if (isInSection(member, "technical") || isInSection(member, "dpo")) return false;
+        
+        // Exclude navdata
+        if (isInSection(member, "navdata")) return false;
+        
+        // Exclude board-only members (not country directors)
+        if (isInSection(member, "board") && !member.title.includes("Director of")) return false;
+        
+        // Include country directors, training, and event staff
+        return member.title.includes("Director of") || 
+               isInSection(member, "training") || 
+               isInSection(member, "event");
+    }
+);
+
+// Group country staff by area using only the defined sections
+// Sections now include area names (e.g., ["training", "denmark"], ["event", "finland"])
+const countryGroups: { [key: string]: any[] } = {};
+
+// Initialize groups for each defined area
+staffData.areas.forEach((area) => {
+    countryGroups[area.name] = [];
+});
+
+// Create a mapping from area titles to area codes
+const areaTitleToCode: { [key: string]: string } = {};
+staffData.areas.forEach((area) => {
+    areaTitleToCode[area.title.toLowerCase()] = area.name;
+});
+
+// Group staff by area based on their section array
+// The section array contains area names (denmark, norway, sweden, finland, iceland)
+countryStaff.forEach((member) => {
+    const memberSections = member.section || [];
+    
+    // Find area name in the member's sections
+    // Sections can contain: "denmark", "norway", "sweden", "finland", "iceland"
+    const areaInSection = memberSections.find((s: string) => {
+        const sectionLower = s.toLowerCase();
+        return areaTitleToCode[sectionLower] !== undefined;
+    });
+    
+    if (areaInSection) {
+        const areaCode = areaTitleToCode[areaInSection.toLowerCase()];
+        if (areaCode) {
+            countryGroups[areaCode].push(member);
+        }
+    }
+});
+
+// Sort function for country staff
+function getTitleSortOrder(title: string): number {
+    // "Director of" (not Assistant Director) should be first
+    if (title.startsWith("Director of") && !title.includes("Assistant")) return 1;
+    // Assistant Director comes after main Director
+    if (title.includes("Assistant Director")) return 2;
+    if (title.includes("Training Manager")) return 3;
+    if (title.includes("Training Assistant")) return 4;
+    if (title.includes("Event")) return 5;
+    return 6;
 }
 
-// Get departments in consistent order
-function getOrderedDepartments(area: any): [string, any[]][] {
-    const ordered: [string, any[]][] = [];
-    const areaEntries = Object.entries(area) as [string, any[]][];
-
-    // Add departments in the defined order
-    departmentOrder.forEach((deptName) => {
-        const found = areaEntries.find(([key]) => key === deptName);
-        if (found) {
-            ordered.push(found);
-        }
+// Sort staff within each country
+Object.keys(countryGroups).forEach((country) => {
+    countryGroups[country].sort((a, b) => {
+        const orderA = getTitleSortOrder(a.title);
+        const orderB = getTitleSortOrder(b.title);
+        if (orderA !== orderB) return orderA - orderB;
+        return a.title.localeCompare(b.title);
     });
+});
 
-    // Add any remaining departments not in the order
-    areaEntries.forEach(([key, value]) => {
-        if (!departmentOrder.includes(key)) {
-            ordered.push([key, value as any[]]);
-        }
-    });
-
-    return ordered;
-}
+// Country order for display
+const countryOrder = ["DK", "NO", "SE", "FI", "IS"];
+const countryNames: { [key: string]: string } = {
+    "DK": "Denmark",
+    "NO": "Norway",
+    "SE": "Sweden",
+    "FI": "Finland",
+    "IS": "Iceland"
+};
 ---
 
 <Layout SiteTitle={`${SiteTitle} | VATSIM Scandinavia`}>
-    <div
-        class="w-fit flex-1 flex flex-col justify-start p-4"
-    >
-    <h1 class="text-4xl font-semibold mt-8 mb-4">Staff</h1>
-    <p>
-        Meet the dedicated individuals who make VATSIM Scandinavia a great
-        community. <br />
-        For feedback please use our dedicated feedback form! <a
-            href="https://vatsca.org/feedback"
-            target="_blank"
-            class="text-blue-600 font-semibold"
-            >Here <svg
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                width="10px"
-                style={{ display: "inline" }}
-            >
-                <path
-                    fill="currentColor"
-                    d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"
-                ></path>
-                </svg></a
-            >
+    <div class="w-fit mx-auto">
+        <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-white">Staff</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">
+            Meet the dedicated individuals who make VATSIM Scandinavia a great community.
         </p>
-        
-        {/* vACC Director Section */}
-        <div class="my-12">
-            <div class="flex flex-col items-center gap-8">
-                <h2 class="text-2xl font-bold text-center">
-                    vACC Director
-                </h2>
-                <div class="flex flex-wrap justify-center gap-3">
-                    {Director.map((staff) => (
-                        <card class="bg-white dark:bg-secondary w-[20rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center relative">
-                            <img
-                                src={
-                                    (staff as any).AVATAR
-                                        ? (staff as any).AVATAR
-                                        : "/img/avatar.jpg"
-                                }
-                                alt=""
-                                class="aspect-square w-20 h-20 rounded object-cover"
-                            />
-                            <div class="w-full h-full flex flex-col">
-                                <p class="text-sm text-gray-500 dark:text-gray-300 font-medium">
-                                    {staff.CID ? staff.CID : "N/A"}
-                                </p>
-                                <p class="text-lg font-medium -mt-1">
-                                    {staff.NAME ? staff.NAME : "N/A"}{" "}
-                                    {(staff as any).COUNTRY && (
-                                        <img
-                                            src={`/img/icons/${(staff as any).COUNTRY}.svg`}
-                                            class="w-4 h-auto inline-block"
-                                        />
-                                    )}
-                                </p>
-                                <p class="text-sm font-medium -mt-1">
-                                    {staff.POSITION}
-                                </p>
-                                <a href={`mailto:${staff.EMAIL}`} class="text-sm mt-1 hover:text-primary transition-colors inline-flex items-center gap-1 w-fit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </a>
-                                <span class="absolute top-2 right-2 text-xs text-gray-500">
-                                    <AvailabilityDecode
-                                        Availability={staff.AVILABILITY}
-                                    />
-                                </span>
-                            </div>
-                        </card>
+
+        {/* Director Section */}
+        {director && (
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">vACC Director</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+                    <StaffCard member={director} />
+                </div>
+            </div>
+        )}
+
+        {/* Board Members Section */}
+        {boardMembers.length > 0 && (
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Board of Directors</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 justify-items-center sm:justify-items-start">
+                    {boardMembers.map((member) => (
+                        <StaffCard member={member} />
                     ))}
                 </div>
             </div>
-        </div>
+        )}
 
-        <hr class="border-2 border-gray-300 my-12" />
-
-        {/* VATSCA Board Section */}
-        <div class="my-12">
-            <div class="flex flex-col items-center gap-8">
-                <h2 class="text-2xl font-bold text-center">
-                    VATSCA Board
-                </h2>
-                <div class="flex flex-wrap justify-center gap-3 max-w-full" style="max-width: calc(20rem * 5 + 4 * 0.75rem);">
-                    {vatscaBoard.map((staff) => (
-                        <card class="bg-white dark:bg-secondary w-[20rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center relative">
-                            <img
-                                src={
-                                    (staff as any).AVATAR
-                                        ? (staff as any).AVATAR
-                                        : "/img/avatar.jpg"
-                                }
-                                alt=""
-                                class="aspect-square w-20 h-20 rounded object-cover"
-                            />
-                            <div class="w-full h-full flex flex-col">
-                                <p class="text-sm text-gray-500 dark:text-gray-300 font-medium">
-                                    {staff.CID ? staff.CID : "N/A"}
-                                </p>
-                                <p class="text-lg font-medium -mt-1">
-                                    {staff.NAME ? staff.NAME : "N/A"}{" "}
-                                    {(staff as any).COUNTRY && (
-                                        <img
-                                            src={`/img/icons/${(staff as any).COUNTRY}.svg`}
-                                            class="w-4 h-auto inline-block"
-                                        />
-                                    )}
-                                </p>
-                                <p class="text-sm font-medium -mt-1">
-                                    {staff.POSITION}
-                                </p>
-                                <a href={`mailto:${staff.EMAIL}`} class="text-sm mt-1 hover:text-primary transition-colors inline-flex items-center gap-1 w-fit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </a>
-                                <span class="absolute top-2 right-2 text-xs text-gray-500">
-                                    <AvailabilityDecode
-                                        Availability={staff.AVILABILITY}
-                                    />
-                                </span>
-                            </div>
-                        </card>
-                    ))}
-                </div>
-            </div>
-        </div>
-
-        <hr class="border-2 border-gray-300 my-12" />
-
-        <div class="staff-grid grid gap-4 sm:gap-6 lg:gap-8 my-8 sm:my-12">
-            <style>
-                /* Fullscreen: 5 columns */
-                .staff-grid {
-                    grid-template-columns: repeat(5, minmax(0, 1fr));
-                }
-                
-                /* Large screens: 4 columns (when 5 columns would be < 360px each) */
-                @media (max-width: calc(360px * 5 + 4 * 2rem)) {
-                    .staff-grid {
-                        grid-template-columns: repeat(4, minmax(0, 1fr));
-                    }
-                }
-                
-                /* Medium-large screens: 3 columns */
-                @media (max-width: calc(360px * 4 + 3 * 2rem)) {
-                    .staff-grid {
-                        grid-template-columns: repeat(3, minmax(0, 1fr));
-                    }
-                }
-                
-                /* Medium screens: 2 columns */
-                @media (max-width: calc(360px * 3 + 2 * 2rem)) {
-                    .staff-grid {
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
-                    }
-                }
-                
-                /* Small screens: auto-fit with 360px minimum (will be 1-2 columns) */
-                @media (max-width: calc(360px * 2 + 1 * 2rem)) {
-                    .staff-grid {
-                        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-                    }
-                }
-                
-                /* Mobile: 1 column */
-                @media (max-width: 360px) {
-                    .staff-grid {
-                        grid-template-columns: 1fr;
-                    }
-                }
-            </style>
-            {
-                areas.map((areaObj) => {
-                    const countryCode = getCountryCode(areaObj.data);
-                    const countryName = areaObj.name;
-
+        {/* Countries Section */}
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center md:text-left">Countries</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8 justify-items-center md:justify-items-start">
+                {countryOrder.map((countryCode) => {
+                    const countryStaffList = countryGroups[countryCode];
+                    if (!countryStaffList || countryStaffList.length === 0) return null;
+                    
                     return (
-                        <div class="flex flex-col" style="min-width: 360px; width: 100%;">
-                            <div class="flex items-center gap-3 mb-6">
-                                <img
-                                    src={`/img/icons/${countryCode}.svg`}
-                                    alt={countryName}
-                                    class="w-6 sm:w-8 h-auto"
+                        <div class="flex flex-col w-full">
+                            <div class="flex items-center gap-3 mb-4 justify-center md:justify-start">
+                                <img 
+                                    src={`/img/icons/${countryCode}.svg`} 
+                                    alt={countryNames[countryCode] || countryCode}
+                                    class="w-6 h-6"
+                                    loading="lazy"
                                 />
-                                <h1 class="text-2xl sm:text-3xl font-bold text-start">
-                                    {countryName}
-                                </h1>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                                    {countryNames[countryCode] || countryCode}
+                                </h3>
                             </div>
-
-                             <div class="flex flex-col gap-6">
-                                {getOrderedDepartments(areaObj.data).map(
-                                    ([departmentName, staffList]) => {
-                                        // Filter out non-director board members (Training Director, Technical Manager) from country sections
-                                        // Country Directors will appear in both Board and their country sections
-                                        const filteredStaffList = (staffList as any[]).filter(
-                                            (staff: any) => {
-                                                // If it's the Director department, show all (including country directors)
-                                                if (departmentName === "Director") {
-                                                    return true;
-                                                }
-                                                // For NavData Team, show all members (they're not board members)
-                                                if (departmentName === "NavData Team") {
-                                                    return true;
-                                                }
-                                                // For other departments, filter out non-director board members
-                                                return !nonDirectorBoardCIDs.has(staff.CID);
-                                            }
-                                        );
-                                        
-                                        // Find max staff count across all countries for this department
-                                        // For Director department, include all; for NavData Team, include all; for others, exclude non-director board members
-                                        const maxStaffCount = Math.max(
-                                            ...areas.map(a => {
-                                                const dept = getOrderedDepartments(a.data).find(
-                                                    ([name]) => name === departmentName
-                                                );
-                                                if (!dept) return 0;
-                                                if (departmentName === "Director" || departmentName === "NavData Team") {
-                                                    return dept[1].length;
-                                                }
-                                                const filtered = dept[1].filter(
-                                                    (staff: any) => !nonDirectorBoardCIDs.has(staff.CID)
-                                                );
-                                                return filtered.length;
-                                            })
-                                        );
-                                         
-                                        return (
-                                            <div class="w-full" style={`min-height: ${Math.max(120, (maxStaffCount * 112) + 60)}px`}>
-                                                <h2 class="text-lg sm:text-xl font-semibold mb-4 text-start">
-                                                    {departmentName}
-                                                </h2>
-                                                <div class="grid grid-cols-1 gap-3" style={`grid-template-rows: repeat(${maxStaffCount}, minmax(96px, auto));`}>
-                                                    {filteredStaffList.map(
-                                                        (staff: any) => (
-                                                             <card class="bg-white dark:bg-secondary w-full h-24 rounded flex p-2 gap-2 shadow items-center justify-center relative">
-                                                            <img
-                                                                src={
-                                                                    typeof staff.AVATAR !==
-                                                                        "undefined" &&
-                                                                    staff.AVATAR
-                                                                        ? staff.AVATAR
-                                                                        : "/img/avatar.jpg"
-                                                                }
-                                                                alt=""
-                                                                class="aspect-square w-20 h-20 rounded object-cover"
-                                                            />
-                                                            <div class="w-full h-full flex flex-col">
-                                                                <p class="text-sm text-gray-500 dark:text-gray-300 font-medium">
-                                                                    {staff.CID
-                                                                        ? staff.CID
-                                                                        : "N/A"}
-                                                                </p>
-                                                                <p class="text-lg font-medium -mt-1">
-                                                                    {staff.NAME
-                                                                        ? staff.NAME
-                                                                        : "N/A"}{" "}
-                                                                    <img
-                                                                        src={`/img/icons/${staff.COUNTRY}.svg`}
-                                                                        class="w-4 h-auto inline-block"
-                                                                    />
-                                                                </p>
-                                                                <p class="text-sm font-medium -mt-1">
-                                                                    {
-                                                                        staff.POSITION
-                                                                    }
-                                                                </p>
-                                                                <a href={`mailto:${staff.EMAIL}`} class="text-sm mt-1 hover:text-primary transition-colors inline-flex items-center gap-1 w-fit">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                                    </svg>
-                                                                </a>
-                                                                <span class="absolute top-2 right-2 text-xs text-gray-500">
-                                                                    <AvailabilityDecode
-                                                                        Availability={
-                                                                            staff.AVILABILITY
-                                                                        }
-                                                                    />
-                                                                 </span>
-                                                             </div>
-                                                         </card>
-                                                    ))}
-                                                    {/* Fill empty slots to maintain alignment */}
-                                                    {Array.from({ length: maxStaffCount - filteredStaffList.length }).map(() => (
-                                                         <div class="h-24"></div>
-                                                     ))}
-                                                 </div>
-                                             </div>
-                                         );
-                                     }
-                                 )}
+                            <div class="flex flex-col gap-4 items-center md:items-stretch">
+                                {countryStaffList.map((member) => (
+                                    <StaffCard member={member} />
+                                ))}
                             </div>
                         </div>
                     );
-                })
-            }
-        </div>
-
-        <hr class="border-2 border-gray-300" />
-        
-        {/* Cross-Country Teams Section */}
-        <div class="mt-16">
-            <div class="flex flex-col gap-8">
-                {/* Tech Team */}
-                <div>
-                    <h2 class="text-2xl font-bold mb-6 text-start">
-                        Tech Team
-                    </h2>
-                    <div class="flex flex-wrap gap-3">
-                        {Technical.map((staff) => (
-                            <card class="bg-white dark:bg-secondary w-[20rem] h-24 rounded flex p-2 gap-2 shadow items-center justify-center relative">
-                                <img
-                                    src={
-                                        typeof staff.AVATAR !== "undefined" &&
-                                        staff.AVATAR
-                                            ? staff.AVATAR
-                                            : "/img/avatar.jpg"
-                                    }
-                                    alt=""
-                                    class="aspect-square w-20 h-20 rounded object-cover"
-                                />
-                                <div class="w-full h-full flex flex-col">
-                                    <p class="text-sm text-gray-500 dark:text-gray-300 font-medium">
-                                        {staff.CID ? staff.CID : "N/A"}
-                                    </p>
-                                    <p class="text-lg font-medium -mt-1">
-                                        {staff.NAME ? staff.NAME : "N/A"}{" "}
-                                        <img
-                                            src={`/img/icons/${staff.COUNTRY}.svg`}
-                                            class="w-4 h-auto inline-block"
-                                        />
-                                    </p>
-                                    <p class="text-sm font-medium -mt-1">
-                                        {staff.POSITION}
-                                    </p>
-                                    <a href={`mailto:${staff.EMAIL}`} class="text-sm mt-1 hover:text-primary transition-colors inline-flex items-center gap-1 w-fit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                    </a>
-                                    <span class="absolute top-2 right-2 text-xs text-gray-500">
-                                        <AvailabilityDecode
-                                            Availability={staff.AVILABILITY}
-                                        />
-                                    </span>
-                                </div>
-                            </card>
-                        ))}
-                    </div>
-                </div>
+                })}
             </div>
         </div>
+
+        {/* Event Team Section */}
+        {eventTeam.length > 0 && (
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Event Team</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+                    {eventTeam.map((member) => (
+                        <StaffCard member={member} />
+                    ))}
+                </div>
+            </div>
+        )}
+
+        {/* Tech Team Section */}
+        {techTeam.length > 0 && (
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Tech Team</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+                    {techTeam.map((member) => (
+                        <StaffCard member={member} />
+                    ))}
+                </div>
+            </div>
+        )}
     </div>
 </Layout>

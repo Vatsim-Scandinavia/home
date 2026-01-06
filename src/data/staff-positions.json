@@ -1,0 +1,284 @@
+{
+  "areas": [
+    {"name": "DK", "title": "Denmark"},
+    {"name": "NO", "title": "Norway"},
+    {"name": "SE", "title": "Sweden"},
+    {"name": "FI", "title": "Finland"},
+    {"name": "IS", "title": "Iceland"}
+  ],
+  "sections": [
+    {"name": "director", "title": "Director"},
+    {"name": "board", "title": "Board of Directors"},
+    {"name": "training", "title": "Training"},
+    {"name": "event", "title": "Event Department"},
+    {"name": "technical", "title": "Tech Team"},
+    {"name": "dpo", "title": "Data Protection Officer"}
+  ],
+  "staff": [
+    {
+      "title": "vACC Director",
+      "section": ["director", "board"],
+      "cid": 1581824,
+      "name": "Simon Bjerre",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "director@vatsim-scandinavia.org",
+      "avatar": "/img/staff/sbjerre.png"
+    },
+    {
+      "title": "Training Director",
+      "section": ["training", "board"],
+      "cid": 1602589,
+      "name": "Jeppe Seier",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "training-director@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Training Manager Sweden",
+      "section": ["training","sweden"],
+      "cid": 1586141,
+      "name": "Niklas Thell",
+      "availability": "AVL",
+      "country": "SE",
+      "email": "training-sweden@vatsim-scandinavia.org",
+      "avatar": "/img/staff/nthell.webp"
+    },
+    {
+      "title": "Training Manager Denmark",
+      "section": ["training","denmark"],
+      "cid": 1447687,
+      "name": "Thomas Brøgger",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "training-denmark@vatsim-scandinavia.org",
+      "avatar": "/img/staff/broeggeren.webp"
+    },
+    {
+      "title": "Training Manager Norway",
+      "section": ["training","norway"],
+      "cid": 1621930,
+      "name": "Marius Linge",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "training-norway@vatsim-scandinavia.org",
+      "avatar": "/img/staff/mlinge.webp"
+    },
+    {
+      "title": "Training Manager Finland",
+      "section": ["training","finland"],
+      "cid": 1339541,
+      "name": "Otto Tuhkunen",
+      "availability": "AVL",
+      "country": "FI",
+      "email": "training-finland@vatsim-scandinavia.org",
+      "avatar": "/img/staff/otuhkunen.webp"
+    },
+    {
+      "title": "Training Manager Iceland",
+      "section": ["training","iceland"],
+      "cid": 1196137,
+      "name": "Kieran Riley",
+      "availability": "AVL",
+      "country": "IS",
+      "email": "training-iceland@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Training Assistant Sweden",
+      "section": ["training","sweden"],
+      "cid": 1438661,
+      "name": "Ansgar Oedman",
+      "availability": "AVL",
+      "country": "SE",
+      "email": "training-sweden@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Training Assistant Denmark",
+      "section": ["training","denmark"],
+      "cid": 1745220,
+      "name": "Jesper Hvenegaard",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "training-denmark@vatsim-scandinavia.org",
+      "avatar": "/img/staff/jhvenegaard.webp"
+    },
+    {
+      "title": "Training Assistant Norway",
+      "section": ["training","norway"],
+      "cid": 1616021,
+      "name": "Eskil Moen",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "training-norway@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Technical Manager",
+      "section": ["technical"],
+      "cid": 0,
+      "name": "Vacant",
+      "availability": "VAC",
+      "country": "EU",
+      "email": "tech@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Technical Assistant",
+      "section": ["technical"],
+      "cid": 1512667,
+      "name": "Thor Høgås",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "tech@vatsim-scandinavia.org",
+      "avatar": "/img/staff/thogas.webp"
+    },
+    {
+      "title": "Technical Assistant",
+      "section": ["technical"],
+      "cid": 1419105,
+      "name": "David Mortensen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "tech@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Technical Assistant",
+      "section": ["technical"],
+      "cid": 1401513,
+      "name": "Markus Nielsen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "tech@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Technical Assistant",
+      "section": ["technical"],
+      "cid": 1538752,
+      "name": "Benjamin Jørgensen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "tech@vatsim-scandinavia.org",
+      "avatar": "/img/staff/bjorgensen.webp"
+    },
+    {
+      "title": "Data Protection Officer",
+      "section": ["dpo", "technical"],
+      "cid": 1203470,
+      "name": "Henrik Sønstebø",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "dpo@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Director of Copenhagen FIR",
+      "section": ["director", "board", "denmark"],
+      "cid": 1226374,
+      "name": "Lukas Agerskov",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "denmark@vatsim-scandinavia.org",
+      "avatar": "/img/staff/lagerskov.webp"
+    },
+    {
+      "title": "Director of Polaris FIR",
+      "section": ["director", "norway", "board"],
+      "cid": 1339353,
+      "name": "Adrian Bjerke",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "norway@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Assistant Director of Polaris FIR",
+      "section": ["director", "norway"],
+      "cid": 1587880,
+      "name": "Lasse Skage",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "norway@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Director of Sweden FIR",
+      "section": ["director", "board", "sweden"],
+      "cid": 811805,
+      "name": "Martin Loxbo",
+      "availability": "AVL",
+      "country": "SE",
+      "email": "sweden@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Director of Helsinki FIR",
+      "section": ["director", "board", "finland"],
+      "cid": 1495200,
+      "name": "Mika Hellgren",
+      "availability": "AVL",
+      "country": "FI",
+      "email": "finland@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Director of Reykjavík CTA",
+      "section": ["director", "board", "iceland"],
+      "cid": 1404194,
+      "name": "Andrew Hobbs",
+      "availability": "AVL",
+      "country": "IS",
+      "email": "iceland@vatsim-scandinavia.org",
+      "avatar": "/img/staff/ahobbs.webp"
+    },
+    {
+      "title": "Event Manager",
+      "section": ["event"],
+      "cid": 1338009,
+      "name": "Martin Thorsteinsson",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "event@vatsim-scandinavia.org",
+      "avatar": "/img/staff/mhorsteinsson.webp"
+    },
+    {
+      "title": "Event Assistant Denmark",
+      "section": ["event"],
+      "cid": 1464625,
+      "name": "Oliver Rasmussen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "event@vatsim-scandinavia.org",
+      "avatar": "/img/staff/orasmussen.jpg"
+    },
+    {
+      "title": "Event Assistant Norway",
+      "section": ["event"],
+      "cid": 1462126,
+      "name": "Ask Erikstad",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "event@vatsim-scandinavia.org",
+      "avatar": "/img/staff/aerikstad.jpg"
+    },
+    {
+      "title": "Event Assistant Sweden",
+      "section": ["event"],
+      "cid": 1757074,
+      "name": "William Kassmo",
+      "availability": "AVL",
+      "country": "SE",
+      "email": "event@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Event Assistant Finland",
+      "section": ["event"],
+      "cid": 1458761,
+      "name": "Henri Luiro",
+      "availability": "AVL",
+      "country": "FI",
+      "email": "event@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Event Assistant Iceland",
+      "section": ["event"],
+      "cid": 1721961,
+      "name": "Florence Véran",
+      "availability": "AVL",
+      "country": "IS",
+      "email": "event@vatsim-scandinavia.org"
+    }
+  ]
+}

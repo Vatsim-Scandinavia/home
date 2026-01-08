@@ -10,67 +10,103 @@ import Announcement from "../components/Announcements";
 
 <Layout SiteTitle="VATSIM Scandinavia">
     <main class="w-full h-full flex flex-col items-center -mt-20">
-        
-        <div class="w-full h-[calc(50vh)] max-md:h-full flex justify-center mt-[150px]" >
+        <div
+            class="w-full h-[calc(50vh)] max-md:h-full flex justify-center mt-[150px]"
+        >
             <div class="max-w-[1300px] w-full flex">
-                <div class="w-full flex flex-col items-center justify-center p-12 max-xl:p-8 font-bold">
-                    <h1 class="text-secondary dark:text-white text-4xl md:text-6xl text-center drop-shadow-xl">
-                        Serving the Scandinavian Skies 
+                <div
+                    class="w-full flex flex-col items-center justify-center p-12 max-xl:p-8 font-bold"
+                >
+                    <h1
+                        class="text-secondary dark:text-white text-4xl md:text-6xl text-center drop-shadow-xl"
+                    >
+                        Serving the Scandinavian Skies
                     </h1>
-                    <p class="text-secondary dark:text-white text-xl p-2 text-center w-full md:w-3/5 lg:w-full drop-shadow-xl font-medium">
+                    <p
+                        class="text-secondary dark:text-white text-xl p-2 text-center w-full md:w-3/5 lg:w-full drop-shadow-xl font-medium"
+                    >
                         Home vACC of Denmark, Finland, Iceland, Norway & Sweden
                     </p>
-                    <div class="mt-12 sm:mt-0 max-sm:flex-wrap flex gap-4 pt-4 w-full justify-center">
-                        <HeroButton href="https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia" text="Join VATSIM Scandinavia" color="bg-success"/>
-                        <HeroButton href="http://discord.vatsim-scandinavia.org" text="Join our Discord" color="bg-[#6172bd] dark:bg-[#5c6aa7]"/>
+                    <div
+                        class="mt-12 sm:mt-0 max-sm:flex-wrap flex gap-4 pt-4 w-full justify-center"
+                    >
+                        <HeroButton
+                            href="https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia"
+                            text="Join VATSIM Scandinavia"
+                            color="bg-success"
+                        />
+                        <HeroButton
+                            href="http://discord.vatsim-scandinavia.org"
+                            text="Becoming a controller"
+                            color="bg-[#6172bd] dark:bg-[#5c6aa7]"
+                        />
                     </div>
                 </div>
                 <div class="w-full hidden xl:block">
                     <div class="w-full h-full flex items-center justify-center">
-                        <img src="/img/euroscope.svg" alt="Person sitting in front of computer and microphone controlling airplanes" class="w-full"/>
+                        <img
+                            src="/img/euroscope.svg"
+                            alt="Person sitting in front of computer and microphone controlling airplanes"
+                            class="w-full"
+                        />
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="w-full h-fit flex justify-center" id="bookings">
             <div class="max-w-[1300px] w-full content-center pt-6 pb-6">
                 <div class="flex max-xl:flex-wrap gap-8 max-xl:px-8">
                     <div class="width-main flex flex-col gap-8">
-                        <CardBox title="Latest announcements" padding="2" minHeight="224" link="https://forum.vatsim-scandinavia.org/t/announcements">
+                        <CardBox
+                            title="Latest announcements"
+                            padding="2"
+                            minHeight="324"
+                            link="https://forum.vatsim-scandinavia.org/t/announcements"
+                        >
                             <Announcement client:only />
                         </CardBox>
-                            
-                        <CardBox title="Events" padding="4" minHeight="660" link="https://events.vatsim-scandinavia.org/">
-                            <Events/>
+
+                        <CardBox
+                            title="Events"
+                            padding="4"
+                            minHeight="660"
+                            link="https://events.vatsim-scandinavia.org/"
+                        >
+                            <Events />
                         </CardBox>
                     </div>
-                        
+
                     <div class="flex-grow flex flex-col gap-8 width-sidebar">
-                        <CardBox title="Live ATC & Bookings" padding="0" filterId="bookings">
+                        <CardBox
+                            title="Live ATC & Bookings"
+                            padding="0"
+                            filterId="bookings"
+                        >
                             <Bookings />
                             <div slot="filter"></div>
                         </CardBox>
 
-                        <!--
-                        <CardBox title="Donations" padding="4">
-                            <p>
-                                Your donations enable us to maintain our infrastructure, to continue providing the best possible services for our members and guests.
-                            </p>
-
-                            <CardButton href="/about/donations" text="Read more" color="snow"/>
+                        <CardBox title="Comunity" padding="4">
+                            <div class="w-full h-full flex flex-col items-center justify-center gap-1">
+                                <HeroButton href="http://discord.vatsim-scandinavia.org" text="Join our Discord" color="bg-[#6172bd] dark:bg-[#5c6aa7]" />
+                                <HeroButton href="https://forum.vatsim-scandinavia.org" text="Visit our ‎‎‎ Forum " color="bg-[#6172bd] dark:bg-[#5c6aa7]" />
+                            </div>
                         </CardBox>
-                        -->
 
-                        <CardBox title="Feedback" padding="4" minHeight="145">
+                        <CardBox title="Feedback" padding="4" minHeight="100">
                             <p>
-                                Provide your feedback that we can use to improve our Scandinavian controllers.
+                                Provide your feedback that we can use to improve
+                                our Scandinavian controllers.
                             </p>
-                            
-                            <CardButton href="https://cc.vatsim-scandinavia.org/feedback" text="Leave us feedback" color="snow"/>
+                            <CardButton
+                                href="https://cc.vatsim-scandinavia.org/feedback"
+                                text="Leave us feedback"
+                                color="snow"
+                            />
                         </CardBox>
                     </div>
-                </div>                    
+                </div>
             </div>
         </div>
     </main>

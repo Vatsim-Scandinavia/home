@@ -42,7 +42,7 @@ const Announcements = () => {
 
   return (
     <>
-      {mergedAnnouncements.slice(0, 2).map((post) => (
+      {mergedAnnouncements.slice(0, 3).map((post) => (
         <div
           className="p-2 mt-2 mb-4 hover:bg-white dark:hover:bg-black hover:brightness-[95%] animate-entry"
           key={post.slug}

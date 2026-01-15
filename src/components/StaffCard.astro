@@ -16,7 +16,7 @@ interface Props {
 const { member } = Astro.props;
 ---
 
-<article class="group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden w-80">
+<article class="group relative bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden w-full sm:w-80">
     {/* Card Content */}
     <div class="p-3">
         <div class="flex items-start gap-4">
@@ -32,7 +32,7 @@ const { member } = Astro.props;
                 </div>
                 {/* Availability Badge */}
                 {member.availability && (
-                    <div class="absolute -bottom-1 -right-1 bg-white dark:bg-gray-800 rounded-full p-0.5 ring-2 ring-white dark:ring-gray-800 shadow-sm">
+                    <div class="absolute -bottom-1 -right-1 bg-white dark:bg-slate-700 rounded-full p-0.5 ring-white shadow-sm">
                         <AvailabilityDecode Availability={member.availability} variant="badge" />
                     </div>
                 )}
@@ -40,10 +40,10 @@ const { member } = Astro.props;
 
             {/* Info */}
             <div class="flex-1 min-w-0">
-                <p class="text-xs font-mono text-gray-500 dark:text-gray-400">
-                    {member.cid ?member.cid : "‌‌‌"}
+                <p class="text-xs h-4 font-mono text-gray-500 dark:text-gray-400">
+                    {member.cid ?member.cid : ""}
                 </p>
-                <span class="text-base font-semibold text-gray-900 dark:text-white truncate inline-flex gap-1 items-center">
+                <span class="text-sm font-semibold text-gray-900 dark:text-white truncate inline-flex gap-1 items-center">
                     {member.name}
                     {member.country && (
                         <img 
@@ -55,7 +55,7 @@ const { member } = Astro.props;
                     )}
                 </span>
                 <div class="flex items-center gap-2">
-                    <p class="text-xs text-gray-600 dark:text-gray-400 truncate flex-1">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 truncate flex-1">
                         {member.title}
                     </p>
                 </div>
@@ -63,7 +63,7 @@ const { member } = Astro.props;
                 {/* Email Link */}
                 <a 
                     href={`mailto:${member.email}`}
-                    class="inline-flex items-center gap-1.5 text-xs font-medium text-secondary hover:text-secondary/80 transition-colors group/link"
+                    class="inline-flex items-center gap-1.5 text-xs font-medium text-secondary dark:text-primary hover:text-secondary/80 transition-colors group/link"
                     aria-label={`Email ${member.name}`}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

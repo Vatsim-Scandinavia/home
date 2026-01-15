@@ -1,23 +1,15 @@
 {
-  "areas": [
-    {"name": "DK", "title": "Denmark"},
-    {"name": "NO", "title": "Norway"},
-    {"name": "SE", "title": "Sweden"},
-    {"name": "FI", "title": "Finland"},
-    {"name": "IS", "title": "Iceland"}
-  ],
   "sections": [
-    {"name": "director", "title": "Director"},
-    {"name": "board", "title": "Board of Directors"},
+    {"name": "vacc_director", "title": "vACC Director"},
+    {"name": "fir_director", "title": "FIR Directors"},
     {"name": "training", "title": "Training"},
     {"name": "event", "title": "Event Department"},
-    {"name": "technical", "title": "Tech Team"},
-    {"name": "dpo", "title": "Data Protection Officer"}
+    {"name": "tech", "title": "Tech Team"}
   ],
   "staff": [
     {
       "title": "vACC Director",
-      "section": ["director", "board"],
+      "section": ["vacc_director"],
       "cid": 1581824,
       "name": "Simon Bjerre",
       "availability": "AVL",
@@ -27,7 +19,7 @@
     },
     {
       "title": "Training Director",
-      "section": ["training", "board"],
+      "section": ["training"],
       "cid": 1602589,
       "name": "Jeppe Seier",
       "availability": "AVL",
@@ -36,7 +28,7 @@
     },
     {
       "title": "Training Manager Sweden",
-      "section": ["training","sweden"],
+      "section": ["training"],
       "cid": 1586141,
       "name": "Niklas Thell",
       "availability": "AVL",
@@ -46,7 +38,7 @@
     },
     {
       "title": "Training Manager Denmark",
-      "section": ["training","denmark"],
+      "section": ["training"],
       "cid": 1447687,
       "name": "Thomas Brøgger",
       "availability": "AVL",
@@ -56,7 +48,7 @@
     },
     {
       "title": "Training Manager Norway",
-      "section": ["training","norway"],
+      "section": ["training"],
       "cid": 1621930,
       "name": "Marius Linge",
       "availability": "AVL",
@@ -66,7 +58,7 @@
     },
     {
       "title": "Training Manager Finland",
-      "section": ["training","finland"],
+      "section": ["training"],
       "cid": 1339541,
       "name": "Otto Tuhkunen",
       "availability": "AVL",
@@ -76,7 +68,7 @@
     },
     {
       "title": "Training Manager Iceland",
-      "section": ["training","iceland"],
+      "section": ["training"],
       "cid": 1196137,
       "name": "Kieran Riley",
       "availability": "AVL",
@@ -85,7 +77,7 @@
     },
     {
       "title": "Training Assistant Sweden",
-      "section": ["training","sweden"],
+      "section": ["training"],
       "cid": 1438661,
       "name": "Rui Feng",
       "availability": "AVL",
@@ -94,7 +86,7 @@
     },
     {
       "title": "Training Assistant Denmark",
-      "section": ["training","denmark"],
+      "section": ["training"],
       "cid": 1745220,
       "name": "Jesper Hvenegaard",
       "availability": "AVL",
@@ -104,7 +96,7 @@
     },
     {
       "title": "Training Assistant Norway",
-      "section": ["training","norway"],
+      "section": ["training"],
       "cid": 1616021,
       "name": "Eskil Moen",
       "availability": "AVL",
@@ -113,16 +105,16 @@
     },
     {
       "title": "Technical Manager",
-      "section": ["technical"],
+      "section": ["tech"],
       "cid": 0,
       "name": "Vacant",
       "availability": "VAC",
-      "country": "EU",
+      "country": "",
       "email": "tech@vatsim-scandinavia.org"
     },
     {
       "title": "Technical Assistant",
-      "section": ["technical"],
+      "section": ["tech"],
       "cid": 1512667,
       "name": "Thor Høgås",
       "availability": "AVL",
@@ -132,7 +124,7 @@
     },
     {
       "title": "Technical Assistant",
-      "section": ["technical"],
+      "section": ["tech"],
       "cid": 1419105,
       "name": "David Mortensen",
       "availability": "AVL",
@@ -141,7 +133,7 @@
     },
     {
       "title": "Technical Assistant",
-      "section": ["technical"],
+      "section": ["tech"],
       "cid": 1401513,
       "name": "Markus Nielsen",
       "availability": "AVL",
@@ -150,7 +142,7 @@
     },
     {
       "title": "Technical Assistant",
-      "section": ["technical"],
+      "section": ["tech"],
       "cid": 1538752,
       "name": "Benjamin Jørgensen",
       "availability": "AVL",
@@ -160,7 +152,7 @@
     },
     {
       "title": "Data Protection Officer",
-      "section": ["dpo", "technical"],
+      "section": ["tech"],
       "cid": 1203470,
       "name": "Henrik Sønstebø",
       "availability": "AVL",
@@ -169,7 +161,7 @@
     },
     {
       "title": "Director of Copenhagen FIR",
-      "section": ["director", "board", "denmark"],
+      "section": ["fir_director"],
       "cid": 1226374,
       "name": "Lukas Agerskov",
       "availability": "AVL",
@@ -179,7 +171,7 @@
     },
     {
       "title": "Director of Polaris FIR",
-      "section": ["director", "norway", "board"],
+      "section": ["fir_director"],
       "cid": 1339353,
       "name": "Adrian Bjerke",
       "availability": "AVL",
@@ -188,7 +180,7 @@
     },
     {
       "title": "Assistant Director of Polaris FIR",
-      "section": ["director", "norway"],
+      "section": ["fir_director"],
       "cid": 1587880,
       "name": "Lasse Skage",
       "availability": "AVL",
@@ -197,7 +189,7 @@
     },
     {
       "title": "Director of Sweden FIR",
-      "section": ["director", "board", "sweden"],
+      "section": ["fir_director"],
       "cid": 811805,
       "name": "Martin Loxbo",
       "availability": "AVL",
@@ -206,7 +198,7 @@
     },
     {
       "title": "Director of Helsinki FIR",
-      "section": ["director", "board", "finland"],
+      "section": ["fir_director"],
       "cid": 1495200,
       "name": "Mika Hellgren",
       "availability": "AVL",
@@ -214,8 +206,8 @@
       "email": "finland@vatsim-scandinavia.org"
     },
     {
-      "title": "Director of Reykjavík CTA",
-      "section": ["director", "board", "iceland"],
+      "title": "Director of Reykjavik CTA",
+      "section": ["fir_director"],
       "cid": 1404194,
       "name": "Andrew Hobbs",
       "availability": "AVL",

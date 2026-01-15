@@ -11,28 +11,32 @@ function isInSection(member: any, sectionName: string): boolean {
 
 // Get vACC Director
 const director = staffData.staff.find(
-    (member) => isInSection(member, "director")
+    (member) => isInSection(member, "vacc_director")
 );
 
-// Get board members
-const boardMembers = staffData.staff.filter(
-    (member) => 
-        isInSection(member, "board") && 
-        member.title !== "vACC Director"
+// Get FIR directors
+const firDirectors = staffData.staff.filter(
+    (member) =>
+        isInSection(member, "fir_director")
 );
 
-// Get tech team (technical or dpo sections, but not board members)
+// Get tech team
 const techTeam = staffData.staff.filter(
     (member) => 
-        (isInSection(member, "technical") || isInSection(member, "dpo")) &&
-        !isInSection(member, "board")
+        isInSection(member, "tech")
 );
 
 // Get event team (event sections, but not board members)
 const eventTeam = staffData.staff.filter(
-    (member) => 
-        isInSection(member, "event") &&
-        !isInSection(member, "board")
+    (member) =>
+        isInSection(member, "event")
+);
+
+// Get Training Team
+const trainingTeam = staffData.staff.filter(
+  (member) =>
+    isInSection(member, "training") &&
+    !isInSection(member, "board")
 );
 
 // Get country staff (includes country directors, training, and event staff)
@@ -53,45 +57,10 @@ const countryStaff = staffData.staff.filter(
         
         // Include country directors, training, and event staff
         return member.title.includes("Director of") || 
-               isInSection(member, "training") || 
+               isInSection(member, "training") ||
                isInSection(member, "event");
     }
 );
-
-// Group country staff by area using only the defined sections
-// Sections now include area names (e.g., ["training", "denmark"], ["event", "finland"])
-const countryGroups: { [key: string]: any[] } = {};
-
-// Initialize groups for each defined area
-staffData.areas.forEach((area) => {
-    countryGroups[area.name] = [];
-});
-
-// Create a mapping from area titles to area codes
-const areaTitleToCode: { [key: string]: string } = {};
-staffData.areas.forEach((area) => {
-    areaTitleToCode[area.title.toLowerCase()] = area.name;
-});
-
-// Group staff by area based on their section array
-// The section array contains area names (denmark, norway, sweden, finland, iceland)
-countryStaff.forEach((member) => {
-    const memberSections = member.section || [];
-    
-    // Find area name in the member's sections
-    // Sections can contain: "denmark", "norway", "sweden", "finland", "iceland"
-    const areaInSection = memberSections.find((s: string) => {
-        const sectionLower = s.toLowerCase();
-        return areaTitleToCode[sectionLower] !== undefined;
-    });
-    
-    if (areaInSection) {
-        const areaCode = areaTitleToCode[areaInSection.toLowerCase()];
-        if (areaCode) {
-            countryGroups[areaCode].push(member);
-        }
-    }
-});
 
 // Sort function for country staff
 function getTitleSortOrder(title: string): number {
@@ -105,16 +74,6 @@ function getTitleSortOrder(title: string): number {
     return 6;
 }
 
-// Sort staff within each country
-Object.keys(countryGroups).forEach((country) => {
-    countryGroups[country].sort((a, b) => {
-        const orderA = getTitleSortOrder(a.title);
-        const orderB = getTitleSortOrder(b.title);
-        if (orderA !== orderB) return orderA - orderB;
-        return a.title.localeCompare(b.title);
-    });
-});
-
 // Country order for display
 const countryOrder = ["DK", "NO", "SE", "FI", "IS"];
 const countryNames: { [key: string]: string } = {
@@ -127,7 +86,7 @@ const countryNames: { [key: string]: string } = {
 ---
 
 <Layout SiteTitle={`${SiteTitle} | VATSIM Scandinavia`}>
-    <div class="w-fit mx-auto">
+    <div class="w-full p-6">
         <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-white">Staff</h1>
         <p class="text-gray-600 dark:text-gray-400 mb-8">
             Meet the dedicated individuals who make VATSIM Scandinavia a great community.
@@ -137,61 +96,41 @@ const countryNames: { [key: string]: string } = {
         {director && (
             <div class="mb-12">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">vACC Director</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+                <div class="flex flex-wrap gap-6 justify-center sm:justify-start">
                     <StaffCard member={director} />
                 </div>
             </div>
         )}
 
         {/* Board Members Section */}
-        {boardMembers.length > 0 && (
+        {firDirectors.length > 0 && (
             <div class="mb-12">
-                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Board of Directors</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 justify-items-center sm:justify-items-start">
-                    {boardMembers.map((member) => (
+                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">FIR Directors</h2>
+                <div class="flex flex-wrap gap-6 justify-center sm:justify-start">
+                    {firDirectors.map((member) => (
                         <StaffCard member={member} />
                     ))}
                 </div>
             </div>
         )}
 
-        {/* Countries Section */}
+      {/* FIR Directors */}
+      {trainingTeam.length > 0 && (
         <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center md:text-left">Countries</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8 justify-items-center md:justify-items-start">
-                {countryOrder.map((countryCode) => {
-                    const countryStaffList = countryGroups[countryCode];
-                    if (!countryStaffList || countryStaffList.length === 0) return null;
-                    
-                    return (
-                        <div class="flex flex-col w-full">
-                            <div class="flex items-center gap-3 mb-4 justify-center md:justify-start">
-                                <img 
-                                    src={`/img/icons/${countryCode}.svg`} 
-                                    alt={countryNames[countryCode] || countryCode}
-                                    class="w-6 h-6"
-                                    loading="lazy"
-                                />
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                                    {countryNames[countryCode] || countryCode}
-                                </h3>
-                            </div>
-                            <div class="flex flex-col gap-4 items-center md:items-stretch">
-                                {countryStaffList.map((member) => (
-                                    <StaffCard member={member} />
-                                ))}
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+          <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Training Team</h2>
+          <div class="flex flex-wrap gap-6 justify-center sm:justify-start">
+            {trainingTeam.map((member) => (
+              <StaffCard member={member} />
+            ))}
+          </div>
         </div>
+      )}
 
         {/* Event Team Section */}
         {eventTeam.length > 0 && (
             <div class="mb-12">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Event Team</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+                <div class="flex flex-wrap gap-6 justify-center sm:justify-start">
                     {eventTeam.map((member) => (
                         <StaffCard member={member} />
                     ))}
@@ -203,7 +142,7 @@ const countryNames: { [key: string]: string } = {
         {techTeam.length > 0 && (
             <div class="mb-12">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Tech Team</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+                <div class="flex flex-wrap gap-6 justify-center sm:justify-start">
                     {techTeam.map((member) => (
                         <StaffCard member={member} />
                     ))}

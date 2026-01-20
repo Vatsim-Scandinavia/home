@@ -34,14 +34,15 @@ const Events = () => {
             try {
                 setLoading(true);
                 setError(null);
-                const response = await fetch('https://events.vatsim-scandinavia.org/api/calendars/1/events');
+                const response = await fetch('https://events.vatsim-scandinavia.org/api/events');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
                 const data = await response.json();
-                setEvents(data.data);
+                // New API returns array directly, not wrapped in { data: [] }
+                setEvents(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching events:', error);
@@ -84,14 +85,14 @@ const Events = () => {
         <div className="flex flex-col w-full h-fit" id="live-stats" style={{ display: loading ? 'none' : 'flex' }}>
             <div className="flex h-full flex-col gap-2" >
                 {events.slice(0, 2).map((item, index) => (
-                    <div key={index} className='aspect-video h-1/3 md:h-60 flex'>
-                        <a target='_blank' href={item.link} aria-label={`View event: ${item.title}`} className='h-full aspect-video bg-center bg-cover rounded' style={{ backgroundImage: `url(${item.image})` }}>
+                    <div key={item.id || index} className='aspect-video h-1/3 md:h-60 flex'>
+                        <a target='_blank' href={item.url} aria-label={`View event: ${item.name}`} className='h-full aspect-video bg-center bg-cover rounded' style={{ backgroundImage: `url(${item.banner})` }}>
                         </a>
                         <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
-                            <h2 className='font-bold text-xl md:text-2xl text-secondary dark:text-white'>{item.title}</h2>
-                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{events.length !== 0 ? dateConverter(item.start_date, item.end_date) : ""}z</p>
+                            <h2 className='font-bold text-xl md:text-2xl text-secondary dark:text-white'>{item.name}</h2>
+                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{events.length !== 0 ? dateConverter(item.start_datetime, item.end_datetime) : ""}z</p>
                             <p className={`line-clamp-6 mb-1`}>{item.short_description}</p>
-                            <a href={item.link} className={`bg-snow p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm bottom-0 absolute w-full`} target='_blank'>
+                            <a href={item.url} className={`bg-snow p-3 text-center text-black dark:text-white hover:brightness-[95%] d-block inline-block mt-2 text-sm rounded-sm bottom-0 absolute w-full`} target='_blank'>
                                 Read more
                             </a>
                         </div>
@@ -100,7 +101,7 @@ const Events = () => {
                 <div className="navigation-wrapper h-1/3">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
-                            <a key={index} style={{ '--image-url': `url(${item.image})` }} aria-label={`View event: ${item.title}`} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' href={item.link} />
+                            <a key={item.id || index} style={{ '--image-url': `url(${item.banner})` }} aria-label={`View event: ${item.name}`} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' href={item.url} />
                         ))}
                         <a
                             href="https://events.vatsim-scandinavia.org"

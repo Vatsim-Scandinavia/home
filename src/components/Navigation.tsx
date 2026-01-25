@@ -11,6 +11,7 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
+    navigationMenuTriggerStyle,
 } from "./ui/Navigation-menu"
 
 type NavigationItem = {
@@ -140,29 +141,12 @@ const about: NavigationItems = [
 
 export default function Navigation() {
     return (
-        <NavigationMenu >
-            <NavigationMenuList className="flex flex-col md:flex-row w-full items-center">
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger>Community</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul className="grid gap-3 p-6 w-[100%] md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                            {community.map((component) => (
-                                <ListItem
-                                    key={component.title}
-                                    title={component.title}
-                                    href={component.href}
-                                    external={component.external}
-                                >
-                                    {component.description}
-                                </ListItem>
-                            ))}
-                        </ul>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
+        <NavigationMenu className="z-20 flex items-center">
+            <NavigationMenuList className="items-center">
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <ul className="grid w-[100%] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                             {gettingstarted.map((component) => (
                                 <ListItem
                                     key={component.title}
@@ -179,7 +163,7 @@ export default function Navigation() {
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Pilots</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <ul className="grid w-[100%] l-0 gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                             {components.map((component) => (
                                 <ListItem
                                     key={component.title}
@@ -196,7 +180,7 @@ export default function Navigation() {
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Controllers</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <ul className="grid w-[100%] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                             {controllers.map((component) => (
                                 <ListItem
                                     key={component.title}
@@ -213,7 +197,7 @@ export default function Navigation() {
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>About</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <ul className="grid w-[100%] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                             {about.map((component) => (
                                 <ListItem
                                     key={component.title}
@@ -226,6 +210,13 @@ export default function Navigation() {
                             ))}
                         </ul>
                     </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <a href="https://forum.vatsim-scandinavia.org" target="_blank" rel="noopener noreferrer">
+                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                            Community
+                        </NavigationMenuLink>
+                    </a>
                 </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>
@@ -245,15 +236,16 @@ const ListItem = React.forwardRef<HTMLAnchorElement, NavigationListItemProps>(
                     <a
                         ref={ref}
                         target={external ? "_blank" : undefined}
+                        rel={external ? "noopener noreferrer" : undefined}
                         className={cn(
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
                             className
                         )}
                         {...props}
                     >
-                        <div className="text-sm font-medium leading-none">
+                        <div className="text-sm font-medium leading-none flex items-center gap-1">
                             {title}
-                            {external == true && <ExternalLinkIcon width="0.75rem" marginLeft="0.3rem" />}
+                            {external && <ExternalLinkIcon width="0.75rem" marginLeft="0" />}
                         </div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                             {children}

@@ -4,24 +4,39 @@ import ThemeToggle from "./ThemeToggle"
 import Navigation from "./Navigation";
 import MobileMenu from "./MobileMenu";
 ---
-<header class="w-full h-[80px] flex justify-center sticky text-white bg-secondary top-0 z-50 px-24 max-lg:px-8 py-2 shadow-md">
+<header class="sticky top-0 z-50 w-full border-b border-border/40 bg-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-secondary/60">
     <Astronav>
-        <div class="w-[1300px] max-lg:w-[100%] flex flex-col lg:flex-row justify-between items-center">
-            <div class="flex w-full lg:w-auto items-center justify-between">
-                <a href="/" class="transition-opacity hover:opacity-80">
-                    <img width="150" src="/img/logos/negative.svg" alt="VATSIM Scandinavia logo" class="h-auto">
+        <div class="container flex h-20 max-w-screen-2xl items-center justify-around px-4 md:px-8">
+            <div class="flex items-center gap-6 md:gap-32">
+                <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-80">
+                    <!-- Logo for light mode (dark logo) -->
+                    <img 
+                        width="150" 
+                        height="auto"
+                        src="/img/logos/postive.svg" 
+                        alt="VATSIM Scandinavia logo" 
+                        class="h-14 w-auto dark:hidden"
+                    >
+                    <!-- Logo for dark mode (white logo) -->
+                    <img 
+                        width="150" 
+                        height="auto"
+                        src="/img/logos/negative.svg" 
+                        alt="VATSIM Scandinavia logo" 
+                        class="h-14 w-auto hidden dark:block"
+                    >
                 </a>
+                <MenuItems class="hidden lg:flex lg:items-center">
+                    <Navigation client:visible/>
+                </MenuItems>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="hidden lg:block">
+                    <ThemeToggle client:only="react"/>
+                </div>
                 <div class="block lg:hidden">
                     <MobileMenu client:only="react" />
                 </div>
-            </div>
-            <MenuItems class="hidden w-full px-8 lg:w-auto lg:flex lg:mt-0 text-xl max-lg:p-0 max-lg:w-[100vw]">
-                <div class="flex flex-col lg:flex-row lg:gap-3 items-center max-lg:bg-secondary max-lg:p-8">
-                    <Navigation client:visible/>
-                </div>
-            </MenuItems>
-            <div class="hidden lg:block">
-                <ThemeToggle client:only="react"/>
             </div>
         </div>
     </Astronav>

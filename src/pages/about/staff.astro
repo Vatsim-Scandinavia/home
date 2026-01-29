@@ -35,7 +35,7 @@ const eventTeam = staffData.staff.filter(
         !isInSection(member, "board")
 );
 
-// Get country staff (includes country directors, training, and event staff)
+// Get country staff (includes country directors, training, event staff, and country-specific roles)
 // Exclude vACC Director, board-only members & tech team
 const countryStaff = staffData.staff.filter(
     (member) => {
@@ -51,10 +51,15 @@ const countryStaff = staffData.staff.filter(
         // Exclude board-only members (not country directors)
         if (isInSection(member, "board") && !member.title.includes("Director of")) return false;
         
-        // Include country directors, training, and event staff
+        // Include country directors, training, event staff, and country-specific roles
         return member.title.includes("Director of") || 
                isInSection(member, "training") || 
-               isInSection(member, "event");
+               isInSection(member, "event") ||
+               isInSection(member, "denmark") ||
+               isInSection(member, "norway") ||
+               isInSection(member, "sweden") ||
+               isInSection(member, "finland") ||
+               isInSection(member, "iceland");
     }
 );
 
@@ -99,10 +104,12 @@ function getTitleSortOrder(title: string): number {
     if (title.startsWith("Director of") && !title.includes("Assistant")) return 1;
     // Assistant Director comes after main Director
     if (title.includes("Assistant Director")) return 2;
-    if (title.includes("Training Manager")) return 3;
-    if (title.includes("Training Assistant")) return 4;
-    if (title.includes("Event")) return 5;
-    return 6;
+    // Community Lead after Directors
+    if (title.includes("Community Lead")) return 3;
+    if (title.includes("Training Manager")) return 4;
+    if (title.includes("Training Assistant")) return 5;
+    if (title.includes("Event")) return 6;
+    return 7;
 }
 
 // Sort staff within each country

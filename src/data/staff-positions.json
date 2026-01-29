@@ -12,7 +12,12 @@
     {"name": "training", "title": "Training"},
     {"name": "event", "title": "Event Department"},
     {"name": "technical", "title": "Tech Team"},
-    {"name": "dpo", "title": "Data Protection Officer"}
+    {"name": "dpo", "title": "Data Protection Officer"},
+    {"name": "denmark", "title": "Denmark"},
+    {"name": "norway", "title": "Norway"},
+    {"name": "sweden", "title": "Sweden"},
+    {"name": "finland", "title": "Finland"},
+    {"name": "iceland", "title": "Iceland"}
   ],
   "staff": [
     {

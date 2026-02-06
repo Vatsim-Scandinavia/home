@@ -25,7 +25,10 @@ const boardMembers = staffData.staff.filter(
 const techTeam = staffData.staff.filter(
     (member) => 
         (isInSection(member, "technical") || isInSection(member, "dpo")) &&
-        !isInSection(member, "board")
+        (
+            !isInSection(member, "board") ||
+            member.title === "Tech Director"
+        )
 );
 
 // Get event team (event sections, but not board members)

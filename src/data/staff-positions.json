@@ -117,23 +117,23 @@
       "email": "training-norway@vatsim-scandinavia.org"
     },
     {
-      "title": "Technical Manager",
-      "section": ["technical"],
-      "cid": 0,
-      "name": "Vacant",
-      "availability": "VAC",
-      "country": "EU",
-      "email": "tech@vatsim-scandinavia.org"
-    },
-    {
-      "title": "Technical Assistant",
-      "section": ["technical"],
+      "title": "Tech Director",
+      "section": ["technical","Board of Directors"],
       "cid": 1512667,
       "name": "Thor Høgås",
       "availability": "AVL",
       "country": "NO",
       "email": "tech@vatsim-scandinavia.org",
       "avatar": "/img/staff/thogas.webp"
+    },
+    {
+      "title": "Technical Assistant",
+      "section": ["technical"],
+      "cid": 0,
+      "name": "vacant",
+      "availability": "VAC",
+      "country": "EU",
+      "email": "tech@vatsim-scandinavia.org"
     },
     {
       "title": "Technical Assistant",

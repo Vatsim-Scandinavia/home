@@ -48,9 +48,6 @@ const countryStaff = staffData.staff.filter(
         // Exclude tech team
         if (isInSection(member, "technical") || isInSection(member, "dpo")) return false;
         
-        // Exclude navdata
-        if (isInSection(member, "navdata")) return false;
-        
         // Exclude board-only members (not country directors)
         if (isInSection(member, "board") && !member.title.includes("Director of")) return false;
         
@@ -106,7 +103,7 @@ function getTitleSortOrder(title: string): number {
     // "Director of" (not Assistant Director) should be first
     if (title.startsWith("Director of") && !title.includes("Assistant")) return 1;
     // Assistant Director comes after main Director
-    if (title.includes("Assistant Director")) return 2;
+    if (title.includes("Deputy Director")) return 2;
     // Community Lead after Directors
     if (title.includes("Community Lead")) return 3;
     if (title.includes("Training Manager")) return 4;

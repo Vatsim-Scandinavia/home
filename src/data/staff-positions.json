@@ -60,6 +60,42 @@
       "avatar": "/img/staff/broeggeren.webp"
     },
     {
+      "title": "NavData Lead",
+      "section": ["denmark"],
+      "cid": 887089,
+      "name": "Splendor Bouman",
+      "availability": "AVL",
+      "country": "EU",
+      "email": "denmark@vatsim-scandinavia.org"
+    },
+    {
+      "title": "NavData Member",
+      "section": ["denmark"],
+      "cid": 1476793,
+      "name": "Bartek",
+      "availability": "AVL",
+      "country": "EU",
+      "email": "denmark@vatsim-scandinavia.org"
+    },
+    {
+      "title": "NavData Member",
+      "section": ["denmark"],
+      "cid": 1737749,
+      "name": "Brian",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "denmark@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Community Team Member",
+      "section": ["denmark"],
+      "cid": 1752065,
+      "name": "Magnus",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "denmark@vatsim-scandinavia.org"
+    },
+    {
       "title": "Training Manager Norway",
       "section": ["training","norway"],
       "cid": 1621930,

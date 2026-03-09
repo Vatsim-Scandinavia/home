@@ -106,10 +106,12 @@ function getTitleSortOrder(title: string): number {
     if (title.includes("Deputy Director")) return 2;
     // Community Lead after Directors
     if (title.includes("Community Lead")) return 3;
-    if (title.includes("Training Manager")) return 4;
-    if (title.includes("Training Assistant")) return 5;
-    if (title.includes("Event")) return 6;
-    return 7;
+    if (title.includes("Community Team Member")) return 4;
+    if (title.includes("Training Lead")) return 5;
+    if (title.includes("Training Team Member")) return 6;
+    if (title.includes("Event")) return 7;
+    if (title.includes("NavData")) return 8;
+    return 9;
 }
 
 // Sort staff within each country

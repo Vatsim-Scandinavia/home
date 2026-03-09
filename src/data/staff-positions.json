@@ -127,13 +127,14 @@
       "avatar": "/img/staff/thogas.webp"
     },
     {
-      "title": "Technical Assistant",
+      "title": "Deputy Tech Director",
       "section": ["technical"],
-      "cid": 0,
-      "name": "vacant",
-      "availability": "VAC",
-      "country": "EU",
-      "email": "tech@vatsim-scandinavia.org"
+      "cid": 1538752,
+      "name": "Benjamin Jørgensen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "tech@vatsim-scandinavia.org",
+      "avatar": "/img/staff/bjorgensen.webp"
     },
     {
       "title": "Technical Assistant",
@@ -154,16 +155,6 @@
       "email": "tech@vatsim-scandinavia.org"
     },
     {
-      "title": "Technical Assistant",
-      "section": ["technical"],
-      "cid": 1538752,
-      "name": "Benjamin Jørgensen",
-      "availability": "AVL",
-      "country": "DK",
-      "email": "tech@vatsim-scandinavia.org",
-      "avatar": "/img/staff/bjorgensen.webp"
-    },
-    {
       "title": "Data Protection Officer",
       "section": ["dpo", "technical"],
       "cid": 1203470,
@@ -171,6 +162,15 @@
       "availability": "AVL",
       "country": "NO",
       "email": "dpo@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Technical Assistant",
+      "section": ["technical"],
+      "cid": 0,
+      "name": "Vacant",
+      "availability": "VAC",
+      "country": "EU",
+      "email": "tech@vatsim-scandinavia.org"
     },
     {
       "title": "Director of Copenhagen FIR",

@@ -98,12 +98,11 @@
     {
       "title": "Training Manager Norway",
       "section": ["training","norway"],
-      "cid": 1621930,
-      "name": "Marius Linge",
-      "availability": "AVL",
-      "country": "NO",
+      "cid": 0,
+      "name": "Vacant",
+      "availability": "VAC",
+      "country": "EU",
       "email": "training-norway@vatsim-scandinavia.org",
-      "avatar": "/img/staff/mlinge.webp"
     },
     {
       "title": "Training Manager Finland",

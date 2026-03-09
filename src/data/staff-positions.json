@@ -40,7 +40,7 @@
       "email": "training-director@vatsim-scandinavia.org"
     },
     {
-      "title": "Training Manager Sweden",
+      "title": "Training Lead Sweden",
       "section": ["training","sweden"],
       "cid": 1586141,
       "name": "Niklas Thell",
@@ -50,7 +50,7 @@
       "avatar": "/img/staff/nthell.webp"
     },
     {
-      "title": "Training Manager Denmark",
+      "title": "Training Lead Denmark",
       "section": ["training","denmark"],
       "cid": 1447687,
       "name": "Thomas Brøgger",
@@ -96,7 +96,7 @@
       "email": "denmark@vatsim-scandinavia.org"
     },
     {
-      "title": "Training Manager Norway",
+      "title": "Training Lead Norway",
       "section": ["training","norway"],
       "cid": 0,
       "name": "Vacant",
@@ -105,7 +105,7 @@
       "email": "training-norway@vatsim-scandinavia.org"
     },
     {
-      "title": "Training Manager Finland",
+      "title": "Training Lead Finland",
       "section": ["training","finland"],
       "cid": 1339541,
       "name": "Otto Tuhkunen",
@@ -115,7 +115,7 @@
       "avatar": "/img/staff/otuhkunen.webp"
     },
     {
-      "title": "Training Manager Iceland",
+      "title": "Training Lead Iceland",
       "section": ["training","iceland"],
       "cid": 1196137,
       "name": "Kieran Riley",
@@ -124,7 +124,7 @@
       "email": "training-iceland@vatsim-scandinavia.org"
     },
     {
-      "title": "Training Assistant Sweden",
+      "title": "Training Team Member Sweden",
       "section": ["training","sweden"],
       "cid": 1584282,
       "name": "Rui Feng",
@@ -143,7 +143,7 @@
       "avatar": "/img/staff/jhvenegaard.webp"
     },
     {
-      "title": "Training Assistant Norway",
+      "title": "Training Team Member Norway",
       "section": ["training","norway"],
       "cid": 1616021,
       "name": "Eskil Moen",
@@ -172,7 +172,7 @@
       "avatar": "/img/staff/bjorgensen.webp"
     },
     {
-      "title": "Technical Assistant",
+      "title": "Tech Team Member",
       "section": ["technical"],
       "cid": 1419105,
       "name": "David Mortensen",
@@ -181,7 +181,7 @@
       "email": "tech@vatsim-scandinavia.org"
     },
     {
-      "title": "Technical Assistant",
+      "title": "Tech Team Member",
       "section": ["technical"],
       "cid": 1401513,
       "name": "Markus Nielsen",
@@ -199,7 +199,7 @@
       "email": "dpo@vatsim-scandinavia.org"
     },
     {
-      "title": "Technical Assistant",
+      "title": "Tech Team Member",
       "section": ["technical"],
       "cid": 0,
       "name": "Vacant",
@@ -264,7 +264,7 @@
       "avatar": "/img/staff/ahobbs.webp"
     },
     {
-      "title": "Event Manager",
+      "title": "Event Lead",
       "section": ["event"],
       "cid": 1338009,
       "name": "Martin Thorsteinsson",
@@ -274,7 +274,7 @@
       "avatar": "/img/staff/mhorsteinsson.webp"
     },
     {
-      "title": "Event Assistant Denmark",
+      "title": "Event Coordinator Denmark",
       "section": ["event"],
       "cid": 1464625,
       "name": "Oliver Rasmussen",
@@ -284,7 +284,7 @@
       "avatar": "/img/staff/orasmussen.jpg"
     },
     {
-      "title": "Event Assistant Norway",
+      "title": "Event Coordinator Norway",
       "section": ["event"],
       "cid": 1462126,
       "name": "Ask Erikstad",
@@ -294,7 +294,7 @@
       "avatar": "/img/staff/aerikstad.jpg"
     },
     {
-      "title": "Event Assistant Sweden",
+      "title": "Event Coordinator Sweden",
       "section": ["event"],
       "cid": 1757074,
       "name": "William Kassmo",
@@ -303,7 +303,7 @@
       "email": "event@vatsim-scandinavia.org"
     },
     {
-      "title": "Event Assistant Finland",
+      "title": "Event Coordinator Finland",
       "section": ["event"],
       "cid": 1458761,
       "name": "Henri Luiro",
@@ -312,7 +312,7 @@
       "email": "event@vatsim-scandinavia.org"
     },
     {
-      "title": "Event Assistant Iceland",
+      "title": "Event Coordinator Iceland",
       "section": ["event"],
       "cid": 1721961,
       "name": "Florence Véran",

@@ -1,0 +1,87 @@
+---
+import type { ForumDiscussion } from '../lib/flarum';
+import staffData from '../data/staff-positions.json';
+
+interface Props {
+  posts: ForumDiscussion[];
+}
+
+const { posts } = Astro.props;
+
+const staffByCid = new Map(
+  staffData.staff
+    .filter((s) => s.cid > 0)
+    .map((s) => [s.cid, s]),
+);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase();
+}
+
+function displayTag(tags: { name: string; color: string }[]): { name: string; color: string } {
+  const nonAnnouncement = tags?.find((t) => t.name.toLowerCase() !== 'announcements');
+  return nonAnnouncement ?? tags?.[0] ?? { name: 'Announcement', color: '#a81f1f' };
+}
+
+function resolveAuthor(authorName: string): { name: string; title: string | null } {
+  const cidMatch = authorName.match(/\((\d+)\)/);
+  if (cidMatch) {
+    const cid = parseInt(cidMatch[1], 10);
+    const staff = staffByCid.get(cid);
+    const cleanName = authorName.replace(/\s*\(\d+\)/, '');
+    return { name: cleanName, title: staff?.title ?? null };
+  }
+  return { name: authorName, title: null };
+}
+
+const enrichedPosts = posts.map((post) => ({
+  ...post,
+  tag: displayTag(post.tags),
+  author: resolveAuthor(post.author.name),
+}));
+---
+
+<section id="notams ">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-4 lg:grid-cols-3 px-2 py-3">
+      {enrichedPosts.map((post) => (
+        <a href={post.url} target="_blank" rel="noopener noreferrer" class="group flex flex-col rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-hover border border-border-light">
+          <div class="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-[#011328] via-[#0a2540] to-[#0d3b66] flex items-center justify-center">
+            {post.bannerImage ? (
+              <img
+                src={post.bannerImage.url}
+                alt={post.bannerImage.alt}
+                class="absolute inset-0 h-full w-full object-fill"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <>
+                <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(circle at 20% 50%, rgba(67,198,231,0.4) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(67,198,231,0.3) 0%, transparent 40%);"></div>
+                <svg class="w-20 h-20 text-white/10" viewBox="0 0 922 427" fill="currentColor">
+                  <polygon points="50 221 115 80 179 221 114 175 50 221"/>
+                </svg>
+              </>
+            )}
+            <div class="absolute bottom-4 left-4 right-4">
+              <span class="inline-block py-1 px-3 rounded-full text-[11px] font-bold text-secondary tracking-wide uppercase" style={`background-color: ${post.tag.color}; color: ${post.tag.color === '#a81f1f' ? 'white' : 'secondary'};`}>
+                {post.tag.name}
+              </span>
+            </div>
+          </div>
+          <div class="p-5 flex flex-col grow">
+            <div class="flex items-center gap-2 mb-2 flex-wrap">
+              <span class="text-[12px] font-semibold text-text-muted tracking-wide">{formatDate(post.createdAt)}</span>
+              <span class="text-border-light">·</span>
+              <span class="text-[12px] text-text-muted">
+                {post.author.title && <span class="font-semibold text-navy">{post.author.title}, </span>}
+                {post.author.name}
+              </span>
+            </div>
+            <h3 class="text-lg font-bold leading-[1.3] mb-2 group-hover:text-navy transition-colors">{post.title}</h3>
+            <p class="text-sm text-text-muted leading-[1.6] line-clamp-2 mb-3">{post.excerpt}</p>
+            <span class="mt-auto text-sm font-semibold text-secondary group-hover:underline dark:text-slate-300">Read more →</span>
+          </div>
+        </a>
+      ))}
+  </div>
+</section>

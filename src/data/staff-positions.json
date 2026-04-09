@@ -98,8 +98,8 @@
     {
       "title": "Training Lead Norway",
       "section": ["training","norway"],
-      "cid": 0,
-      "name": "Vacant",
+      "cid": 1616021,
+      "name": "Eskil Moen",
       "availability": "VAC",
       "country": "EU",
       "email": "training-norway@vatsim-scandinavia.org"
@@ -145,9 +145,9 @@
     {
       "title": "Training Team Member Norway",
       "section": ["training","norway"],
-      "cid": 1616021,
-      "name": "Eskil Moen",
-      "availability": "AVL",
+      "cid": 0,
+      "name": "Vacant",
+      "availability": "VAC",
       "country": "NO",
       "email": "training-norway@vatsim-scandinavia.org"
     },

@@ -4,16 +4,16 @@ import ThemeToggle from "./ThemeToggle"
 import Navigation from "./Navigation";
 import MobileMenu from "./MobileMenu";
 ---
-<header class="sticky top-0 z-50 w-full border-b border-border/40 bg-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-secondary/60">
+<header class="sticky top-0 z-50 w-full bg-secondary dark:bg-secondary shadow-md">
     <Astronav>
-        <div class="container flex h-20 max-w-screen-2xl items-center justify-around px-4 md:px-8">
+        <div class="container flex max-w-screen-2xl items-center justify-around px-4 md:px-8 py-1.5">
             <div class="flex items-center gap-6 md:gap-32">
                 <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-80">
                     <!-- Logo for light mode (dark logo) -->
                     <img 
                         width="150" 
                         height="auto"
-                        src="/img/logos/postive.svg" 
+                        src="/img/logos/negative.svg"
                         alt="VATSIM Scandinavia logo" 
                         class="h-14 w-auto dark:hidden"
                     >
@@ -26,11 +26,11 @@ import MobileMenu from "./MobileMenu";
                         class="h-14 w-auto hidden dark:block"
                     >
                 </a>
-                <MenuItems class="hidden lg:flex lg:items-center">
+                <MenuItems class="hidden lg:flex lg:items-center text-white">
                     <Navigation client:visible/>
                 </MenuItems>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 text-white">
                 <div class="hidden lg:block">
                     <ThemeToggle client:only="react"/>
                 </div>

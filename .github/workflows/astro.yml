@@ -92,3 +92,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        env:
+          FLARUM_API_TOKEN: ${{ secrets.FLARUM_API_TOKEN }}

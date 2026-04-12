@@ -5,7 +5,6 @@ import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 const Events = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [events, setEvents] = useState([]);
-    const [loaded, setLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -14,7 +13,7 @@ const Events = () => {
         mode: "snap",
         slides: {
             spacing: 5,
-            perView: 4,
+            perView: 3,
         },
         breakpoints: {
             "(max-width: 768px)": {
@@ -41,7 +40,6 @@ const Events = () => {
                 }
                 
                 const data = await response.json();
-                // New API returns array directly, not wrapped in { data: [] }
                 setEvents(data);
                 setLoading(false);
             } catch (error) {
@@ -82,7 +80,7 @@ const Events = () => {
     }
 
     return (
-        <div className="flex flex-col w-full h-fit" id="live-stats" style={{ display: loading ? 'none' : 'flex' }}>
+        <div className="flex flex-col w-full h-full" id="live-stats" style={{ display: loading ? 'none' : 'flex' }}>
             <div className="flex h-full flex-col gap-2" >
                 {events.slice(0, 2).map((item, index) => (
                     <a href={item.url} target='_blank' rel='noopener noreferrer' aria-label={`View event: ${item.name}`} key={item.id || index} className='aspect-video h-1/3 md:h-60 flex dark:hover:!text-primary text-secondary dark:text-white hover:bg-snow transition-all p-2 rounded'>

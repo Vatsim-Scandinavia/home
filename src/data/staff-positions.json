@@ -305,9 +305,9 @@
     {
       "title": "Event Coordinator Finland",
       "section": ["event"],
-      "cid": 0,
-      "name": "",
-      "availability": "VAC",
+      "cid": 1458761,
+      "name": "Henri Luiro",
+      "availability": "AVL",
       "country": "FI",
       "email": "event@vatsim-scandinavia.org"
     },

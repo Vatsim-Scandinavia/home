@@ -1,10 +1,10 @@
 {
   "areas": [
     {"name": "DK", "title": "Denmark"},
-    {"name": "NO", "title": "Norway"},
-    {"name": "SE", "title": "Sweden"},
     {"name": "FI", "title": "Finland"},
-    {"name": "IS", "title": "Iceland"}
+    {"name": "IS", "title": "Iceland"},
+    {"name": "NO", "title": "Norway"},
+    {"name": "SE", "title": "Sweden"}
   ],
   "sections": [
     {"name": "director", "title": "Director"},
@@ -14,10 +14,10 @@
     {"name": "technical", "title": "Tech Team"},
     {"name": "dpo", "title": "Data Protection Officer"},
     {"name": "denmark", "title": "Denmark"},
-    {"name": "norway", "title": "Norway"},
-    {"name": "sweden", "title": "Sweden"},
     {"name": "finland", "title": "Finland"},
-    {"name": "iceland", "title": "Iceland"}
+    {"name": "iceland", "title": "Iceland"},
+    {"name": "norway", "title": "Norway"},
+    {"name": "sweden", "title": "Sweden"}
   ],
   "staff": [
     {

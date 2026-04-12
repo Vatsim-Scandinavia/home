@@ -1,4 +1,5 @@
 ---
+import CardBox from "@/components/ui/CardBox.astro";
 const SiteTitle = "Staff";
 import Layout from "../../layout/Layout.astro";
 import StaffCard from "../../components/StaffCard.astro";
@@ -128,64 +129,62 @@ Object.keys(countryGroups).forEach((country) => {
 const countryOrder = ["DK", "NO", "SE", "FI", "IS"];
 const countryNames: { [key: string]: string } = {
     "DK": "Denmark",
-    "NO": "Norway",
-    "SE": "Sweden",
     "FI": "Finland",
-    "IS": "Iceland"
+    "IS": "Iceland",
+    "NO": "Norway",
+    "SE": "Sweden"
 };
 ---
 
 <Layout SiteTitle={`${SiteTitle} | VATSIM Scandinavia`}>
-    <div class="w-fit mx-auto">
-        <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-white">Staff</h1>
+    <div class="p-6 flex flex-col gap-6 w-full max-w-[1200px]">
+       <div class="mt-8">
+        <h1 class="text-4xl font-bold my-2 text-secondary dark:text-white">Staff</h1>
         <p class="text-gray-600 dark:text-gray-400 mb-8">
             Meet the dedicated individuals who make VATSIM Scandinavia a great community.
         </p>
+       </div>
 
         {/* Director Section */}
         {director && (
-            <div class="mb-12">
-                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">vACC Director</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+            <CardBox title="vACC Director" padding="4">
+                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <StaffCard member={director} />
                 </div>
-            </div>
+            </CardBox>
         )}
 
         {/* Board Members Section */}
         {boardMembers.length > 0 && (
-            <div class="mb-12">
-                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Board of Directors</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 justify-items-center sm:justify-items-start">
+            <CardBox title="Board of Directors" padding="4">
+                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {boardMembers.map((member) => (
                         <StaffCard member={member} />
                     ))}
                 </div>
-            </div>
+            </CardBox>
         )}
 
         {/* Countries Section */}
-        <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center md:text-left">Countries</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8 justify-items-center md:justify-items-start">
+        <CardBox title="Regions" padding="0">
                 {countryOrder.map((countryCode) => {
                     const countryStaffList = countryGroups[countryCode];
                     if (!countryStaffList || countryStaffList.length === 0) return null;
                     
                     return (
-                        <div class="flex flex-col w-full">
-                            <div class="flex items-center gap-3 mb-4 justify-center md:justify-start">
+                        <div class="flex flex-col w-full gap-4 p-4">
+                            <div class="flex items-center gap-2 justify-center md:justify-start border-b pb-1.5">
                                 <img 
                                     src={`/img/icons/${countryCode}.svg`} 
                                     alt={countryNames[countryCode] || countryCode}
-                                    class="w-6 h-6"
+                                    class="w-5 h-5"
                                     loading="lazy"
                                 />
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">
                                     {countryNames[countryCode] || countryCode}
                                 </h3>
                             </div>
-                            <div class="flex flex-col gap-4 items-center md:items-stretch">
+                            <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                 {countryStaffList.map((member) => (
                                     <StaffCard member={member} />
                                 ))}
@@ -193,31 +192,28 @@ const countryNames: { [key: string]: string } = {
                         </div>
                     );
                 })}
-            </div>
-        </div>
+        </CardBox>
 
         {/* Event Team Section */}
         {eventTeam.length > 0 && (
-            <div class="mb-12">
-                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Event Team</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+            <CardBox title="Event Team" padding="4">
+                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {eventTeam.map((member) => (
                         <StaffCard member={member} />
                     ))}
                 </div>
-            </div>
+            </CardBox>
         )}
 
         {/* Tech Team Section */}
         {techTeam.length > 0 && (
-            <div class="mb-12">
-                <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center sm:text-left">Tech Team</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 justify-items-center sm:justify-items-start">
+            <CardBox title="Tech Team" padding="4">
+                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {techTeam.map((member) => (
                         <StaffCard member={member} />
                     ))}
                 </div>
-            </div>
+            </CardBox>
         )}
     </div>
 </Layout>

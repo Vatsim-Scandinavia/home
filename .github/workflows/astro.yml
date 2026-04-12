@@ -66,7 +66,11 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
+      # Flarum API (build-time fetch in src/lib/flarum.ts): add FLARUM_API_TOKEN under
+      # Settings → Secrets and variables → Actions in this repository.
       - name: Build with Astro
+        env:
+          FLARUM_API_TOKEN: ${{ secrets.FLARUM_API_TOKEN }}
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
             --site "${{ steps.pages.outputs.origin }}" \

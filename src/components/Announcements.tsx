@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import useForumData from "@/hooks/useForumData";
 
 const sanitizeHtml = (html: string) => {

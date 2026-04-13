@@ -3,9 +3,11 @@ import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
-    const [theme, setTheme] = useState<"light" | "dark">(
-        (typeof window !== "undefined" && (localStorage.getItem("theme") as "light" | "dark")) ?? "dark"
-    );
+    const [theme, setTheme] = useState<"light" | "dark">(() => {
+        if (typeof window === "undefined") return "dark";
+        const stored = localStorage.getItem("theme");
+        return stored === "light" || stored === "dark" ? stored : "dark";
+    });
     
     const handleClick = () => {
         setTheme(theme === "light" ? "dark" : "light");

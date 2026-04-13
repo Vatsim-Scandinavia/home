@@ -28,8 +28,12 @@ export default function CardBox({
                 const element = document.getElementById('zuluTime');
                 if (element) {
                     const now = new Date();
-                    const options = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' };
-                    const zuluTime = now.toLocaleTimeString('en-UK', options);
+                    const options: Intl.DateTimeFormatOptions = {
+                        timeZone: "UTC",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    };
+                    const zuluTime = now.toLocaleTimeString("en-GB", options);
                     element.textContent = zuluTime + "z";
                 }
             }

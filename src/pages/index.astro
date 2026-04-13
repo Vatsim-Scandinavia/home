@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from "../layout/Layout.astro";
 import Bookings from "../components/Bookings.astro";
 import HeroButton from "../components/ui/HeroButton.astro";
@@ -6,9 +8,6 @@ import CardBox from "../components/ui/CardBox.astro";
 import CardButton from "../components/ui/CardButton.astro";
 import Events from "../components/Events.astro";
 import News from "../components/News.astro";
-import { fetchAnnouncements } from "../lib/flarum";
-
-const posts = await fetchAnnouncements(3);
 ---
 
 <Layout SiteTitle="VATSIM Scandinavia">
@@ -41,7 +40,34 @@ const posts = await fetchAnnouncements(3);
                 <div class="flex max-xl:flex-wrap gap-8 max-xl:px-8">
                     <div class="width-main flex flex-col gap-8">
                         <CardBox title="Latest announcements" padding="2" minHeight="224" link="https://forum.vatsim-scandinavia.org/t/announcements">
-                            <News posts={posts} />
+                            <News server:defer>
+                                <div slot="fallback" class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-4 lg:grid-cols-3 px-2 py-3">
+                                    <div class="animate-pulse rounded-lg border border-border-light overflow-hidden">
+                                        <div class="aspect-[16/9] bg-secondary/15 dark:bg-secondary/25"></div>
+                                        <div class="p-5 space-y-2">
+                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-1/3"></div>
+                                            <div class="h-5 bg-secondary/15 dark:bg-secondary/25 rounded w-3/4"></div>
+                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="animate-pulse rounded-lg border border-border-light overflow-hidden hidden md:block">
+                                        <div class="aspect-[16/9] bg-secondary/15 dark:bg-secondary/25"></div>
+                                        <div class="p-5 space-y-2">
+                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-1/3"></div>
+                                            <div class="h-5 bg-secondary/15 dark:bg-secondary/25 rounded w-3/4"></div>
+                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="animate-pulse rounded-lg border border-border-light overflow-hidden hidden lg:block">
+                                        <div class="aspect-[16/9] bg-secondary/15 dark:bg-secondary/25"></div>
+                                        <div class="p-5 space-y-2">
+                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-1/3"></div>
+                                            <div class="h-5 bg-secondary/15 dark:bg-secondary/25 rounded w-3/4"></div>
+                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </News>
                         </CardBox>
                         
                         <CardBox title="Events" padding="2" minHeight="718" link="https://events.vatsim-scandinavia.org/">

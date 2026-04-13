@@ -1,6 +1,7 @@
+import { FLARUM_API_TOKEN } from "astro:env/server";
+
 const FORUM_BASE = 'https://forum.vatsim-scandinavia.org';
 const API_URL = `${FORUM_BASE}/api/discussions`;
-const API_TOKEN = import.meta.env.FLARUM_API_TOKEN ?? '';
 
 export interface ForumDiscussion {
   id: string;
@@ -75,8 +76,9 @@ function resolveIncluded(type: string, id: string, included: JsonApiResource[]):
 
 function buildHeaders(): HeadersInit {
   const headers: HeadersInit = { 'Content-Type': 'application/json' };
-  if (API_TOKEN) {
-    headers['Authorization'] = `Token ${API_TOKEN}`;
+  const token = FLARUM_API_TOKEN;
+  if (token) {
+    headers['Authorization'] = `Token ${token}`;
   }
   return headers;
 }

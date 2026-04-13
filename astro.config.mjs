@@ -17,4 +17,13 @@ export default defineConfig({
         },
     },
     integrations: [tailwind({ applyBaseStyles: false }), react()],
+    vite: {
+        resolve: {
+            // React 19: bundler can pick react-dom/server.browser (MessageChannel) for Workers.
+            // Edge build is correct for Cloudflare — see https://github.com/withastro/astro/issues/12824
+            alias: {
+                "react-dom/server": "react-dom/server.edge",
+            },
+        },
+    },
 });

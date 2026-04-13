@@ -1,0 +1,7 @@
+{
+  // Cloudflare Workers config for Astro + @astrojs/cloudflare.
+  // Set FLARUM_API_TOKEN as an encrypted secret (Dashboard or `wrangler secret put FLARUM_API_TOKEN`).
+  // Local dev: copy .env to .dev.vars (same KEY=value lines) — .dev.vars is gitignored.
+  "name": "home",
+  "compatibility_date": "2025-04-01",
+}

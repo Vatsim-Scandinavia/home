@@ -1,12 +1,8 @@
 ---
-import type { ForumDiscussion } from '../lib/flarum';
+import { fetchAnnouncements } from '../lib/flarum';
 import staffData from '../data/staff-positions.json';
 
-interface Props {
-  posts: ForumDiscussion[];
-}
-
-const { posts } = Astro.props;
+const posts = await fetchAnnouncements(3);
 
 const staffByCid = new Map(
   staffData.staff

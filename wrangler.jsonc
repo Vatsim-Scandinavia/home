@@ -1,7 +1,11 @@
 {
-  // Cloudflare Workers config for Astro + @astrojs/cloudflare.
-  // Set FLARUM_API_TOKEN as an encrypted secret (Dashboard or `wrangler secret put FLARUM_API_TOKEN`).
-  // Local dev: copy .env to .dev.vars (same KEY=value lines) — .dev.vars is gitignored.
+  // Cloudflare Workers + static assets (Astro @astrojs/cloudflare output).
+  // Build: npx astro build  →  deploy: npx wrangler deploy
+  // Secrets: Dashboard or `wrangler secret put FLARUM_API_TOKEN` — local: `.dev.vars` (gitignored).
   "name": "home",
   "compatibility_date": "2025-04-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+  },
 }

@@ -1,10 +1,13 @@
 {
-  // Cloudflare Workers + static assets (Astro @astrojs/cloudflare output).
-  // Build: npx astro build  →  deploy: npx wrangler deploy
-  // Secrets: Dashboard or `wrangler secret put FLARUM_API_TOKEN` — local: `.dev.vars` (gitignored).
+  // Astro + @astrojs/cloudflare (on-demand / server islands).
+  // https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/
+  // `main` is required: without it, only static assets deploy and /_server-islands/* returns 404.
   "name": "home",
+  "main": "./dist/_worker.js/index.js",
   "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist",
     "not_found_handling": "404-page",
   },

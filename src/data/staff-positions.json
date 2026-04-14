@@ -33,10 +33,10 @@
     {
       "title": "Training Director",
       "section": ["training", "board"],
-      "cid": 1602589,
-      "name": "Jeppe Seier",
+      "cid": 0,
+      "name": "Vacant",
       "availability": "AVL",
-      "country": "DK",
+      "country": "EU",
       "email": "training-director@vatsim-scandinavia.org"
     },
     {
@@ -50,17 +50,16 @@
       "avatar": "/img/staff/nthell.webp"
     },
     {
-      "title": "Training Lead Denmark",
+      "title": "Training Lead, Copenhagen FIR",
       "section": ["training","denmark"],
-      "cid": 1447687,
-      "name": "Thomas Brøgger",
+      "cid": 1602589,
+      "name": "Jeppe Seier",
       "availability": "AVL",
       "country": "DK",
-      "email": "training-denmark@vatsim-scandinavia.org",
-      "avatar": "/img/staff/broeggeren.webp"
+      "email": "training-denmark@vatsim-scandinavia.org"
     },
     {
-      "title": "NavData Lead",
+      "title": "NavData Lead, Copenhagen FIR",
       "section": ["denmark"],
       "cid": 887089,
       "name": "Splendor Bouman",
@@ -69,7 +68,7 @@
       "email": "denmark@vatsim-scandinavia.org"
     },
     {
-      "title": "NavData Member",
+      "title": "NavData, Copenhagen FIR",
       "section": ["denmark"],
       "cid": 1476793,
       "name": "Bartek",
@@ -78,7 +77,7 @@
       "email": "denmark@vatsim-scandinavia.org"
     },
     {
-      "title": "NavData Member",
+      "title": "NavData, Copenhagen FIR",
       "section": ["denmark"],
       "cid": 1737749,
       "name": "Brian",
@@ -87,7 +86,7 @@
       "email": "denmark@vatsim-scandinavia.org"
     },
     {
-      "title": "Community Team Member",
+      "title": "Community Team, Copenhagen FIR",
       "section": ["denmark"],
       "cid": 1752065,
       "name": "Magnus",
@@ -131,6 +130,25 @@
       "availability": "AVL",
       "country": "SE",
       "email": "training-sweden@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Training Member & Event Coordinator",
+      "section": ["training","event","denmark"],
+      "cid": 1464625,
+      "name": "Oliver Rasmussen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "training-denmark@vatsim-scandinavia.org",
+      "avatar": "/img/staff/orasmussen.jpg"
+    },
+    {
+      "title": "Training Member & Event Coordinator",
+      "section": ["training","event","denmark"],
+      "cid": 1449414,
+      "name": "Sonnich Jensen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "training-denmark@vatsim-scandinavia.org"
     },
     {
       "title": "Deputy Director of Copenhagen FIR",
@@ -272,16 +290,6 @@
       "country": "NO",
       "email": "event@vatsim-scandinavia.org",
       "avatar": "/img/staff/mhorsteinsson.webp"
-    },
-    {
-      "title": "Event Coordinator Denmark",
-      "section": ["event"],
-      "cid": 1464625,
-      "name": "Oliver Rasmussen",
-      "availability": "AVL",
-      "country": "DK",
-      "email": "event@vatsim-scandinavia.org",
-      "avatar": "/img/staff/orasmussen.jpg"
     },
     {
       "title": "Event Coordinator Norway",

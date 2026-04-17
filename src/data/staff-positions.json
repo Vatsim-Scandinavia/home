@@ -208,6 +208,15 @@
       "email": "tech@vatsim-scandinavia.org"
     },
     {
+      "title": "Tech Team Member",
+      "section": ["technical"],
+      "cid": 1425746,
+      "name": "Roald Strangstadstuen",
+      "availability": "AVL",
+      "country": "NO",
+      "email": "tech@vatsim-scandinavia.org"
+    },
+    {
       "title": "Data Protection Officer",
       "section": ["dpo", "technical"],
       "cid": 1203470,

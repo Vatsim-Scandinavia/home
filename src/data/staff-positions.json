@@ -282,16 +282,6 @@
       "avatar": "/img/staff/ahobbs.webp"
     },
     {
-      "title": "Event Lead",
-      "section": ["event"],
-      "cid": 1338009,
-      "name": "Martin Thorsteinsson",
-      "availability": "AVL",
-      "country": "NO",
-      "email": "event@vatsim-scandinavia.org",
-      "avatar": "/img/staff/mhorsteinsson.webp"
-    },
-    {
       "title": "Event Coordinator Norway",
       "section": ["event"],
       "cid": 1462126,

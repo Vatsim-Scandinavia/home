@@ -23,10 +23,10 @@
     {
       "title": "vACC Director",
       "section": ["director", "board"],
-      "cid": 1339353,
-      "name": "Adrian Bjerke",
+      "cid": 0,
+      "name": "Vacant",
       "availability": "AVL",
-      "country": "NO",
+      "country": "EU",
       "email": "director@vatsim-scandinavia.org"
     },
     {

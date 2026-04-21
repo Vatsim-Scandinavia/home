@@ -23,12 +23,11 @@
     {
       "title": "vACC Director",
       "section": ["director", "board"],
-      "cid": 1581824,
-      "name": "Simon Bjerre",
+      "cid": 1339353,
+      "name": "Adrian Bjerke",
       "availability": "AVL",
-      "country": "DK",
-      "email": "director@vatsim-scandinavia.org",
-      "avatar": "/img/staff/sbjerre.png"
+      "country": "NO",
+      "email": "director@vatsim-scandinavia.org"
     },
     {
       "title": "Training Director",

@@ -32,10 +32,10 @@
     {
       "title": "Training Director",
       "section": ["training", "board"],
-      "cid": 0,
-      "name": "Vacant",
+      "cid": 937154,
+      "name": "Håkan Schulz",
       "availability": "AVL",
-      "country": "EU",
+      "country": "SE",
       "email": "training-director@vatsim-scandinavia.org"
     },
     {
@@ -162,10 +162,10 @@
     {
       "title": "Training Team Member Norway",
       "section": ["training","norway"],
-      "cid": 0,
-      "name": "Vacant",
-      "availability": "VAC",
-      "country": "EU",
+      "cid": 1632808,
+      "name": "Kenneth Are Fredriksen",
+      "availability": "AVL",
+      "country": "NO",
       "email": "training-norway@vatsim-scandinavia.org"
     },
     {
@@ -288,6 +288,15 @@
       "country": "IS",
       "email": "iceland@vatsim-scandinavia.org",
       "avatar": "/img/staff/ahobbs.webp"
+    },
+    {
+      "title": "Deputy Director of Reykjavík CTA",
+      "section": ["iceland"],
+      "cid": 1317411,
+      "name": "Mickey Champion",
+      "availability": "AVL",
+      "country": "IS",
+      "email": "iceland@vatsim-scandinavia.org",
     },
     {
       "title": "Event Coordinator Norway",

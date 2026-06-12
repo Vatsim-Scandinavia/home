@@ -39,14 +39,13 @@
       "email": "training-director@vatsim-scandinavia.org"
     },
     {
-      "title": "Training Lead Sweden",
+      "title": "Training Team Member Sweden",
       "section": ["training","sweden"],
-      "cid": 1586141,
-      "name": "Niklas Thell",
+      "cid": 0,
+      "name": "Vacant",
       "availability": "AVL",
       "country": "SE",
-      "email": "training-sweden@vatsim-scandinavia.org",
-      "avatar": "/img/staff/nthell.webp"
+      "email": "training-sweden@vatsim-scandinavia.org"
     },
     {
       "title": "Training Lead, Copenhagen FIR",
@@ -122,13 +121,14 @@
       "email": "training-iceland@vatsim-scandinavia.org"
     },
     {
-      "title": "Training Team Member Sweden",
+      "title": "Training Lead Sweden",
       "section": ["training","sweden"],
       "cid": 1584282,
       "name": "Rui Feng",
       "availability": "AVL",
       "country": "SE",
-      "email": "training-sweden@vatsim-scandinavia.org"
+      "email": "training-sweden@vatsim-scandinavia.org",
+      "avatar": "/img/staff/rfeng.webp"
     },
     {
       "title": "Training Member & Event Coordinator",

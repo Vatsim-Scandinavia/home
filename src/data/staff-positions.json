@@ -23,11 +23,12 @@
     {
       "title": "vACC Director",
       "section": ["director", "board"],
-      "cid": 0,
-      "name": "Vacant",
+      "cid": 1114532,
+      "name": "Christian Peschardt",
       "availability": "AVL",
-      "country": "EU",
-      "email": "director@vatsim-scandinavia.org"
+      "country": "SE",
+      "email": "director@vatsim-scandinavia.org",
+      "avatar": "/img/staff/cpeschardt.webp"
     },
     {
       "title": "Training Director",

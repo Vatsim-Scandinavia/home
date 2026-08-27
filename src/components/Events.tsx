@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties, type MouseEventHandler } from 'react';
 import { useKeenSlider } from "keen-slider/react";
 import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
+import type { VatscaEvent } from '@/interfaces/Event';
 
 const Events = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState<VatscaEvent[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // Only the setter is read: failures are logged, never rendered.
+    const [, setError] = useState<string | null>(null);
 
-    const [sliderRef, instanceRef] = useKeenSlider({
+    const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
         initial: 0,
         mode: "snap",
         slides: {
@@ -34,12 +36,12 @@ const Events = () => {
                 setLoading(true);
                 setError(null);
                 const response = await fetch('https://events.vatsim-scandinavia.org/api/events');
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
-                const data = await response.json();
+
+                const data = await response.json() as VatscaEvent[];
                 setEvents(data);
                 setLoading(false);
             } catch (error) {
@@ -68,7 +70,7 @@ const Events = () => {
         }
     }, [loading, events]);
 
-    function dateConverter(start, end) {
+    function dateConverter(start: string, end: string) {
         const startDate = new Date(start);
         const endDate = new Date(end);
 
@@ -97,7 +99,7 @@ const Events = () => {
                 <div className="navigation-wrapper h-1/3 m-2">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
-                            <a key={item.id || index} style={{ '--image-url': `url(${item.banner})` }} aria-label={`View event: ${item.name}`} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' rel='noopener noreferrer' href={item.url} />
+                            <a key={item.id || index} style={{ '--image-url': `url(${item.banner})` } as CSSProperties} aria-label={`View event: ${item.name}`} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' rel='noopener noreferrer' href={item.url} />
                         ))}
                         <a
                             href="https://events.vatsim-scandinavia.org"
@@ -112,19 +114,21 @@ const Events = () => {
                         <>
                             <Arrow
                                 left
-                                onClick={(e) =>
-                                    e.stopPropagation() || instanceRef.current?.prev()
-                                }
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    instanceRef.current?.prev();
+                                }}
                                 disabled={currentSlide === 0}
                             />
 
                             <Arrow
-                                onClick={(e) =>
-                                    e.stopPropagation() || instanceRef.current?.next()
-                                }
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    instanceRef.current?.next();
+                                }}
                                 disabled={
                                     currentSlide ===
-                                    instanceRef.current?.track?.details?.slides?.length - 1
+                                    (instanceRef.current?.track?.details?.slides?.length ?? 0) - 1
                                 }
                             />
                         </>
@@ -135,7 +139,13 @@ const Events = () => {
     );
 };
 
-function Arrow(props) {
+type ArrowProps = {
+    left?: boolean;
+    disabled?: boolean;
+    onClick: MouseEventHandler<SVGSVGElement>;
+};
+
+function Arrow(props: ArrowProps) {
     const disabled = props.disabled ? " arrow--disabled" : "";
     return (
         <svg

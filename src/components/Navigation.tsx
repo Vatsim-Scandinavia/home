@@ -19,21 +19,6 @@ type NavigationItem = {
 }
 type NavigationItems = Array<NavigationItem>;
 
-const community: NavigationItems = [
-    {
-        title: "Forum",
-        href: "https://forum.vatsim-scandinavia.org",
-        description: "For longer discussions",
-        external: true,
-    },
-    {
-        title: "Discord",
-        href: "http://discord.vatsim-scandinavia.org/",
-        description: "For chatting and quick questions",
-        external: true,
-    },
-]
-
 const gettingstarted: NavigationItems = [
     {
         title: "New to VATSIM",

@@ -1,14 +1,15 @@
 {
   // Astro + @astrojs/cloudflare (on-demand / server islands).
   // https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/
-  // `main` is required: without it, only static assets deploy and /_server-islands/* returns 404.
+  // Adapter v14+ builds through @cloudflare/vite-plugin and ships its own Worker
+  // entrypoint; `main` must point at that, not at the build output.
   "name": "home",
-  "main": "./dist/_worker.js/index.js",
-  "compatibility_date": "2025-04-01",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-08-25",
   "compatibility_flags": ["nodejs_compat"],
+  // `assets.directory` is now managed by @cloudflare/vite-plugin.
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist",
     "not_found_handling": "404-page",
   },
 }

@@ -1,5 +1,4 @@
 import { defineConfig, envField } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import cloudflare from "@astrojs/cloudflare";
 
@@ -7,6 +6,9 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
     output: "server",
     adapter: cloudflare(),
+    // Astro 7 defaults to "jsx", which strips whitespace between inline elements.
+    // Keep the pre-v7 behaviour so existing markup spacing renders unchanged.
+    compressHTML: true,
     env: {
         schema: {
             FLARUM_API_TOKEN: envField.string({
@@ -16,7 +18,7 @@ export default defineConfig({
             }),
         },
     },
-    integrations: [tailwind({ applyBaseStyles: false }), react()],
+    integrations: [react()],
     vite: {
         resolve: {
             // React 19: bundler can pick react-dom/server.browser (MessageChannel) for Workers.

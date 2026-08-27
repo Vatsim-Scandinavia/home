@@ -1,42 +1,30 @@
 ---
 import Events from "./Events";
----
-<div class="flex flex-col w-full h-fit" id="live-stats-skeleton">
-    <div class="h-2/3 flex flex-col gap-2">
-        <div class="aspect-video h-60 flex">
-            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-            <div class="w-full h-full flex flex-col gap-2 px-2">
-                <div class="bg-gray-200 dark:bg-secondary animate-pulse w-full h-8 rounded" />
-                <div class="bg-gray-100 dark:bg-secondary animate-pulse w-full h-4 rounded" />
-                <div class="bg-gray-50 dark:bg-secondary animate-pulse w-full h-[11rem] rounded" />
-            </div>
-        </div>
-        <div class="aspect-video h-60 flex">
-            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-            <div class="w-full h-full flex flex-col gap-2 px-2">
-                <div class="bg-gray-200 dark:bg-secondary animate-pulse w-full h-8 rounded" />
-                <div class="bg-gray-100 dark:bg-secondary animate-pulse w-full h-4 rounded" />
-                <div class="bg-gray-50 dark:bg-secondary animate-pulse w-full h-[11rem] rounded" />
-            </div>
-        </div>
-    </div>
-    <div class="h-1/3 py-2 flex gap-2 overflow-hidden">
-        <div class="aspect-video h-32">
-            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-        </div>
-                <div class="aspect-video h-32">
-            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-        </div>
-                <div class="aspect-video h-32">
-            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-        </div>
-                <div class="aspect-video h-32">
-            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-        </div>
-                <div class="aspect-video h-32">
-            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-        </div>
-    </div>
-</div>
-<Events client:only /> 
+import type { EventCard, VatscaEvent } from "@/interfaces/Event";
 
+// Fetched here rather than in the island so the list is server-rendered. index.astro
+// is prerendered, so this component is used with server:defer to keep the data fresh
+// per request instead of baking it in at build time.
+let events: EventCard[] = [];
+
+try {
+    const response = await fetch("https://events.vatsim-scandinavia.org/api/events");
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Narrowed to what the island renders; the full payload would otherwise be
+    // serialised into the island props, and the descriptions alone dwarf the markup.
+    events = (await response.json() as VatscaEvent[]).map(
+        ({ id, name, short_description, start_datetime, end_datetime, banner, url }) => (
+            { id, name, short_description, start_datetime, end_datetime, banner, url }
+        ),
+    );
+} catch (error) {
+    console.error("Error fetching events:", error);
+}
+---
+{/* Nothing to slide through if the fetch failed: rendering the island anyway leaves
+    an empty slider and a pair of orphaned arrows sitting in the card. */}
+{events.length > 0 && <Events events={events} client:load />}

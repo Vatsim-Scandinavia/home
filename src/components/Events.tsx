@@ -1,25 +1,46 @@
 import { useEffect, useState, type CSSProperties, type MouseEventHandler } from 'react';
 import { useKeenSlider } from "keen-slider/react";
 import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
-import type { VatscaEvent } from '@/interfaces/Event';
+import type { EventCard } from '@/interfaces/Event';
 
 const LONG_DATE_TIME: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 const SHORT_DATE_TIME: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 const TIME_ONLY: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric' };
 
-/** "Saturday, Aug 30, 15:00 - 18:00", dropping the end date when it matches the start. */
-function formatEventPeriod(start: string, end: string) {
+/**
+ * Zulu while rendering on the server, which has no visitor timezone to work with:
+ * "Sunday 30 Aug, 15:00z - 19:00z". Once hydrated the same range is shown in the
+ * visitor's own timezone and the suffix drops: "Sunday 30 Aug, 17:00 - 21:00".
+ * The end date is omitted whenever it falls on the start date.
+ */
+function formatEventPeriod(start: string, end: string, zulu: boolean) {
     const startDate = new Date(start);
     const endDate = new Date(end);
-    const sameDay = startDate.getDate() === endDate.getDate();
 
-    return `${startDate.toLocaleString('en-uk', LONG_DATE_TIME)} - ${endDate.toLocaleString('en-uk', sameDay ? TIME_ONLY : SHORT_DATE_TIME)}`;
+    // undefined leaves Intl on the runtime's own zone, which is what we want locally.
+    const timeZone = zulu ? 'UTC' : undefined;
+    const suffix = zulu ? 'z' : '';
+    const sameDay = zulu
+        ? startDate.getUTCDate() === endDate.getUTCDate()
+        : startDate.getDate() === endDate.getDate();
+
+    const from = startDate.toLocaleString('en-uk', { ...LONG_DATE_TIME, timeZone });
+    const to = endDate.toLocaleString('en-uk', { ...(sameDay ? TIME_ONLY : SHORT_DATE_TIME), timeZone });
+
+    return `${from}${suffix} - ${to}${suffix}`;
 }
 
-const Events = () => {
+type EventsProps = {
+    events: EventCard[];
+};
+
+const Events = ({ events }: EventsProps) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [events, setEvents] = useState<VatscaEvent[]>([]);
-    const [loading, setLoading] = useState(true);
+    // Has to start true so the first client render still matches the Zulu markup the
+    // server sent; the effect then swaps the times over to the visitor's timezone.
+    const [zulu, setZulu] = useState(true);
+
+    useEffect(() => setZulu(false), []);
 
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
         initial: 0,
@@ -41,47 +62,11 @@ const Events = () => {
         }
     });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch('https://events.vatsim-scandinavia.org/api/events');
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                setEvents(await response.json() as VatscaEvent[]);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        if (!loading && events.length > 0) {
-            const skeleton = document.getElementById('live-stats-skeleton');
-            const skeletonlive = document.getElementById('live-stats');
-            if (skeleton) {
-                skeleton.style.display = 'none';
-            }
-            if (skeletonlive) {
-                skeletonlive.style.display = 'flex';
-            }
-            if (instanceRef.current) {
-                instanceRef.current.update(); // Reapply Keen Slider settings
-            }
-        }
-    }, [loading, events]);
-
+    // Null on the server and on the first client render, which keeps hydration in step.
     const lastSlide = (instanceRef.current?.track?.details?.slides?.length ?? 0) - 1;
 
     return (
-        <div className="flex flex-col w-full h-full" id="live-stats" style={{ display: loading ? 'none' : 'flex' }}>
+        <div className="flex flex-col w-full h-full">
             <div className="flex h-full flex-col gap-2" >
                 {events.slice(0, 2).map((item) => (
                     <a href={item.url} target='_blank' rel='noopener noreferrer' aria-label={`View event: ${item.name}`} key={item.id} className='aspect-video h-1/3 md:h-60 flex dark:hover:!text-primary text-secondary dark:text-white hover:bg-snow transition-all p-2 rounded'>
@@ -90,7 +75,7 @@ const Events = () => {
 
                         <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
                             <h2 className='font-bold text-xl md:text-2xl'>{item.name}</h2>
-                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{formatEventPeriod(item.start_datetime, item.end_datetime)}</p>
+                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{formatEventPeriod(item.start_datetime, item.end_datetime, zulu)}</p>
                             <p className='line-clamp-6 mb-1 text-black dark:text-white'>{item.short_description}</p>
                         </div>
                     </a>

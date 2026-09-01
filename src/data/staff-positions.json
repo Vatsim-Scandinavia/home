@@ -353,6 +353,15 @@
       "availability": "AVL",
       "country": "IS",
       "email": "event@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Community Team, Reykjavík CTA",
+      "section": ["iceland"],
+      "cid": 1764226,
+      "name": "Koustubh Karande",
+      "availability": "AVL",
+      "country": "IS",
+      "email": "iceland@vatsim-scandinavia.org"
     }
   ]
 }

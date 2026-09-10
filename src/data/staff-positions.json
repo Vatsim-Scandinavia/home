@@ -42,8 +42,8 @@
     {
       "title": "Training Team Member Sweden",
       "section": ["training","sweden"],
-      "cid": 0,
-      "name": "Vacant",
+      "cid": 1844802,
+      "name": "Philip Bondza Olsson",
       "availability": "AVL",
       "country": "SE",
       "email": "training-sweden@vatsim-scandinavia.org"
@@ -328,8 +328,8 @@
       "avatar": "/img/staff/aerikstad.jpg"
     },
     {
-      "title": "Event Coordinator Sweden",
-      "section": ["event"],
+      "title": "Event Coordinator & Training Team Member Sweden",
+      "section": ["event","training","sweden"],
       "cid": 1757074,
       "name": "William Kassmo",
       "availability": "AVL",

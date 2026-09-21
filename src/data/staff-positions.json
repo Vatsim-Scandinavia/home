@@ -85,10 +85,10 @@
       "email": "denmark@vatsim-scandinavia.org"
     },
     {
-      "title": "Community Team, Copenhagen FIR",
+      "title": " Project & Community member, Copenhagen FIR",
       "section": ["denmark"],
-      "cid": 1752065,
-      "name": "Magnus",
+      "cid": 1581824,
+      "name": "Simon Bjerre",
       "availability": "AVL",
       "country": "DK",
       "email": "denmark@vatsim-scandinavia.org"
@@ -132,8 +132,8 @@
       "avatar": "/img/staff/rfeng.webp"
     },
     {
-      "title": "Training Member & Event Coordinator",
-      "section": ["training","event","denmark"],
+      "title": "Training Member",
+      "section": ["training","denmark"],
       "cid": 1464625,
       "name": "Oliver Rasmussen",
       "availability": "AVL",
@@ -142,13 +142,31 @@
       "avatar": "/img/staff/orasmussen.jpg"
     },
     {
-      "title": "Training Member & Event Coordinator",
-      "section": ["training","event","denmark"],
+      "title": "Training Member",
+      "section": ["training","denmark"],
       "cid": 1449414,
       "name": "Sonnich Jensen",
       "availability": "AVL",
       "country": "DK",
       "email": "training-denmark@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Event Coordinator Denmark",
+      "section": ["event","denmark"],
+      "cid": 1910597,
+      "name": "Frederik Wildau",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "event@vatsim-scandinavia.org"
+    },
+    {
+      "title": "Event Coordinator Denmark",
+      "section": ["event","denmark"],
+      "cid": 1657593,
+      "name": "Mads Nielsen",
+      "availability": "AVL",
+      "country": "DK",
+      "email": "event@vatsim-scandinavia.org"
     },
     {
       "title": "Deputy Director of Copenhagen FIR",
@@ -228,10 +246,10 @@
     {
       "title": "Tech Team Member",
       "section": ["technical"],
-      "cid": 0,
-      "name": "Vacant",
-      "availability": "VAC",
-      "country": "EU",
+      "cid": 1581824,
+      "name": "Simon Bjerre",
+      "availability": "AVL",
+      "country": "DK",
       "email": "tech@vatsim-scandinavia.org"
     },
     {

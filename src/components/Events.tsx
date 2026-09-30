@@ -69,18 +69,18 @@ const Events = ({ events }: EventsProps) => {
         <div className="flex flex-col w-full h-full">
             <div className="flex h-full flex-col gap-2" >
                 {events.slice(0, 2).map((item) => (
-                    <a href={item.url} target='_blank' rel='noopener noreferrer' aria-label={`View event: ${item.name}`} key={item.id} className='aspect-video h-1/3 md:h-60 flex dark:hover:!text-primary text-secondary dark:text-white hover:bg-snow transition-all p-2 rounded'>
+                    <a href={item.url} target='_blank' rel='noopener noreferrer' aria-label={`View event: ${item.name}`} key={item.id} className='event-preview'>
 
-                        <img alt={`Event banner for ${item.name}`} className='h-full aspect-video bg-center bg-cover rounded' src={item.banner}/>
+                        <img alt={`Event banner for ${item.name}`} className='event-preview-image' src={item.banner}/>
 
-                        <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
-                            <h2 className='font-bold text-xl md:text-2xl'>{item.name}</h2>
-                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{formatEventPeriod(item.start_datetime, item.end_datetime, zulu)}</p>
-                            <p className='line-clamp-6 mb-1 text-black dark:text-white'>{item.short_description}</p>
+                        <div className='event-preview-copy'>
+                            <h3>{item.name}</h3>
+                            <p className='event-period'>{formatEventPeriod(item.start_datetime, item.end_datetime, zulu)}</p>
+                            <p className='event-excerpt line-clamp-4'>{item.short_description}</p>
                         </div>
                     </a>
                 ))}
-                <div className="navigation-wrapper h-1/3 m-2">
+                <div className="navigation-wrapper event-carousel">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
                             <a key={item.id} style={{ '--image-url': `url(${item.banner})` } as CSSProperties} aria-label={`View event: ${item.name}`} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' rel='noopener noreferrer' href={item.url} />

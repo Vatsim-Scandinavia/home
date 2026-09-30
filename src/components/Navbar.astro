@@ -1,13 +1,15 @@
 ---
+import "./site-chrome.css";
 import { Astronav, MenuItems } from "astro-navbar";
 import ThemeToggle from "./ThemeToggle"
 import Navigation from "./Navigation";
 import MobileMenu from "./MobileMenu";
+const { revealOnScroll = false } = Astro.props;
 ---
-<header class="sticky top-0 z-50 w-full bg-secondary dark:bg-secondary shadow-md">
+<header class:list={["site-nav top-0 z-50 w-full", revealOnScroll ? "scroll-nav" : "sticky"]} data-scroll-nav={revealOnScroll ? "" : undefined} inert={revealOnScroll}>
     <Astronav>
-        <div class="container flex max-w-screen-2xl items-center justify-around px-4 md:px-8 py-1.5">
-            <div class="flex items-center gap-6 md:gap-32">
+        <div class="site-nav-inner">
+            <div class="site-nav-main">
                 <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-80">
                     <!-- Logo for light mode (dark logo) -->
                     <img 
@@ -27,7 +29,7 @@ import MobileMenu from "./MobileMenu";
                     >
                 </a>
                 <MenuItems class="hidden lg:flex lg:items-center text-white">
-                    <Navigation client:visible/>
+                    <Navigation client:load/>
                 </MenuItems>
             </div>
             <div class="flex items-center gap-2 text-white">
@@ -41,3 +43,40 @@ import MobileMenu from "./MobileMenu";
         </div>
     </Astronav>
 </header>
+
+<style>
+    .scroll-nav {
+        position: fixed;
+        inset-inline: 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 200ms ease, opacity 200ms ease, visibility 200ms;
+    }
+
+    .scroll-nav.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .scroll-nav { transition: none; }
+    }
+</style>
+
+<script>
+    const nav = document.querySelector<HTMLElement>('[data-scroll-nav]');
+    if (nav) {
+        const updateNavigation = () => {
+            const visible = window.scrollY > 0;
+            nav.classList.toggle('is-visible', visible);
+            nav.inert = !visible;
+        };
+        updateNavigation();
+        window.addEventListener('scroll', updateNavigation, { passive: true });
+        window.addEventListener('pageshow', updateNavigation);
+    }
+</script>

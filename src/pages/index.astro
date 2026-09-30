@@ -3,141 +3,179 @@ export const prerender = true;
 
 import Layout from "../layout/Layout.astro";
 import Bookings from "../components/Bookings.astro";
-import HeroButton from "../components/ui/HeroButton.astro";
-import CardBox from "../components/ui/CardBox.astro";
-import CardButton from "../components/ui/CardButton.astro";
 import Events from "../components/Events.astro";
 import News from "../components/News.astro";
+import "../components/booking-board.css";
+import "../components/announcements.css";
+import "../components/home-panels.css";
+import "../components/events-board.css";
 ---
 
 <Layout SiteTitle="VATSIM Scandinavia">
-    <main class="w-full h-full flex flex-col items-center -mt-20">
-        
-        <div class="w-full h-[calc(50vh)] max-md:h-full flex justify-center mt-[150px]" >
-            <div class="max-w-[1300px] w-full flex">
-                <div class="w-full flex flex-col items-center justify-center p-12 max-xl:p-8 font-bold">
-                    <h1 class="text-secondary dark:text-white text-4xl md:text-6xl text-center drop-shadow-xl">
-                        Serving the Scandinavian Skies 
-                    </h1>
-                    <p class="text-secondary dark:text-white text-xl p-2 text-center w-full md:w-3/5 lg:w-full drop-shadow-xl font-medium">
-                        Home vACC of Denmark, Finland, Iceland, Norway & Sweden
-                    </p>
-                    <div class="mt-12 sm:mt-0 max-sm:flex-wrap flex gap-4 pt-4 w-full justify-center">
-                        <HeroButton href="https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia" text="Join VATSIM Scandinavia" color="bg-success"/>
-                        <HeroButton href="http://discord.vatsim-scandinavia.org" text="Join our Discord" color="bg-[#6172bd] dark:bg-[#5c6aa7]"/>
-                    </div>
+    <section slot="hero" class="hero w-full">
+      <div class="hero-image"></div>
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span></span> FIVE COUNTRIES. ONE SHARED SKY.
+        </div><h1>Your northern<br /><em>horizon.</em></h1><p>
+          From busy capitals to Arctic approaches.<br />Fly, control and connect
+          with VATSIM Scandinavia.
+        </p><div class="hero-actions">
+          <a class="button lime" href="#explore"
+            >Charts &amp; airport information <span>↗</span></a
+          ><a class="text-link" href="https://cc.vatsim-scandinavia.org/"
+            >Join the training queue <span>↗</span></a>
+        </div>
+      </div><div class="hero-caption">
+        <span>THE SCANDINAVIAN EXPERIENCE</span><span
+          >Virtual aviation. Real community.</span>
+      </div><div class="hero-bottom">
+        <span>DENMARK · FINLAND · ICELAND · NORWAY · SWEDEN</span><a
+          href="#explore">Explore our skies ↓</a>
+      </div>
+    </section>
+
+  <main class="w-full h-full flex flex-col items-center">
+
+    <div class="w-full h-fit flex justify-center" id="bookings">
+      <div class="max-w-[1300px] w-full content-center pt-6 pb-6">
+        <div class="home-panels">
+            <section class="announcements-panel" aria-labelledby="announcements-title">
+              <div class="booking-board-heading announcements-heading">
+                <div>
+                  <p>From the community</p>
+                  <h2 id="announcements-title">On the radar.</h2>
                 </div>
-                <div class="w-full hidden xl:block">
-                    <div class="w-full h-full flex items-center justify-center">
-                        <img src="/img/euroscope.svg" alt="Person sitting in front of computer and microphone controlling airplanes" class="w-full"/>
-                    </div>
+                <a href="https://forum.vatsim-scandinavia.org/t/announcements" target="_blank" rel="noopener noreferrer">All announcements <span aria-hidden="true">↗</span></a>
+              </div>
+              <News server:defer>
+                <div slot="fallback" aria-label="Loading announcements" aria-busy="true">
+                  {[1, 2, 3, 4].map(() => <div class="announcement-placeholder"><span></span><span></span></div>)}
                 </div>
+              </News>
+            </section>
+
+            <div class="live-atc-panel">
+              <Bookings />
+            </div>
+
+          <div class="events-panel">
+            <section class="booking-board events-board" aria-labelledby="events-title">
+              <div class="booking-board-heading">
+                <div><p>Fly together</p><h2 id="events-title">Events</h2></div>
+              </div>
+              <div class="events-content">
+              <Events server:defer>
+                <div slot="fallback" class="flex flex-col w-full h-fit">
+                  <div class="h-2/3 flex flex-col gap-2">
+                    <div class="aspect-video h-60 flex">
+                      <div
+                        class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse"
+                      >
+                      </div>
+                      <div class="w-full h-full flex flex-col gap-2 px-2">
+                        <div
+                          class="bg-gray-200 dark:bg-secondary animate-pulse w-full h-8 rounded"
+                        >
+                        </div>
+                        <div
+                          class="bg-gray-100 dark:bg-secondary animate-pulse w-full h-4 rounded"
+                        >
+                        </div>
+                        <div
+                          class="bg-gray-50 dark:bg-secondary animate-pulse w-full h-[11rem] rounded"
+                        >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="aspect-video h-60 flex">
+                      <div
+                        class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse"
+                      >
+                      </div>
+                      <div class="w-full h-full flex flex-col gap-2 px-2">
+                        <div
+                          class="bg-gray-200 dark:bg-secondary animate-pulse w-full h-8 rounded"
+                        >
+                        </div>
+                        <div
+                          class="bg-gray-100 dark:bg-secondary animate-pulse w-full h-4 rounded"
+                        >
+                        </div>
+                        <div
+                          class="bg-gray-50 dark:bg-secondary animate-pulse w-full h-[11rem] rounded"
+                        >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="h-1/3 py-2 flex gap-2 overflow-hidden">
+                    <div class="aspect-video h-32">
+                      <div
+                        class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse"
+                      >
+                      </div>
+                    </div>
+                    <div class="aspect-video h-32">
+                      <div
+                        class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse"
+                      >
+                      </div>
+                    </div>
+                    <div class="aspect-video h-32">
+                      <div
+                        class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse"
+                      >
+                      </div>
+                    </div>
+                    <div class="aspect-video h-32">
+                      <div
+                        class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse"
+                      >
+                      </div>
+                    </div>
+                    <div class="aspect-video h-32">
+                      <div
+                        class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse"
+                      >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Events>
+              </div>
+              <a class="booking-footer" href="https://events.vatsim-scandinavia.org/" target="_blank" rel="noopener noreferrer">View all events <span aria-hidden="true">↗</span></a>
+            </section>
+          </div>
+
+            <div class="support-panels">
+              <section class="booking-board support-card" aria-labelledby="donations-title">
+                <div class="booking-board-heading">
+                  <div><p>Powered by you</p><h2 id="donations-title">Donations</h2></div>
+                </div>
+                <p class="support-copy">Help keep our skies connected. Your donations support the infrastructure and services our community relies on.</p>
+                <a class="booking-footer" href="/about/donations">Support the community <span aria-hidden="true">↗</span></a>
+              </section>
+              <section class="booking-board support-card" aria-labelledby="feedback-title">
+                <div class="booking-board-heading">
+                  <div><p>Your experience matters</p><h2 id="feedback-title">Feedback</h2></div>
+                </div>
+                <p class="support-copy">Had a great flight, or have a suggestion? Share your experience to help our controllers improve.</p>
+                <a class="booking-footer" href="https://cc.vatsim-scandinavia.org/feedback" target="_blank" rel="noopener noreferrer">Leave feedback <span aria-hidden="true">↗</span></a>
+              </section>
             </div>
         </div>
-
-        <div class="w-full h-fit flex justify-center" id="bookings">
-            <div class="max-w-[1300px] w-full content-center pt-6 pb-6">
-                <div class="flex max-xl:flex-wrap gap-8 max-xl:px-8">
-                    <div class="width-main flex flex-col gap-8">
-                        <CardBox title="Latest announcements" padding="2" minHeight="224" link="https://forum.vatsim-scandinavia.org/t/announcements">
-                            <News server:defer>
-                                <div slot="fallback" class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-4 lg:grid-cols-3 px-2 py-3">
-                                    <div class="animate-pulse rounded-lg border border-border-light overflow-hidden">
-                                        <div class="aspect-[16/9] bg-secondary/15 dark:bg-secondary/25"></div>
-                                        <div class="p-5 space-y-2">
-                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-1/3"></div>
-                                            <div class="h-5 bg-secondary/15 dark:bg-secondary/25 rounded w-3/4"></div>
-                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-full"></div>
-                                        </div>
-                                    </div>
-                                    <div class="animate-pulse rounded-lg border border-border-light overflow-hidden hidden md:block">
-                                        <div class="aspect-[16/9] bg-secondary/15 dark:bg-secondary/25"></div>
-                                        <div class="p-5 space-y-2">
-                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-1/3"></div>
-                                            <div class="h-5 bg-secondary/15 dark:bg-secondary/25 rounded w-3/4"></div>
-                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-full"></div>
-                                        </div>
-                                    </div>
-                                    <div class="animate-pulse rounded-lg border border-border-light overflow-hidden hidden lg:block">
-                                        <div class="aspect-[16/9] bg-secondary/15 dark:bg-secondary/25"></div>
-                                        <div class="p-5 space-y-2">
-                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-1/3"></div>
-                                            <div class="h-5 bg-secondary/15 dark:bg-secondary/25 rounded w-3/4"></div>
-                                            <div class="h-3 bg-secondary/15 dark:bg-secondary/25 rounded w-full"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </News>
-                        </CardBox>
-                        
-                        <CardBox title="Events" padding="2" minHeight="718" link="https://events.vatsim-scandinavia.org/">
-                            <Events server:defer>
-                                <div slot="fallback" class="flex flex-col w-full h-fit">
-                                    <div class="h-2/3 flex flex-col gap-2">
-                                        <div class="aspect-video h-60 flex">
-                                            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-                                            <div class="w-full h-full flex flex-col gap-2 px-2">
-                                                <div class="bg-gray-200 dark:bg-secondary animate-pulse w-full h-8 rounded" />
-                                                <div class="bg-gray-100 dark:bg-secondary animate-pulse w-full h-4 rounded" />
-                                                <div class="bg-gray-50 dark:bg-secondary animate-pulse w-full h-[11rem] rounded" />
-                                            </div>
-                                        </div>
-                                        <div class="aspect-video h-60 flex">
-                                            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-                                            <div class="w-full h-full flex flex-col gap-2 px-2">
-                                                <div class="bg-gray-200 dark:bg-secondary animate-pulse w-full h-8 rounded" />
-                                                <div class="bg-gray-100 dark:bg-secondary animate-pulse w-full h-4 rounded" />
-                                                <div class="bg-gray-50 dark:bg-secondary animate-pulse w-full h-[11rem] rounded" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="h-1/3 py-2 flex gap-2 overflow-hidden">
-                                        <div class="aspect-video h-32">
-                                            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-                                        </div>
-                                        <div class="aspect-video h-32">
-                                            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-                                        </div>
-                                        <div class="aspect-video h-32">
-                                            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-                                        </div>
-                                        <div class="aspect-video h-32">
-                                            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-                                        </div>
-                                        <div class="aspect-video h-32">
-                                            <div class="bg-gray-100 dark:bg-secondary h-full aspect-video bg-cover animate-pulse" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Events>
-                        </CardBox>
-                    </div>
-                        
-                    <div class="flex-grow flex flex-col gap-8 width-sidebar">
-                        <CardBox title="Live ATC & Bookings" padding="0" filterId="bookings">
-                            <Bookings />
-                            <div slot="filter"></div>
-                        </CardBox>
-
-
-                        <CardBox title="Donations" padding="4">
-                            <p>
-                                Your donations enable us to maintain our infrastructure, to continue providing the best possible services for our members and guests.
-                            </p>
-
-                            <CardButton href="/about/donations" text="Read more" color="snow"/>
-                        </CardBox>
-
-                        <CardBox title="Feedback" padding="4" minHeight="145">
-                            <p>
-                                Provide your feedback that we can use to improve our Scandinavian controllers.
-                            </p>
-                            
-                            <CardButton href="https://cc.vatsim-scandinavia.org/feedback" text="Leave us feedback" color="snow"/>
-                        </CardBox>
-                    </div>
-                </div>                    
-            </div>
-        </div>
-    </main>
+      </div>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+
+</style>

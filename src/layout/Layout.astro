@@ -30,7 +30,8 @@ import '../../node_modules/keen-slider/keen-slider.css';
     <Tooltips interactive={false} delay={[15, 140]} />
 </head>
 <body class="bg-lightgrey w-full h-full min-h-screen text-black dark:text-white transition ease-in-out delay-50 flex flex-col items-center bg-[url('/img/skies.svg')] bg-cover">
-    <Nav />
+    <Nav revealOnScroll={Astro.slots.has("hero")} />
+    <slot name="hero" />
     <slot />
     <Footer />
     <script is:inline defer src="https://metrics.vatsca.org/script.js" data-website-id="f1c2fed1-c934-4ada-a50f-3fd43c03b824" data-domains="vatsim-scandinavia.org"></script>

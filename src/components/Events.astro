@@ -28,3 +28,4 @@ try {
 {/* Nothing to slide through if the fetch failed: rendering the island anyway leaves
     an empty slider and a pair of orphaned arrows sitting in the card. */}
 {events.length > 0 && <Events events={events} client:load />}
+{events.length === 0 && <p class="booking-message">No events available right now. Visit the events calendar for the latest updates.</p>}

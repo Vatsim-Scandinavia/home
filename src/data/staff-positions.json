@@ -228,10 +228,10 @@
     {
       "title": "Tech Team Member",
       "section": ["technical"],
-      "cid": 0,
-      "name": "Vacant",
-      "availability": "VAC",
-      "country": "EU",
+      "cid": 1581824,
+      "name": "Simon Bjerre",
+      "availability": "AVL",
+      "country": "DK",
       "email": "tech@vatsim-scandinavia.org"
     },
     {

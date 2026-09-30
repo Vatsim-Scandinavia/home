@@ -1,0 +1,15 @@
+.events-board { display: flex; flex-direction: column; flex: 1; }
+.events-content { padding: 20px; flex: 1; min-width: 0; }
+.events-board > .booking-footer { margin-top: auto; }
+.event-preview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 20px; padding-bottom: 20px; margin-bottom: 12px; border-bottom: 1px solid var(--booking-border); }
+.event-preview-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+.event-preview-copy { min-width: 0; }
+.event-preview-copy h3 { margin: 0 0 8px; font-size: 22px; line-height: 1.25; font-weight: 600; letter-spacing: -.5px; }
+.event-period { margin: 0 0 14px; font-size: 12px; line-height: 1.5; color: var(--booking-muted); }
+.event-excerpt { margin: 0; font-size: 14px; line-height: 1.7; color: var(--booking-muted); overflow-wrap: anywhere; }
+.event-preview:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+.event-carousel { margin-top: 4px; }
+@media (max-width: 760px) {
+  .event-preview { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .event-preview-copy h3 { font-size: 20px; }
+}

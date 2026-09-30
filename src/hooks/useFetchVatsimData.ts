@@ -19,9 +19,11 @@ export default function useFetchVatsimData(): {
 
         try {
             const response = await fetch ('https://data.vatsim.net/v3/vatsim-data.json');
+            if (!response.ok) throw new Error('Unable to fetch controllers');
             const data = await response.json();
 
             setVatsimData(data.controllers);
+            setError(null);
         } catch {
             setError('Something went wrong while attempting to fetch data from the VATSIM data API.')
         } finally {

@@ -30,7 +30,7 @@ import '../../node_modules/keen-slider/keen-slider.css';
     <Tooltips interactive={false} delay={[15, 140]} />
 </head>
 <body class="bg-lightgrey w-full h-full min-h-screen text-black dark:text-white transition ease-in-out delay-50 flex flex-col items-center bg-[url('/img/skies.svg')] bg-cover">
-    <Nav revealOnScroll={Astro.slots.has("hero")} />
+    <Nav overlay={Astro.slots.has("hero")} />
     <slot name="hero" />
     <slot />
     <Footer />
@@ -38,7 +38,7 @@ import '../../node_modules/keen-slider/keen-slider.css';
 </body>
 </html>
 
-<style>
+<style is:global>
     body {
         margin: 0;
         padding: 0;
@@ -64,13 +64,6 @@ import '../../node_modules/keen-slider/keen-slider.css';
         document.documentElement.classList.add("dark");
     }
     window.localStorage.setItem("theme", theme);
-</script>
-
-<script is:inline>
-    const snowfallHeight = document.body.scrollHeight;
-    const snowfallElement = document.getElementById('snowfall');
-
-    snowfallElement.style.height = `${snowfallHeight}px`;
 </script>
 
 <style is:global>

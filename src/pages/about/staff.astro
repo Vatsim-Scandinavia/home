@@ -2,6 +2,7 @@
 export const prerender = true;
 
 import "../../components/booking-board.css";
+import "../../components/content-page.css";
 import "../../components/staff.css";
 const SiteTitle = "Staff";
 import Layout from "../../layout/Layout.astro";
@@ -140,29 +141,26 @@ const countryNames: { [key: string]: string } = {
 ---
 
 <Layout SiteTitle={`${SiteTitle} | VATSIM Scandinavia`}>
-  <main class="staff-page">
-    <div class="staff-intro">
-      <p class="staff-eyebrow">Behind the frequency</p>
-      <h1>Meet the team.</h1>
-      <p>The people connecting our skies, supporting our controllers, and building our community across Scandinavia.</p>
-      <nav class="staff-jump-links" aria-label="Staff sections">
-        <a href="#leadership">Leadership</a>
-        <a href="#regions">Regions</a>
-        {eventTeam.length > 0 && <a href="#event-team">Event team</a>}
-        {techTeam.length > 0 && <a href="#tech-team">Tech team</a>}
-      </nav>
+  <main class="content-page">
+    <div class="page-intro">
+      <h1>Staff</h1>
+      <p>Meet the people connecting our skies, supporting our controllers, and building our community across Scandinavia.</p>
     </div>
 
     <section id="leadership" class="booking-board staff-section" aria-labelledby="leadership-title">
-      <div class="booking-board-heading"><div><p>Guiding our community</p><h2 id="leadership-title">Board of Directors</h2></div></div>
-      <div class="staff-grid">
-        {director && <StaffCard member={director} />}
-        {boardMembers.map(member => <StaffCard member={member} />)}
-      </div>
+      <div class="booking-board-heading"><h2 id="leadership-title">Leadership</h2></div>
+      {director && <div class="staff-region">
+        <div class="staff-region-heading"><h3>vACC Director</h3></div>
+        <div class="staff-grid"><StaffCard member={director} /></div>
+      </div>}
+      {boardMembers.length > 0 && <div class="staff-region">
+        <div class="staff-region-heading"><h3>Board of Directors</h3></div>
+        <div class="staff-grid">{boardMembers.map(member => <StaffCard member={member} />)}</div>
+      </div>}
     </section>
 
     <section id="regions" class="booking-board staff-section" aria-labelledby="regions-title">
-      <div class="booking-board-heading"><div><p>Five countries. One shared sky.</p><h2 id="regions-title">Regional teams</h2></div></div>
+      <div class="booking-board-heading"><h2 id="regions-title">Regional teams</h2></div>
       {countryOrder.map(countryCode => {
         const members = countryGroups[countryCode];
         if (!members?.length) return null;
@@ -177,15 +175,15 @@ const countryNames: { [key: string]: string } = {
     </section>
 
     {eventTeam.length > 0 && <section id="event-team" class="booking-board staff-section" aria-labelledby="event-team-title">
-      <div class="booking-board-heading"><div><p>Bringing us together</p><h2 id="event-team-title">Event team</h2></div></div>
+      <div class="booking-board-heading"><h2 id="event-team-title">Event team</h2></div>
       <div class="staff-grid">{eventTeam.map(member => <StaffCard member={member} />)}</div>
     </section>}
 
     {techTeam.length > 0 && <section id="tech-team" class="booking-board staff-section" aria-labelledby="tech-team-title">
-      <div class="booking-board-heading"><div><p>Keeping us connected</p><h2 id="tech-team-title">Tech team</h2></div></div>
+      <div class="booking-board-heading"><h2 id="tech-team-title">Tech team</h2></div>
       <div class="staff-grid">{techTeam.map(member => <StaffCard member={member} />)}</div>
     </section>}
 
-    <a class="staff-contact" href="/about/contact"><span>Not sure who to contact? <strong>We’ll point you in the right direction.</strong></span><span aria-hidden="true">↗</span></a>
+    <a class="page-callout" href="/about/contact"><span>Not sure who to contact? <strong>We’ll point you in the right direction.</strong></span><span aria-hidden="true">→</span></a>
   </main>
 </Layout>

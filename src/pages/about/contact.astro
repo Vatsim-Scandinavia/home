@@ -1,43 +1,69 @@
 ---
 export const prerender = true;
 
-import PageContainer from "../../components/ui/PageContainer.astro"
-import Link from "../../components/ui/Link.astro"
+import Layout from "../../layout/Layout.astro";
+import "../../components/booking-board.css";
+import "../../components/content-page.css";
+
+const joinGuide = "https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia";
+const trainingEmail = "mailto:training-director@vatsim-scandinavia.org";
 ---
 
-<PageContainer SiteTitle="Contact us">
-    <h1 class="text-5xl py-12 font-semibold">Contact us</h1>
-
-    <div class="bg-white/75 dark:bg-tertiary p-8">
-        <p>
-            <strong>Issues with requesting ATC training?</strong><br>
-            First, make sure you've
-            <Link href="https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia" target="_blank">joined VATSIM Scandinavia</Link> properly. If the issue still persist, contact <Link href="mailto:training-director@vatsim-scandinavia.org">Training Department</Link>
-        </p>
-        
-        <p class="pt-4">
-            <strong>Wish to or have issues with changing your subdivision/vACC to Scandinavia?</strong><br>
-            Read all instructions on how to join <Link href="https://vatsim-scandinavia.org/about/join/">VATSIM Scandinavia properly</Link> If you still have a issue, contact <Link href="mailto:training-director@vatsim-scandinavia.org">Training Department</Link>.
-        </p>
-        
-        <p class="pt-4">
-            <strong>Wrong, missing or outdated airport documentation or downloads?</strong><br>
-            Contact <Link href="/about/staff/">the respective FIR Director</Link>.
-        </p>
-        
-        <p class="pt-4">
-            <strong>Technical issues?</strong><br>
-            Report them to <Link href="mailto:tech@vatsim-scandinavia.org">Web Department</Link>.
-        </p>
-        
-        <p class="pt-4">
-            <strong>Would you like to leave us some feedback about your experience with us?</strong><br>
-            Send your feedback <Link href="https://cc.vatsim-scandinavia.org/feedback">through Control Center</Link>
-        </p>
-        
-        <p class="pt-4">
-            <strong>Would you like to join our Discord server? Not intended for support requests, see above.</strong><br>
-            <Link href="http://discord.vatsim-scandinavia.org/">http://discord.vatsim-scandinavia.org/</Link>
-        </p>
+<Layout SiteTitle="Contact us | VATSIM Scandinavia">
+  <main class="content-page">
+    <div class="page-intro">
+      <h1>Contact us</h1>
+      <p>Find the right team for your question below. For general chat with the community, join our Discord.</p>
     </div>
-</PageContainer>
+
+    <div class="page-cards">
+      <section class="booking-board page-card" aria-labelledby="contact-training-title">
+        <div class="booking-board-heading"><h2 id="contact-training-title">Requesting ATC training</h2></div>
+        <div class="page-card-body">
+          <p>First, make sure you've <a href={joinGuide} target="_blank" rel="noopener noreferrer">joined VATSIM Scandinavia</a> properly. If the issue still persists, contact the Training Department.</p>
+        </div>
+        <a class="booking-footer" href={trainingEmail}>Email the Training Department <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="booking-board page-card" aria-labelledby="contact-transfer-title">
+        <div class="booking-board-heading"><h2 id="contact-transfer-title">Changing your subdivision or vACC</h2></div>
+        <div class="page-card-body">
+          <p>Read the <a href={joinGuide} target="_blank" rel="noopener noreferrer">instructions on how to join VATSIM Scandinavia</a>. If you still have an issue, contact the Training Department.</p>
+        </div>
+        <a class="booking-footer" href={trainingEmail}>Email the Training Department <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="booking-board page-card" aria-labelledby="contact-docs-title">
+        <div class="booking-board-heading"><h2 id="contact-docs-title">Airport documentation or downloads</h2></div>
+        <div class="page-card-body">
+          <p>Found something wrong, missing or outdated? Contact the director of the FIR it belongs to.</p>
+        </div>
+        <a class="booking-footer" href="/about/staff/">Find your FIR director <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="booking-board page-card" aria-labelledby="contact-tech-title">
+        <div class="booking-board-heading"><h2 id="contact-tech-title">Technical issues</h2></div>
+        <div class="page-card-body">
+          <p>Something not working on our websites or services? Report it to the Web Department.</p>
+        </div>
+        <a class="booking-footer" href="mailto:tech@vatsim-scandinavia.org">Email the Web Department <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="booking-board page-card" aria-labelledby="contact-feedback-title">
+        <div class="booking-board-heading"><h2 id="contact-feedback-title">Feedback</h2></div>
+        <div class="page-card-body">
+          <p>Want to tell us about your experience with our controllers? Send your feedback through Control Center.</p>
+        </div>
+        <a class="booking-footer" href="https://cc.vatsim-scandinavia.org/feedback" target="_blank" rel="noopener noreferrer">Leave feedback <span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section class="booking-board page-card" aria-labelledby="contact-discord-title">
+        <div class="booking-board-heading"><h2 id="contact-discord-title">Discord</h2></div>
+        <div class="page-card-body">
+          <p>Chat with the community on our Discord server. It isn't intended for support requests; please use the contacts above.</p>
+        </div>
+        <a class="booking-footer" href="https://discord.vatsim-scandinavia.org/" target="_blank" rel="noopener noreferrer">Join our Discord <span aria-hidden="true">↗</span></a>
+      </section>
+    </div>
+  </main>
+</Layout>

@@ -63,9 +63,9 @@ export default function BookingFilters({
     const totalFilters = selectedPrefixes.length + selectedPositions.length + selectedEventTypes.length;
     
     return (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2 h-8">
+                <Button variant="outline" size="sm" className="gap-2 h-8" aria-label={totalFilters > 0 ? `Filter bookings (${totalFilters} active)` : "Filter bookings"}>
                     <Filter className="h-4 w-4" />
                     {totalFilters > 0 && (
                         <Badge variant="secondary" className="h-5 min-w-5 rounded-full px-1.5 flex items-center justify-center text-xs">

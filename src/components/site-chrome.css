@@ -3,10 +3,13 @@ header.site-nav { height: auto; min-height: 80px; padding: 0 28px; display: bloc
 .site-nav-main { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 32px; min-width: 0; }
 .site-nav-main > a { flex-shrink: 0; }
 .site-nav-main > a img { height: 52px; width: 150px; object-fit: contain; }
-header.site-nav nav { position: relative; top: auto; left: auto; right: auto; display: flex; flex-direction: row; padding: 0; margin: 0; background: transparent; gap: 0; font-size: 14px; }
+header.site-nav nav { position: relative; top: auto; left: auto; right: auto; flex-direction: row; padding: 0; margin: 0; background: transparent; gap: 0; font-size: 14px; }
+header.site-nav--overlay { position: fixed; inset-inline: 0; background: transparent; border-bottom-color: transparent; box-shadow: none; transition: background-color 200ms ease, box-shadow 200ms ease; }
+header.site-nav--overlay.is-scrolled { background: #20465d; border-bottom-color: #ffffff20; box-shadow: 0 4px 18px #102e4015; }
+@media (prefers-reduced-motion: reduce) { header.site-nav--overlay { transition: none; } }
 .site-nav nav > div > ul > li > button, .site-nav nav > div > ul > li > a { border-radius: 4px; }
 .site-nav nav button:hover, .site-nav nav button[data-state="open"] { background: #ffffff15; color: #fff; }
-.site-nav nav a:hover { color: inherit; }
+.site-nav nav > div > ul > li > a:hover, .site-nav nav > div > ul > li > a:focus-visible { background: #ffffff15; color: #fff; }
 .site-nav :focus-visible, .site-footer :focus-visible { outline: 2px solid #b9e5f1; outline-offset: 4px; }
 footer.site-footer { display: block; width: 100%; height: auto; margin-top: 32px; padding: 52px 28px 24px; background: #20465d; color: #edf5f9; }
 .site-footer-inner { max-width: 1300px; margin-inline: auto; }

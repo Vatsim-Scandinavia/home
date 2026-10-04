@@ -4,28 +4,28 @@ import { Astronav, MenuItems } from "astro-navbar";
 import ThemeToggle from "./ThemeToggle"
 import Navigation from "./Navigation";
 import MobileMenu from "./MobileMenu";
-const { revealOnScroll = false } = Astro.props;
+const { overlay = false } = Astro.props;
 ---
-<header class:list={["site-nav top-0 z-50 w-full", revealOnScroll ? "scroll-nav" : "sticky"]} data-scroll-nav={revealOnScroll ? "" : undefined} inert={revealOnScroll}>
+<header class:list={["site-nav top-0 z-50 w-full", overlay ? "site-nav--overlay" : "sticky"]} data-overlay-nav={overlay ? "" : undefined}>
     <Astronav>
         <div class="site-nav-inner">
             <div class="site-nav-main">
                 <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-80">
                     <!-- Logo for light mode (dark logo) -->
                     <img 
-                        width="150" 
+                        width="250" 
                         height="auto"
                         src="/img/logos/negative.svg"
                         alt="VATSIM Scandinavia logo" 
-                        class="h-14 w-auto dark:hidden"
+                        class="h-18 w-auto dark:hidden"
                     >
                     <!-- Logo for dark mode (white logo) -->
                     <img 
-                        width="150" 
+                        width="250" 
                         height="auto"
                         src="/img/logos/negative.svg" 
                         alt="VATSIM Scandinavia logo" 
-                        class="h-14 w-auto hidden dark:block"
+                        class="h-18 w-auto hidden dark:block"
                     >
                 </a>
                 <MenuItems class="hidden lg:flex lg:items-center text-white">
@@ -44,39 +44,13 @@ const { revealOnScroll = false } = Astro.props;
     </Astronav>
 </header>
 
-<style>
-    .scroll-nav {
-        position: fixed;
-        inset-inline: 0;
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: transform 200ms ease, opacity 200ms ease, visibility 200ms;
-    }
-
-    .scroll-nav.is-visible {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .scroll-nav { transition: none; }
-    }
-</style>
-
 <script>
-    const nav = document.querySelector<HTMLElement>('[data-scroll-nav]');
+    // Over the hero the nav starts transparent and turns solid once the page scrolls.
+    const nav = document.querySelector<HTMLElement>('[data-overlay-nav]');
     if (nav) {
-        const updateNavigation = () => {
-            const visible = window.scrollY > 0;
-            nav.classList.toggle('is-visible', visible);
-            nav.inert = !visible;
-        };
-        updateNavigation();
-        window.addEventListener('scroll', updateNavigation, { passive: true });
-        window.addEventListener('pageshow', updateNavigation);
+        const update = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('pageshow', update);
     }
 </script>

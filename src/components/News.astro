@@ -1,22 +1,42 @@
 ---
 import { fetchAnnouncements } from '../lib/flarum';
+import staffData from '../data/staff-positions.json';
 
 const posts = await fetchAnnouncements(4);
+
+const staffByCid = new Map(staffData.staff.filter(s => s.cid > 0).map(s => [s.cid, s]));
+
 const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC',
 }).toUpperCase();
+
+// Every post carries the "Announcements" tag, so only show a tag when there's a more specific one.
 const category = (tags: { name: string }[]) =>
-  tags.find(tag => tag.name.toLowerCase() !== 'announcements')?.name ?? 'Community';
+  tags.find(tag => tag.name.toLowerCase() !== 'announcements')?.name;
+
+// Forum names look like "Jane Doe (1234567)"; match the CID against staff for their title.
+function resolveAuthor(authorName: string) {
+  const cid = authorName.match(/\((\d+)\)/)?.[1];
+  const name = authorName.replace(/\s*\(\d+\)/, '');
+  return { name, title: cid ? staffByCid.get(Number(cid))?.title : undefined };
+}
 ---
 
 <div id="notams" class="announcements-list">
-  {posts.map(post => (
-    <a class="announcement-row" href={post.url} target="_blank" rel="noopener noreferrer">
-      <time datetime={post.createdAt.toISOString()}>{formatDate(post.createdAt)}</time>
-      <h3>{post.title}</h3>
-      <span class="announcement-category">{category(post.tags)}</span>
-      <span class="announcement-arrow" aria-hidden="true">↗</span>
-    </a>
-  ))}
+  {posts.map(post => {
+    const author = resolveAuthor(post.author.name);
+    const tag = category(post.tags);
+    return (
+      <a class="announcement-row" href={post.url} target="_blank" rel="noopener noreferrer">
+        <time datetime={post.createdAt.toISOString()}>{formatDate(post.createdAt)}</time>
+        <div class="announcement-copy">
+          <h3>{post.title}</h3>
+          <p class="announcement-author">{author.title ? `${author.name}, ${author.title}` : author.name}</p>
+        </div>
+        {tag ? <span class="announcement-category">{tag}</span> : <span></span>}
+        <span class="announcement-arrow" aria-hidden="true">↗</span>
+      </a>
+    );
+  })}
   {posts.length === 0 && <p class="announcements-empty">No announcements available right now. Visit the forum for the latest community updates.</p>}
 </div>

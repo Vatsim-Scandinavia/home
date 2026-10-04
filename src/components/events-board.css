@@ -13,3 +13,7 @@
   .event-preview { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .event-preview-copy h3 { font-size: 20px; }
 }
+.event-placeholder .event-preview-image { background: var(--booking-group); }
+.event-placeholder span { display: block; height: 14px; margin-bottom: 12px; border-radius: 2px; background: var(--booking-group); }
+.event-placeholder span:first-child { height: 22px; width: 70%; }
+.event-placeholder span:nth-child(2) { width: 40%; }

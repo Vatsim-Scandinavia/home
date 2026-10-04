@@ -1,0 +1,27 @@
+.staff-section { scroll-margin-top: 104px; }
+.staff-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; padding: 4px 20px; }
+.staff-member { display: flex; align-items: start; gap: 16px; min-width: 0; padding: 24px 0; }
+@media (min-width: 1101px) {
+  .staff-member:nth-child(n + 4) { border-top: 1px solid var(--booking-border); }
+}
+@media (min-width: 641px) and (max-width: 1100px) {
+  .staff-member:nth-child(n + 3) { border-top: 1px solid var(--booking-border); }
+}
+.staff-avatar { position: relative; flex-shrink: 0; }
+.staff-avatar > img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; background: var(--booking-tint); }
+.staff-availability { position: absolute; right: -4px; bottom: -4px; padding: 3px; border-radius: 50%; background: var(--booking-surface); }
+.staff-member-info { min-width: 0; }
+.staff-member-role { margin: 0 0 2px; color: var(--booking-muted); font-size: 12px; line-height: 1.5; }
+.staff-member-name { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0; font-size: 17px; line-height: 1.4; font-weight: 600; overflow-wrap: anywhere; }
+.staff-member-name img { flex-shrink: 0; }
+.staff-contact-row { display: flex; align-items: center; gap: 8px; margin-top: -5px; }
+.staff-cid { margin: 0; color: var(--booking-muted); font-size: 11px; letter-spacing: .5px; }
+.staff-email { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 4px; }
+.staff-email:hover { background: var(--booking-tint); }
+.staff-region-heading { display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: var(--booking-tint); border-bottom: 1px solid var(--booking-border); }
+.staff-region-heading h3 { margin: 0; font-size: 16px; font-weight: 600; }
+@media (max-width: 1100px) { .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .staff-grid { grid-template-columns: minmax(0, 1fr); }
+  .staff-member + .staff-member { border-top: 1px solid var(--booking-border); }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type MouseEventHandler } from 'react';
+import { useEffect, useRef, useState, type MouseEventHandler } from 'react';
 import { useKeenSlider } from "keen-slider/react";
 import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 import type { EventCard } from '@/interfaces/Event';
@@ -42,6 +42,22 @@ const Events = ({ events }: EventsProps) => {
 
     useEffect(() => setZulu(false), []);
 
+    // Event banners are full-size uploads (often several MB each), so hold off fetching them
+    // until the events panel is close to the screen; loading="lazy" alone starts them far too early.
+    const rootRef = useRef<HTMLDivElement>(null);
+    const [showBanners, setShowBanners] = useState(false);
+    useEffect(() => {
+        const root = rootRef.current;
+        if (!root || !("IntersectionObserver" in window)) return setShowBanners(true);
+        const observer = new IntersectionObserver(([entry]) => {
+            if (!entry.isIntersecting) return;
+            setShowBanners(true);
+            observer.disconnect();
+        }, { rootMargin: "300px" });
+        observer.observe(root);
+        return () => observer.disconnect();
+    }, []);
+
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
         initial: 0,
         mode: "snap",
@@ -66,24 +82,26 @@ const Events = ({ events }: EventsProps) => {
     const lastSlide = (instanceRef.current?.track?.details?.slides?.length ?? 0) - 1;
 
     return (
-        <div className="flex flex-col w-full h-full">
+        <div ref={rootRef} className="flex flex-col w-full h-full">
             <div className="flex h-full flex-col gap-2" >
                 {events.slice(0, 2).map((item) => (
-                    <a href={item.url} target='_blank' rel='noopener noreferrer' aria-label={`View event: ${item.name}`} key={item.id} className='aspect-video h-1/3 md:h-60 flex dark:hover:!text-primary text-secondary dark:text-white hover:bg-snow transition-all p-2 rounded'>
+                    <a href={item.url} target='_blank' rel='noopener noreferrer' aria-label={`View event: ${item.name}`} key={item.id} className='event-preview'>
 
-                        <img alt={`Event banner for ${item.name}`} className='h-full aspect-video bg-center bg-cover rounded' src={item.banner}/>
+                        <img alt={`Event banner for ${item.name}`} className='event-preview-image' src={showBanners ? item.banner : undefined} decoding='async'/>
 
-                        <div className='w-full h-full px-2 hidden md:flex flex-col gap-2 relative'>
-                            <h2 className='font-bold text-xl md:text-2xl'>{item.name}</h2>
-                            <p className='text-grey font-bold dark:text-gray-300 -mt-2 mb-2'>{formatEventPeriod(item.start_datetime, item.end_datetime, zulu)}</p>
-                            <p className='line-clamp-6 mb-1 text-black dark:text-white'>{item.short_description}</p>
+                        <div className='event-preview-copy'>
+                            <h3>{item.name}</h3>
+                            <p className='event-period'>{formatEventPeriod(item.start_datetime, item.end_datetime, zulu)}</p>
+                            <p className='event-excerpt line-clamp-4'>{item.short_description}</p>
                         </div>
                     </a>
                 ))}
-                <div className="navigation-wrapper h-1/3 m-2">
+                <div className="navigation-wrapper event-carousel">
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
-                            <a key={item.id} style={{ '--image-url': `url(${item.banner})` } as CSSProperties} aria-label={`View event: ${item.name}`} className={`keen-slider__slide bg-gray-800 bg-[image:var(--image-url)] bg-cover inline-block number-slide${index} rounded aspect-video`} target='_blank' rel='noopener noreferrer' href={item.url} />
+                            <a key={item.id} aria-label={`View event: ${item.name}`} className={`keen-slider__slide bg-gray-800 inline-block number-slide${index} rounded aspect-video`} target='_blank' rel='noopener noreferrer' href={item.url}>
+                                <img src={showBanners ? item.banner : undefined} alt="" decoding="async" className="w-full h-full object-cover" />
+                            </a>
                         ))}
                         <a
                             href="https://events.vatsim-scandinavia.org"

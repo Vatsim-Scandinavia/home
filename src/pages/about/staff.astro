@@ -1,7 +1,9 @@
 ---
 export const prerender = true;
 
-import CardBox from "@/components/ui/CardBox.astro";
+import "../../components/booking-board.css";
+import "../../components/content-page.css";
+import "../../components/staff.css";
 const SiteTitle = "Staff";
 import Layout from "../../layout/Layout.astro";
 import StaffCard from "../../components/StaffCard.astro";
@@ -139,83 +141,49 @@ const countryNames: { [key: string]: string } = {
 ---
 
 <Layout SiteTitle={`${SiteTitle} | VATSIM Scandinavia`}>
-    <div class="p-6 flex flex-col gap-6 w-full max-w-[1200px]">
-       <div class="mt-8">
-        <h1 class="text-4xl font-bold my-2 text-secondary dark:text-white">Staff</h1>
-        <p class="text-gray-600 dark:text-gray-400 mb-8">
-            Meet the dedicated individuals who make VATSIM Scandinavia a great community.
-        </p>
-       </div>
-
-        {/* Director Section */}
-        {director && (
-            <CardBox title="vACC Director" padding="4">
-                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    <StaffCard member={director} />
-                </div>
-            </CardBox>
-        )}
-
-        {/* Board Members Section */}
-        {boardMembers.length > 0 && (
-            <CardBox title="Board of Directors" padding="4">
-                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {boardMembers.map((member) => (
-                        <StaffCard member={member} />
-                    ))}
-                </div>
-            </CardBox>
-        )}
-
-        {/* Countries Section */}
-        <CardBox title="Regions" padding="0">
-                {countryOrder.map((countryCode) => {
-                    const countryStaffList = countryGroups[countryCode];
-                    if (!countryStaffList || countryStaffList.length === 0) return null;
-                    
-                    return (
-                        <div class="flex flex-col w-full gap-4 p-4">
-                            <div class="flex items-center gap-2 justify-center md:justify-start border-b pb-1.5">
-                                <img 
-                                    src={`/img/icons/${countryCode}.svg`} 
-                                    alt={countryNames[countryCode] || countryCode}
-                                    class="w-5 h-5"
-                                    loading="lazy"
-                                />
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">
-                                    {countryNames[countryCode] || countryCode}
-                                </h3>
-                            </div>
-                            <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                                {countryStaffList.map((member) => (
-                                    <StaffCard member={member} />
-                                ))}
-                            </div>
-                        </div>
-                    );
-                })}
-        </CardBox>
-
-        {/* Event Team Section */}
-        {eventTeam.length > 0 && (
-            <CardBox title="Event Team" padding="4">
-                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {eventTeam.map((member) => (
-                        <StaffCard member={member} />
-                    ))}
-                </div>
-            </CardBox>
-        )}
-
-        {/* Tech Team Section */}
-        {techTeam.length > 0 && (
-            <CardBox title="Tech Team" padding="4">
-                <div class="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {techTeam.map((member) => (
-                        <StaffCard member={member} />
-                    ))}
-                </div>
-            </CardBox>
-        )}
+  <main class="content-page">
+    <div class="page-intro">
+      <h1>Staff</h1>
+      <p>Meet the people connecting our skies, supporting our controllers, and building our community across Scandinavia.</p>
     </div>
+
+    <section id="leadership" class="booking-board staff-section" aria-labelledby="leadership-title">
+      <div class="booking-board-heading"><h2 id="leadership-title">Leadership</h2></div>
+      {director && <div class="staff-region">
+        <div class="staff-region-heading"><h3>vACC Director</h3></div>
+        <div class="staff-grid"><StaffCard member={director} /></div>
+      </div>}
+      {boardMembers.length > 0 && <div class="staff-region">
+        <div class="staff-region-heading"><h3>Board of Directors</h3></div>
+        <div class="staff-grid">{boardMembers.map(member => <StaffCard member={member} />)}</div>
+      </div>}
+    </section>
+
+    <section id="regions" class="booking-board staff-section" aria-labelledby="regions-title">
+      <div class="booking-board-heading"><h2 id="regions-title">Regional teams</h2></div>
+      {countryOrder.map(countryCode => {
+        const members = countryGroups[countryCode];
+        if (!members?.length) return null;
+        return <div class="staff-region">
+          <div class="staff-region-heading">
+            <img src={`/img/icons/${countryCode}.svg`} alt="" width="32" height="24" loading="lazy" />
+            <h3>{countryNames[countryCode]}</h3>
+          </div>
+          <div class="staff-grid">{members.map(member => <StaffCard member={member} />)}</div>
+        </div>;
+      })}
+    </section>
+
+    {eventTeam.length > 0 && <section id="event-team" class="booking-board staff-section" aria-labelledby="event-team-title">
+      <div class="booking-board-heading"><h2 id="event-team-title">Event team</h2></div>
+      <div class="staff-grid">{eventTeam.map(member => <StaffCard member={member} />)}</div>
+    </section>}
+
+    {techTeam.length > 0 && <section id="tech-team" class="booking-board staff-section" aria-labelledby="tech-team-title">
+      <div class="booking-board-heading"><h2 id="tech-team-title">Tech team</h2></div>
+      <div class="staff-grid">{techTeam.map(member => <StaffCard member={member} />)}</div>
+    </section>}
+
+    <a class="page-callout" href="/about/contact"><span>Not sure who to contact? <strong>We’ll point you in the right direction.</strong></span><span aria-hidden="true">→</span></a>
+  </main>
 </Layout>

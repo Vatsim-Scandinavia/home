@@ -181,7 +181,7 @@ export default function MobileMenu() {
                     <span className="sr-only">Toggle menu</span>
                 </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-secondary text-white overflow-y-auto">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-secondary text-white overflow-y-auto border-white/10">
                 <SheetHeader>
                     <SheetTitle className="text-white text-left">Navigation</SheetTitle>
                 </SheetHeader>

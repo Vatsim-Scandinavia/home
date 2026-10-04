@@ -1,33 +1,49 @@
 ---
 export const prerender = true;
 
-import PageContainer from "../../components/ui/PageContainer.astro"
+import Layout from "../../layout/Layout.astro";
+import "../../components/booking-board.css";
+import "../../components/content-page.css";
+
+const donateUrl = "https://www.paypal.com/donate/?hosted_button_id=EPYAYSV7SS7HQ";
 ---
 
-<PageContainer SiteTitle="Donations">
-    <h1 class="text-5xl py-12 font-semibold">Donations</h1>
-
-    <div class="bg-white/75 dark:bg-tertiary p-8">
-        <div class="w-full h-fit grid grid-cols-1 md:grid-cols-2 px-6 md:px-0 gap-4 max-w-[1300px]">
-            <div>
-                <h1 class="text-2xl font-bold p-2">Our Agreement</h1>
-                <ul class="pl-4">
-                    <li class="list-disc">Every EUR donated will go towards funding our web services. As we will be using the PayPal system to accept donations, your financial commitment will be guaranteed towards funding our web services.</li>
-                    <li class="list-disc">VATSIM Scandinavia will continue to work proactively to grow our community and will do its utmost to constantly improve the final product for our membership.</li>
-                    <li class="list-disc">We will not disclose the details of anyone who has donated, or how much they have donated.</li>
-                    <li class="list-disc">We will not treat those who do and don’t donate any differently, as below.</li>
-                </ul>
-            </div>
-            <div>
-                <h1 class="text-2xl font-bold p-2">Your Agreement</h1>
-                <ul class="pl-4">
-                    <li class="list-disc">By donating, you agree that your financial contribution is solely an act of goodwill and that such a contribution does not grant you any higher say in how the VACC is run. You agree that you will never use the fact that you have made a financial contribution as a tool to attempt to influence or intimidate staff members or the general membership.</li>
-                    <li class="list-disc">You will not use the fact that you have made a financial contribution to elevate your status in the VACC, nor to attempt to “bribe” the VACC into granting you special privileges.</li>
-                    <li class="list-disc">Once you have donated, you have surrendered your right to claim your money back at any time, unless your financial contribution does not go towards running costs for web services, as described.</li>
-                    <li class="list-disc">You confirm that you are 18 years or older.</li>
-                </ul>
-            </div>
-        </div>
-        <a href="https://www.paypal.com/donate/?hosted_button_id=EPYAYSV7SS7HQ" class="block w-fit mt-4 bg-secondary p-3 rounded-sm text-lg text-white text-center">Donate</a>
+<Layout SiteTitle="Donations | VATSIM Scandinavia">
+  <main class="content-page">
+    <div class="page-intro">
+      <h1>Donations</h1>
+      <p>Your donations keep our infrastructure running and help us provide the best possible services for our members and guests. Please read both agreements before donating.</p>
     </div>
-</PageContainer>
+
+    <div class="page-cards">
+      <section class="booking-board page-card" aria-labelledby="our-agreement-title">
+        <div class="booking-board-heading"><h2 id="our-agreement-title">Our agreement</h2></div>
+        <div class="page-card-body">
+          <ul>
+            <li>Every EUR donated will go towards funding our web services. As we will be using the PayPal system to accept donations, your financial commitment will be guaranteed towards funding our web services.</li>
+            <li>VATSIM Scandinavia will continue to work proactively to grow our community and will do its utmost to constantly improve the final product for our membership.</li>
+            <li>We will not disclose the details of anyone who has donated, or how much they have donated.</li>
+            <li>We will not treat those who do and don’t donate any differently, as below.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="booking-board page-card" aria-labelledby="your-agreement-title">
+        <div class="booking-board-heading"><h2 id="your-agreement-title">Your agreement</h2></div>
+        <div class="page-card-body">
+          <ul>
+            <li>By donating, you agree that your financial contribution is solely an act of goodwill and that such a contribution does not grant you any higher say in how the VACC is run. You agree that you will never use the fact that you have made a financial contribution as a tool to attempt to influence or intimidate staff members or the general membership.</li>
+            <li>You will not use the fact that you have made a financial contribution to elevate your status in the VACC, nor to attempt to “bribe” the VACC into granting you special privileges.</li>
+            <li>Once you have donated, you have surrendered your right to claim your money back at any time, unless your financial contribution does not go towards running costs for web services, as described.</li>
+            <li>You confirm that you are 18 years or older.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <div class="page-callout">
+      <span>By donating you accept both agreements above. <strong>Thank you for supporting the community.</strong></span>
+      <a class="page-button" href={donateUrl} target="_blank" rel="noopener noreferrer">Donate with PayPal <span aria-hidden="true">↗</span></a>
+    </div>
+  </main>
+</Layout>

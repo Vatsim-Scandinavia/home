@@ -1,0 +1,194 @@
+---
+// Hero photos per country. The page is prerendered, so the visitor's country is guessed
+// client-side from their time zone (falling back to browser language) and anyone else
+// gets the neutral photo. All photos are from Wikimedia Commons; credits are required.
+const photos = {
+  default: { credit: 'Photo: Eivind Mikkelsen, CC BY-SA 3.0', href: 'https://commons.wikimedia.org/wiki/File:Clouds_from_aircraft.jpg' },
+  dk: { credit: 'Copenhagen Airport. Photo: kallerna, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Copenhagen_airport_from_air.jpg' },
+  fi: { credit: 'Helsinki. Photo: kallerna, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Helsinki_aerial_2022.jpg' },
+  is: { credit: 'Mid-Atlantic Ridge. © Bar Harel, CC BY-SA 4.0, Wikimedia Commons', href: "https://commons.wikimedia.org/wiki/File:Iceland's_Mid-Atlantic_Ridge_during_snow.jpg" },
+  no: { credit: 'Geirangerfjord. Photo: Ximonic (Simo Räsänen), CC BY-SA 3.0', href: 'https://commons.wikimedia.org/wiki/File:Geirangerfjord_from_%C3%98rnesvingen,_2013_June.jpg' },
+  se: { credit: 'Stockholm. Photo: kallerna, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Stockholm_aerial_5.jpg' },
+};
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-image" aria-hidden="true"></div>
+  <script is:inline define:vars={{ photos }}>
+    (() => {
+      const zones = {
+        'Europe/Copenhagen': 'dk', 'Atlantic/Faroe': 'dk',
+        'Europe/Helsinki': 'fi', 'Europe/Mariehamn': 'fi',
+        'Atlantic/Reykjavik': 'is',
+        'Europe/Oslo': 'no', 'Arctic/Longyearbyen': 'no',
+        'Europe/Stockholm': 'se',
+      };
+      const languages = { da: 'dk', fi: 'fi', is: 'is', nb: 'no', nn: 'no', no: 'no', sv: 'se' };
+      let country;
+      try { country = zones[Intl.DateTimeFormat().resolvedOptions().timeZone]; } catch {}
+      country ??= (navigator.languages || []).map(l => languages[l.slice(0, 2).toLowerCase()]).find(Boolean);
+
+      // The photo is a CSS background, which the browser would only discover after styles
+      // load; preloading it here makes it start downloading straight away.
+      const preload = document.createElement('link');
+      preload.rel = 'preload';
+      preload.as = 'image';
+      preload.fetchPriority = 'high';
+      preload.href = `/img/hero/${country ?? 'default'}${matchMedia('(max-width: 800px)').matches ? '-sm' : ''}.webp`;
+      document.head.append(preload);
+
+      if (!country) return;
+      // Set the country before the hero paints so the default photo never flashes.
+      const hero = document.currentScript.parentElement;
+      hero.dataset.country = country;
+      document.addEventListener('DOMContentLoaded', () => {
+        const credit = hero.querySelector('[data-hero-credit]');
+        credit.textContent = photos[country].credit;
+        credit.href = photos[country].href;
+      });
+    })();
+  </script>
+
+  <div class="hero-content">
+    <h1 id="hero-title">Your northern <em>horizon.</em></h1>
+    <p>Home vACC of Denmark, Finland, Iceland, Norway &amp; Sweden. Fly, control and connect with VATSIM Scandinavia.</p>
+    <div class="hero-actions">
+      <a class="hero-button hero-button--join" href="https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia" target="_blank" rel="noopener noreferrer">Join VATSIM Scandinavia <span aria-hidden="true">↗</span></a>
+      <a class="hero-button hero-button--discord" href="https://discord.vatsim-scandinavia.org/" target="_blank" rel="noopener noreferrer">Join our Discord <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <a class="hero-credit" data-hero-credit href={photos.default.href} target="_blank" rel="noopener noreferrer">{photos.default.credit}</a>
+    <a href="#bookings">Explore our skies <span aria-hidden="true">↓</span></a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    --hero-photo: url('/img/hero/default.webp');
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    /* Fill the screen on normal displays, but never force content taller than it needs. */
+    min-height: min(100svh, 820px);
+    display: flex;
+    flex-direction: column;
+    background: #163c49;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .hero[data-country='dk'] { --hero-photo: url('/img/hero/dk.webp'); }
+  .hero[data-country='fi'] { --hero-photo: url('/img/hero/fi.webp'); }
+  .hero[data-country='is'] { --hero-photo: url('/img/hero/is.webp'); }
+  .hero[data-country='no'] { --hero-photo: url('/img/hero/no.webp'); }
+  .hero[data-country='se'] { --hero-photo: url('/img/hero/se.webp'); }
+
+  @media (max-width: 800px) {
+    .hero { --hero-photo: url('/img/hero/default-sm.webp'); }
+    .hero[data-country='dk'] { --hero-photo: url('/img/hero/dk-sm.webp'); }
+    .hero[data-country='fi'] { --hero-photo: url('/img/hero/fi-sm.webp'); }
+    .hero[data-country='is'] { --hero-photo: url('/img/hero/is-sm.webp'); }
+    .hero[data-country='no'] { --hero-photo: url('/img/hero/no-sm.webp'); }
+    .hero[data-country='se'] { --hero-photo: url('/img/hero/se-sm.webp'); }
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(0deg, rgba(9, 37, 51, .8), rgba(9, 37, 51, .35)), var(--hero-photo) center / cover;
+  }
+
+  .hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 3svh, 28px);
+    /* Top padding clears the fixed nav that sits over the hero. */
+    padding: 112px 28px 48px;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.75rem, min(7vw, 11svh), 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h1 em { font-style: normal; color: #93d9ec; }
+
+  p {
+    max-width: 640px;
+    margin: 0;
+    font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem);
+    line-height: 1.6;
+    color: #e1e9eb;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 16px;
+    margin-top: 4px;
+  }
+
+  .hero-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 22px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    transition: filter 150ms ease;
+  }
+
+  .hero-button:hover { filter: brightness(1.1); }
+  .hero-button--join { background: #41816e; }
+  .hero-button--discord { background: #6172bd; }
+
+  .hero a:focus-visible { outline: 2px solid #b9e5f1; outline-offset: 4px; }
+
+  .hero-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 24px;
+    flex-wrap: wrap;
+    width: calc(100% - 56px);
+    max-width: 1300px;
+    margin-inline: auto;
+    padding: 16px 0;
+    border-top: 1px solid #ffffff40;
+    font-size: 14px;
+  }
+
+  .hero-bottom a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .hero-credit { font-size: 13px; color: #cad6d9; }
+
+  /* Short screens (landscape phones, small laptops, zoomed browsers). */
+  @media (max-height: 600px) {
+    .hero-content { padding-top: 96px; padding-bottom: 28px; }
+    .hero-button { padding: 11px 18px; }
+  }
+
+  @media (max-width: 640px) {
+    .hero-content { padding-inline: 20px; }
+    .hero-actions { flex-direction: column; align-self: stretch; }
+    .hero-button { justify-content: space-between; }
+    .hero-bottom { width: calc(100% - 40px); flex-direction: column-reverse; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-button { transition: none; }
+  }
+</style>

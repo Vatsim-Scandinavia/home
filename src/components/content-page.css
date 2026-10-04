@@ -1,0 +1,32 @@
+/* Shared layout for content pages (staff, contact, donations): intro, card panels and call-out. */
+.content-page { width: 100%; max-width: 1356px; padding: 48px 28px 24px; display: flex; flex-direction: column; gap: 24px; }
+.page-intro { padding: 12px 0 16px; color: #214b63; }
+.page-intro h1 { margin: 0 0 18px; font-size: clamp(36px, 5vw, 56px); line-height: 1.1; letter-spacing: -.02em; font-weight: 600; }
+.page-intro > p:last-of-type { max-width: 620px; font-size: 16px; line-height: 1.7; color: #527087; }
+.page-callout { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px; background: #e7f0f4; color: #214b63; border-radius: 8px; font-size: 14px; line-height: 1.7; }
+.page-callout strong { display: block; font-weight: 500; }
+.content-page a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.content-page a:focus-visible { outline: 2px solid #418eac; outline-offset: 4px; }
+.dark .page-intro { color: #e0edf4; }
+.dark .page-intro > p:last-of-type { color: #b1c7d5; }
+.dark .page-callout { background: #203f51; color: #e0edf4; }
+
+.page-button { display: inline-flex; flex-shrink: 0; align-items: center; gap: 14px; padding: 12px 20px; border-radius: 4px; background: #41816e; color: #fff; font-size: 15px; font-weight: 600; }
+.content-page .page-button:hover { filter: brightness(1.1); text-decoration: none; }
+
+/* Card grid and card body text, used with .booking-board panels. */
+.page-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.page-card { display: flex; flex-direction: column; }
+.page-card > .booking-footer { margin-top: auto; }
+.page-card-body { padding: 20px; font-size: 15px; line-height: 1.7; color: var(--booking-muted); }
+.page-card-body p { margin: 0; }
+.page-card-body ul { margin: 0; padding-left: 20px; list-style: disc; display: grid; gap: 10px; }
+.page-card-body a { color: var(--booking-text); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .page-cards { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .content-page { padding: 28px 20px 20px; }
+  .page-callout { align-items: flex-start; flex-direction: column; }
+}

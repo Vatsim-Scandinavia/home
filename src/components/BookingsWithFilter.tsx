@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react";
-import { createPortal } from "react-dom";
 import BookingComponent from "./BookingComponent";
 import BookingFilters from "./BookingFilters";
 
@@ -9,14 +8,6 @@ export default function BookingsWithFilter() {
     const [selectedPrefixes, setSelectedPrefixes] = React.useState<string[]>([]);
     const [selectedPositions, setSelectedPositions] = React.useState<string[]>([]);
     const [selectedEventTypes, setSelectedEventTypes] = React.useState<string[]>([]);
-    const [filterContainer, setFilterContainer] = React.useState<HTMLElement | null>(null);
-
-    React.useEffect(() => {
-        const container = document.querySelector('.filter-slot-bookings') as HTMLElement;
-        if (container) {
-            setFilterContainer(container);
-        }
-    }, []);
 
     const toggleCountry = (prefixes: string[]) => {
         setSelectedPrefixes(prev => {
@@ -69,14 +60,12 @@ export default function BookingsWithFilter() {
     );
 
     return (
-        <>
-            {filterContainer && createPortal(filterComponent, filterContainer)}
-            <BookingComponent
-                selectedPrefixes={selectedPrefixes}
-                selectedPositions={selectedPositions}
-                selectedEventTypes={selectedEventTypes}
-            />
-        </>
+        <BookingComponent
+            selectedPrefixes={selectedPrefixes}
+            selectedPositions={selectedPositions}
+            selectedEventTypes={selectedEventTypes}
+            headerAction={filterComponent}
+        />
     );
 }
 

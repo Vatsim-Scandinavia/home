@@ -49,6 +49,7 @@ const AvailabilityDecode = (props: {Availability: string; variant?: "badge" | "t
             <span 
                 className={`block w-3 h-3 rounded-full ${info.color}`}
                 title={info.tooltip}
+                role="img"
                 aria-label={`Availability: ${info.label}`}
             ></span>
         );

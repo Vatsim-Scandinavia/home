@@ -1,33 +1,35 @@
 ---
+import "./site-chrome.css";
 import { Astronav, MenuItems } from "astro-navbar";
 import ThemeToggle from "./ThemeToggle"
 import Navigation from "./Navigation";
 import MobileMenu from "./MobileMenu";
+const { overlay = false } = Astro.props;
 ---
-<header class="sticky top-0 z-50 w-full bg-secondary dark:bg-secondary shadow-md">
+<header class:list={["site-nav top-0 z-50 w-full", overlay ? "site-nav--overlay" : "sticky"]} data-overlay-nav={overlay ? "" : undefined}>
     <Astronav>
-        <div class="container flex max-w-screen-2xl items-center justify-around px-4 md:px-8 py-1.5">
-            <div class="flex items-center gap-6 md:gap-32">
+        <div class="site-nav-inner">
+            <div class="site-nav-main">
                 <a href="/" class="flex items-center space-x-2 transition-opacity hover:opacity-80">
                     <!-- Logo for light mode (dark logo) -->
                     <img 
-                        width="150" 
+                        width="250" 
                         height="auto"
                         src="/img/logos/negative.svg"
                         alt="VATSIM Scandinavia logo" 
-                        class="h-14 w-auto dark:hidden"
+                        class="h-18 w-auto dark:hidden"
                     >
                     <!-- Logo for dark mode (white logo) -->
                     <img 
-                        width="150" 
+                        width="250" 
                         height="auto"
                         src="/img/logos/negative.svg" 
                         alt="VATSIM Scandinavia logo" 
-                        class="h-14 w-auto hidden dark:block"
+                        class="h-18 w-auto hidden dark:block"
                     >
                 </a>
                 <MenuItems class="hidden lg:flex lg:items-center text-white">
-                    <Navigation client:visible/>
+                    <Navigation client:load/>
                 </MenuItems>
             </div>
             <div class="flex items-center gap-2 text-white">
@@ -41,3 +43,14 @@ import MobileMenu from "./MobileMenu";
         </div>
     </Astronav>
 </header>
+
+<script>
+    // Over the hero the nav starts transparent and turns solid once the page scrolls.
+    const nav = document.querySelector<HTMLElement>('[data-overlay-nav]');
+    if (nav) {
+        const update = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('pageshow', update);
+    }
+</script>

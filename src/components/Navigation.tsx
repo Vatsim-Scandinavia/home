@@ -127,7 +127,7 @@ const about: NavigationItems = [
 export default function Navigation() {
     return (
         <NavigationMenu className="z-20 flex items-center">
-            <NavigationMenuList className="items-center">
+            <NavigationMenuList className="items-center text-xl">
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -180,7 +180,7 @@ export default function Navigation() {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger>About</NavigationMenuTrigger>
+                    <NavigationMenuTrigger >About</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                             {about.map((component) => (
@@ -197,11 +197,9 @@ export default function Navigation() {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <a href="https://forum.vatsim-scandinavia.org" target="_blank" rel="noopener noreferrer">
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Community
-                        </NavigationMenuLink>
-                    </a>
+                    <NavigationMenuLink href="https://forum.vatsim-scandinavia.org" target="_blank" rel="noopener noreferrer" className={navigationMenuTriggerStyle()}>
+                        Community
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>

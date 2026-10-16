@@ -1,14 +1,40 @@
-<footer class="w-full h-40 text-xs md:text-medium bg-secondary flex flex-col justify-center items-center p-2 gap-4 text-white">
-    <div class="text-sm md:text-medium text-center">
-        <ul class="flex gap-4">
-            <li><a class="text-white hover:text-primary hover:no-underline" href="https://wiki.vatsim-scandinavia.org/books/privacy-policies" target="_blank">Privacy Policy</a></li>
-            <li><a class="text-white hover:text-primary hover:no-underline" href="https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia" target="_blank">Join VATSCA</a></li>
-            <li><a class="text-white hover:text-primary hover:no-underline" href="http://discord.vatsim-scandinavia.org/" target="_blank">Discord</a></li>
-            <li><a class="text-white hover:text-primary hover:no-underline" href="https://github.com/orgs/Vatsim-Scandinavia/projects/11" target="_blank">Tech Roadmap</a></li>
-            <li><a class="text-white hover:text-primary hover:no-underline" href="http://vatsim-scandinavia.org/" target="_blank">Contact Us</a></li>
-        </ul>
+---
+import "./site-chrome.css";
+const groups = [
+  { title: 'Explore', links: [
+    ['Airports & charts', 'https://wiki.vatsim-scandinavia.org/shelves/pilots'],
+    ['Events', 'https://events.vatsim-scandinavia.org/'],
+    ['Control Center', 'https://cc.vatsim-scandinavia.org/'],
+  ] },
+  { title: 'Community', links: [
+    ['Join VATSCA', 'https://wiki.vatsim-scandinavia.org/books/getting-started-AVr/chapter/joining-vatsim-scandinavia'],
+    ['Discord', 'https://discord.vatsim-scandinavia.org/'],
+    ['Forum', 'https://forum.vatsim-scandinavia.org/'],
+  ] },
+  { title: 'About us', links: [
+    ['Contact us', '/about/contact'],
+    ['Support us', '/about/donations'],
+    ['Tech roadmap', 'https://github.com/orgs/Vatsim-Scandinavia/projects/11'],
+  ] },
+];
+---
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-top">
+      <div class="site-footer-brand">
+        <a href="/" aria-label="VATSIM Scandinavia home"><img src="/img/logos/negative.svg" width="180" height="64" alt="VATSIM Scandinavia" /></a>
+        <p>Five countries. One shared sky.</p>
+        <span>Fly, control and connect with our northern community.</span>
+      </div>
+      {groups.map(group => <nav aria-label={group.title} class="site-footer-links">
+        <h2>{group.title}</h2>
+        {group.links.map(([label, href]) => <a href={href} target={href.startsWith('https:') ? '_blank' : undefined} rel={href.startsWith('https:') ? 'noopener noreferrer' : undefined}>{label}<span aria-hidden="true">↗</span></a>)}
+      </nav>)}
     </div>
-    <div class="flex flex-col text-center break-words">
-        <p class="whitespace-break-spaces">© VATSIM Scandinavia - FOR FLIGHT SIMULATION USE ONLY. All rights reserved</p>
+    <div class="site-footer-bottom">
+      <p>© {new Date().getFullYear()} VATSIM Scandinavia. All rights reserved.</p>
+      <span>For flight simulation use only</span>
+      <a href="https://wiki.vatsim-scandinavia.org/books/privacy-policies" target="_blank" rel="noopener noreferrer">Privacy policy</a>
     </div>
+  </div>
 </footer>

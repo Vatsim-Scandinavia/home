@@ -111,6 +111,7 @@ export default function useBookingData(): {
 
         if (vatsimError || controlCenterError) {
             if (isMounted) setError(vatsimError || controlCenterError || 'An error occurred while fetching data.');
+            if (isMounted) setIsLoading(false);
             return;
         }
 
@@ -124,7 +125,10 @@ export default function useBookingData(): {
                 await mergeVatsimSessions(map, vatsimData || []);
                 sortDateMap(map);
 
-                if (isMounted) setBookingData(Object.fromEntries(map))
+                if (isMounted) {
+                    setBookingData(Object.fromEntries(map));
+                    setError(null);
+                }
             } catch (error) {
                 if (isMounted) {
                     if (error instanceof Error) {
@@ -139,16 +143,19 @@ export default function useBookingData(): {
         }
         processData();
 
+        return () => { isMounted = false; };
+    }, [vatsimData, controlCenterData, vatsimIsLoading, controlCenterIsLoading, vatsimError, controlCenterError]);
+
+    useEffect(() => {
         const interval = setInterval(() => {
             vatsimRefetch();
             controlCenterRefetch();
         }, REFRESH_INTERVAL);
 
         return () => {
-            isMounted = false;
             clearInterval(interval);
         };
-    }, [vatsimData, controlCenterData]);
+    }, [vatsimRefetch, controlCenterRefetch]);
 
     return { bookingData, isLoading, error }
 }

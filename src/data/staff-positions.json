@@ -299,6 +299,16 @@
       "email": "sweden@vatsim-scandinavia.org"
     },
     {
+      "title": "Deputy Director of Sweden FIR",
+      "section": ["director", "sweden"],
+      "cid": 1157125,
+      "name": "Max Kuhla",
+      "availability": "AVL",
+      "country": "SE",
+      "email": "sweden@vatsim-scandinavia.org",
+      "avatar": "/img/staff/mkuhla.webp"
+    },
+    {
       "title": "Director of Helsinki FIR",
       "section": ["director", "board", "finland"],
       "cid": 1495200,

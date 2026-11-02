@@ -383,6 +383,15 @@
       "email": "event@vatsim-scandinavia.org"
     },
     {
+      "title": "Event Assistant Iceland",
+      "section": ["event"],
+      "cid": 1814379,
+      "name": "James Donoghue",
+      "availability": "AVL",
+      "country": "IS",
+      "email": "event@vatsim-scandinavia.org"
+    },
+    {
       "title": "Community Team, Reykjavík CTA",
       "section": ["iceland"],
       "cid": 1764226,

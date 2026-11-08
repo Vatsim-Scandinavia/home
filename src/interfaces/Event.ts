@@ -17,6 +17,10 @@ export interface EventsResponse {
     links: { next: string | null };
 }
 
+export interface EventDetailResponse {
+    data: { descriptionHtml: string | null };
+}
+
 /** The subset the homepage island renders. Keeps the serialised island props small. */
 export type EventCard = Pick<
     VatscaEvent,
@@ -24,4 +28,5 @@ export type EventCard = Pick<
 > & {
     start_datetime: string;
     end_datetime: string;
+    short_description?: string;
 };

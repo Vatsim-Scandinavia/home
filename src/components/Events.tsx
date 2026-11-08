@@ -2,33 +2,7 @@ import { useEffect, useRef, useState, type MouseEventHandler } from 'react';
 import { useKeenSlider } from "keen-slider/react";
 import { ExternalLinkIcon } from './icons/ExternalLinkIcon';
 import type { EventCard } from '@/interfaces/Event';
-
-const LONG_DATE_TIME: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-const SHORT_DATE_TIME: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-const TIME_ONLY: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric' };
-
-/**
- * Zulu while rendering on the server, which has no visitor timezone to work with:
- * "Sunday 30 Aug, 15:00z - 19:00z". Once hydrated the same range is shown in the
- * visitor's own timezone and the suffix drops: "Sunday 30 Aug, 17:00 - 21:00".
- * The end date is omitted whenever it falls on the start date.
- */
-function formatEventPeriod(start: string, end: string, zulu: boolean) {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-
-    // undefined leaves Intl on the runtime's own zone, which is what we want locally.
-    const timeZone = zulu ? 'UTC' : undefined;
-    const suffix = zulu ? 'z' : '';
-    const sameDay = zulu
-        ? startDate.getUTCDate() === endDate.getUTCDate()
-        : startDate.getDate() === endDate.getDate();
-
-    const from = startDate.toLocaleString('en-uk', { ...LONG_DATE_TIME, timeZone });
-    const to = endDate.toLocaleString('en-uk', { ...(sameDay ? TIME_ONLY : SHORT_DATE_TIME), timeZone });
-
-    return `${from}${suffix} - ${to}${suffix}`;
-}
+import { formatEventPeriod } from '@/lib/events';
 
 type EventsProps = {
     events: EventCard[];
@@ -36,11 +10,6 @@ type EventsProps = {
 
 const Events = ({ events }: EventsProps) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    // Has to start true so the first client render still matches the Zulu markup the
-    // server sent; the effect then swaps the times over to the visitor's timezone.
-    const [zulu, setZulu] = useState(true);
-
-    useEffect(() => setZulu(false), []);
 
     // Event banners are full-size uploads (often several MB each), so hold off fetching them
     // until the events panel is close to the screen; loading="lazy" alone starts them far too early.
@@ -93,7 +62,8 @@ const Events = ({ events }: EventsProps) => {
 
                         <div className='event-preview-copy'>
                             <h3>{item.name}</h3>
-                            <p className='event-period'>{formatEventPeriod(item.start_datetime, item.end_datetime, zulu)}</p>
+                            <p className='event-period'>{formatEventPeriod(item.start_datetime, item.end_datetime)}</p>
+                            {item.short_description && <p className='event-excerpt line-clamp-4'>{item.short_description}</p>}
                         </div>
                     </a>
                 ))}

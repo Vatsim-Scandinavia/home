@@ -1,6 +1,7 @@
 ---
 import Events from "./Events";
-import type { EventCard, VatscaEvent } from "@/interfaces/Event";
+import type { EventCard, EventsResponse, VatscaEvent } from "@/interfaces/Event";
+import { toEventCards } from "@/lib/events";
 
 // Fetched here rather than in the island so the list is server-rendered. index.astro
 // is prerendered, so this component is used with server:defer to keep the data fresh
@@ -8,19 +9,24 @@ import type { EventCard, VatscaEvent } from "@/interfaces/Event";
 let events: EventCard[] = [];
 
 try {
-    const response = await fetch("https://events.vatsim-scandinavia.org/api/events");
+    const upcoming: VatscaEvent[] = [];
+    let nextPage: string | null = "https://events.vatsim-scandinavia.org/api/v1/events?per_page=100";
 
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    do {
+        const response = await fetch(nextPage, { headers: { Accept: "application/json" } });
 
-    // Narrowed to what the island renders; the full payload would otherwise be
-    // serialised into the island props, and the descriptions alone dwarf the markup.
-    events = (await response.json() as VatscaEvent[]).map(
-        ({ id, name, short_description, start_datetime, end_datetime, banner, url }) => (
-            { id, name, short_description, start_datetime, end_datetime, banner, url }
-        ),
-    );
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const page: EventsResponse = await response.json();
+        upcoming.push(...page.data);
+        nextPage = page.links.next;
+    } while (nextPage);
+
+    // Select the next active occurrence before sorting: the API also includes
+    // past dates and cancellations for recurring events.
+    events = toEventCards(upcoming).slice(0, 9);
 } catch (error) {
     console.error("Error fetching events:", error);
 }

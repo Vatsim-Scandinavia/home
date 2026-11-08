@@ -87,12 +87,13 @@ const Events = ({ events }: EventsProps) => {
                 {events.slice(0, 2).map((item) => (
                     <a href={item.url} target='_blank' rel='noopener noreferrer' aria-label={`View event: ${item.name}`} key={item.id} className='event-preview'>
 
-                        <img alt={`Event banner for ${item.name}`} className='event-preview-image' src={showBanners ? item.banner : undefined} decoding='async'/>
+                        {item.banner ? (
+                            <img alt={`Event banner for ${item.name}`} className='event-preview-image' src={showBanners ? item.banner : undefined} decoding='async'/>
+                        ) : <div className='event-preview-image bg-gray-800' aria-hidden='true' />}
 
                         <div className='event-preview-copy'>
                             <h3>{item.name}</h3>
                             <p className='event-period'>{formatEventPeriod(item.start_datetime, item.end_datetime, zulu)}</p>
-                            <p className='event-excerpt line-clamp-4'>{item.short_description}</p>
                         </div>
                     </a>
                 ))}
@@ -100,7 +101,9 @@ const Events = ({ events }: EventsProps) => {
                     <div ref={sliderRef} className="keen-slider">
                         {events.slice(2, 9).map((item, index) => (
                             <a key={item.id} aria-label={`View event: ${item.name}`} className={`keen-slider__slide bg-gray-800 inline-block number-slide${index} rounded aspect-video`} target='_blank' rel='noopener noreferrer' href={item.url}>
-                                <img src={showBanners ? item.banner : undefined} alt="" decoding="async" className="w-full h-full object-cover" />
+                                {item.banner ? (
+                                    <img src={showBanners ? item.banner : undefined} alt="" decoding="async" className="w-full h-full object-cover" />
+                                ) : <span className="flex items-center justify-center w-full h-full p-4 text-center">{item.name}</span>}
                             </a>
                         ))}
                         <a
